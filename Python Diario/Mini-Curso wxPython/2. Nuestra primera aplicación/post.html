@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="nuestra-primera-aplicación">Nuestra primera aplicación</h1>
+<blockquote>
+<p>wxPython is the best and most mature cross-platform GUI toolkit, given a number of constraints. The only reason wxPython isn't the standard Python GUI toolkit is that Tkinter was there first. - <em>Guido van Rossum</em></p>
+</blockquote>
+<h3 id="para-empezar">Para empezar</h3>
+<p>La mayoría de nosotros asociamos el término app o aplicación gráfica a un programa de computadora que se compone normalmente de una ventana y algunos controles gráficos <em>incrustados</em> que permiten al usuario interactuar con la lógica del programa. Y sí, en la mayoría de los casos esto es cierto, sin ser excepción en wxPython. La aplicación más <em>simple</em> en wxPython tendría una estructura como la siguiente:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
+
+app <span class="op">=</span> wx.App()
+<span class="co"># X componente gráfico agregado</span>
+app.MainLoop()</code></pre></div>
+<p>Ese componente <strong>X</strong> podría ser una ventana o Frame, un cuadro de diálogo, o cualquier otro <em>container</em> que pueda ser instanciado sin necesidad de un objeto padre como referencia.</p>
+<p>Por ejemplo, podríamos mostrar un pequeño cuadro de diálogo que nos de la bienvenida al curso:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
+
+app <span class="op">=</span> wx.App()
+wx.MessageBox(<span class="st">u&quot;¡Bienvenidos al curso de wxPython!&quot;</span>,<span class="st">&quot;Python Diario&quot;</span>)
+app.MainLoop()</code></pre></div>
+<p>¿Bastante bien, verdad?, y quizá para alguien esa aplicación es todo lo que necesita, puede cumplir con la tarea de mostrar un mensaje de forma gráfica, lo cual ya es en cierto grado <em>guay</em>. Pero podemos hacer mejores cosas, claro que sí, podríamos comenzar a <em>conectar</em> al usuario con la lógica del programa:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
+
+app <span class="op">=</span> wx.App()
+dlg <span class="op">=</span> wx.MessageDialog(<span class="va">None</span>, <span class="st">u&quot;¿Deseas continuar?&quot;</span>, <span class="st">u&quot;Python Diario&quot;</span>)
+<span class="cf">if</span> dlg.ShowModal()<span class="op">==</span>wx.ID_OK:
+    <span class="bu">print</span>(<span class="st">u&quot;Has decidido continuar, gracias.&quot;</span>)
+<span class="cf">else</span>:
+    <span class="bu">print</span>(<span class="st">u&quot;Has abandonado, vuelve pronto.&quot;</span>)
+app.MainLoop()</code></pre></div>
+<p>Un poco mejor, el código anterior muestra un típico cuadro de diálogo que le pregunta al usuario si desea continuar, y dependiendo de la respuesta el programa imprimirá en la consola de salida el mensaje correspondiente. No se preocupen por las partes que puedan resultar <em>incomprensibles</em> ahora, ya veremos esto con bastante detalle cuando lleguemos al tema de los cuadros de diálogo.</p>
+<h3 id="el-clásico-frame">El clásico Frame</h3>
+<p>Bien, ha llegado el momento de presentarles el clásico <strong>frame</strong> de una aplicación wxPython. Los frames son las ventanas que estamos muy acostumbrados a ver en cualquier sistema operativo actual, en ellos se colocan todos los controles gráficos que componen a una aplicación.</p>
+<p>En wxPython un frame se crea instanciando un objeto de la clase <code>wx.Frame</code>, cuya sintaxis mínima es la siguiente:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">frame <span class="op">=</span> wx.Frame(parent, <span class="bu">id</span>, title)</code></pre></div>
+<p>Donde <em>parent</em> es el objeto padre, <em>id</em> un identificador unico y <em>title</em> el título o cadena que se mostrará en la parte superior de la ventana. Ahora vamos a explicar un poco los conceptos de objeto padre y de identificador.</p>
+<p>Con <strong>objeto padre</strong> hacemos referencia a un objeto gráfico de wxPython en el cual estará contenido el objeto que se instancia, normalmente para un frame este valor suele ser <code>None</code> para indicar que no tiene un objeto padre, puesto que normalmente son el contenedor de mayor jerarquía en una aplicación.</p>
+<p>El <strong>id</strong> o identificador único, es un número entero que sirve para referenciar a un objeto gráfico, y como tal este deberá ser único e irrepetible dentro de la aplicación. Normalmente se prefiere no asignar estos números de manera manual, sino en cambio dejar que wxPython asigne de manera automática estos identificadores, para ello basta con asignar un <code>-1</code> al valor del <strong>id</strong> o bien asignar la constante <code>wx.ID_ANY</code>.</p>
+<p>Ahora ya estamos listos para crear nuestra primer ventana:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
+
+app <span class="op">=</span> wx.App()
+fr <span class="op">=</span> wx.Frame(<span class="va">None</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Hola wxPython!&quot;</span>)
+fr.Show()
+app.MainLoop()</code></pre></div>
+<p>Bastante bien para un <em>hola mundo</em>, ahora viene la parte interesante, vamos a <em>desmenuzar</em> un poco el código anterior.</p>
+<p>Lo primero, y al parecer resulta muy obvio, es importar la librería wxPython, esto lo hacemos con <code>import wx</code>, con lo cual tenemos disponibles todos los controles básicos de la librería, además de muchas clases, funciones y constantes auxiliares, así como las clases para controlar y lanzar eventos.</p>
+<p>Enseguida instanciamos un objeto de la clase <code>App</code>, que no es más que la aplicación misma. Debe saber que para utilizar cualquier objeto gráfico de la librería wxPython deberá primero inicializar esta clase.</p>
+<p>Ya en líneas anteriores explicamos lo referente al Frame, sólo debemos agregar que el método Show() se encarga de <em>mostrar</em> el Frame en la pantalla del usuario, de lo contrario no será visible.</p>
+<p>Finalmente <em>llamamos</em> al método MainLoop de la clase <code>App</code>, con lo cual la aplicación se pone en espera de que el usuario interactue con ella, gestionando los eventos y respondiendo a ellos dependiendo de lo que se haya programado para cada caso.</p>
+<p>Se preguntarán ustedes amables lectores, y ahora, ¿cómo cambiamos el tamaño de la ventana?, ¿cómo utilizamos un color de fondo diferente?, ¿cómo agregamos un ícono?, ¿cómo agregamos controles gráficos?. Si, hay muchas preguntas y pocas respuestas por ahora, pero esa es la clave: ser pacientes y constantes.</p>
+<p>Así de manera breve y para que vayamos entrando en la <em>filosofía</em> de wxPython les comento que hay básicamente dos maneras de especificar y/o modificar las características de un objeto gráfico:</p>
+<ul>
+<li>Al instanciarlo, es posible indicar muchas de sus características mediante <em>keyword arguments</em>, por ejemplo para el caso del Frame anterior es posible especificarle un tamaño mediante el <em>keyword argument</em> <code>size</code>:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">    fr <span class="op">=</span> wx.Frame(<span class="va">None</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Hola wxPython!&quot;</span>, size<span class="op">=</span>(<span class="dv">300</span>,<span class="dv">200</span>))</code></pre></div>
+<ul>
+<li>Utilizando métodos podemos modificar las propiedades de los objetos, podemos de igual forma modificar el tamaño del Frame utilizando el método <code>SetSize</code>:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">    fr.SetSize((<span class="dv">300</span>,<span class="dv">200</span>))</code></pre></div>
+<h3 id="lo-bueno-lo-mejor-y-lo-que-viene...">Lo bueno, lo mejor y lo que viene...</h3>
+<p>Lo bueno es que ya hemos creado nuestra primera aplicación de wxPython, aunque sólo sea una <em>ventanita</em> por algo se empieza, no vamos a correr ahora, pero iremos <em>de prisa</em> hacia adelante, como dice el refrán: <em>despacio porque tengo prisa</em>. Vamos, como todo en la vida pues.</p>
+<p>Siempre es bueno decir que lo mejor está por venir, y que así sea. Hasta ahora hemos visto una pequeña aplicación pero sin entrar mucho en la programación orientada a objetos, lo cual es esencial en wxPython, en la próxima entrega de este mini-curso estaremos hablando de cómo diseñar y programar una aplicación de wxPython utilizando el paradigma de la POO, de cómo heredar las clases de los objetos gráficos e implementar, claro, un aplicación un poco más <em>&quot;wxPythonica&quot;</em> (si, esa palabra no existe, pero debería existir ¿no?).</p>
+<p>Así que, les recomendaría darle un pequeño repaso a vuestras clases de programación orientada a objetos en Python y así recordar algunas cuestiones necesarias para sobrevivir a este curso. Y para no ir tan lejos por aquí les dejo una <a href="http://www.pythondiario.com/2014/10/clases-y-objetos-en-python-programacion.htm">entrada</a> que tenemos en el blog que expone los conceptos elementales de la programación orientada a objetos.</p>
+<p>Además de invitarlos a que nos dejen sus comentarios, opiniones, sugerencias, y lo que ustedes crean conveniente, que estaremos muy agradecidos de vuestra retroalimentación, sin más: <em>¡sigamos programando!</em>.</p>
+
+<button type="button" style="background-color: rgba(102,217,255,0.6); border-radius: 5px; box-shadow: 2px #ffaaff; padding: 5px;">
+<a href="http://www.pythondiario.com/2016/03/mini-curso-de-wxpython-1-introduccion.html#sumario-del-curso" style="color: #505050"><strong>Volver al índice</strong></a></button>
+
+<p><a href="http://www.pythondiario.com/2016/03/mini-curso-de-wxpython-1-introduccion.html#sumario-del-curso"><strong>Volver al índice</strong></a></p>
+</body>
+</html>

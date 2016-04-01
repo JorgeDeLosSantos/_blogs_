@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="convirtiendo-matrices-matlab-a-formato-latex">Convirtiendo matrices MATLAB a formato LaTeX</h1>
+<p>En este post vamos a ver cómo convertir una matriz de MATLAB a un string en formato LaTeX, proponiendo en primera instancia un código muy simple y poco robusto, y posteriormente les compartiré un <a href="http://www.mathworks.com/matlabcentral/fileexchange/2832-latex">código</a> desarrollado por <a href="http://www.mathworks.com/matlabcentral/profile/authors/631894-toby-driscoll">Toby Driscoll</a> que puede descargarse desde el File Exchange de MathWorks.</p>
+<p>Sabrá que las matrices/arreglos en LaTeX suelen tener la sintaxis:</p>
+<pre><code>\begin{matrix}
+  a &amp; b &amp; c \\
+  d &amp; e &amp; f \\
+  g &amp; h &amp; i
+ \end{matrix}</code></pre>
+<p>Así, la idea en principio parece muy básica: recorrer todos los elementos de la matriz MATLAB por filas y columnas e ir formando el string final que se retornará como salida.</p>
+<p>Vamos mostrando el código:</p>
+<div class="sourceCode"><pre class="sourceCode matlab"><code class="sourceCode matlab">function out = matrix2latex(M,fmt)
+<span class="co">% </span>
+<span class="co">% Argumentos de entrada:</span>
+<span class="co">%</span>
+<span class="co">%       M    -   Matriz</span>
+<span class="co">%       fmt  -   Cadena para especificar el formato (&#39;%0.4f&#39; default)</span>
+<span class="co">%</span>
+if nargin&lt;<span class="fl">2</span>, fmt=<span class="st">&#39;%0.4f&#39;</span>; end;
+out = [<span class="st">&#39;begin{matrix}&#39;</span>,sprintf(<span class="st">&#39;\n&#39;</span>)];
+for ii=<span class="fl">1</span>:size(M,<span class="fl">1</span>)
+    for jj=<span class="fl">1</span>:size(M,<span class="fl">2</span>)
+        ce = sprintf([fmt,blanks(<span class="fl">2</span>),<span class="st">&#39;&amp;&#39;</span>,blanks(<span class="fl">2</span>)],M(ii,jj));
+        out = [out,ce]; <span class="co">%#ok</span>
+    end
+    out = [out(<span class="fl">1</span>:end-<span class="fl">3</span>),<span class="st">&#39;\\&#39;</span>,sprintf(<span class="st">&#39;\n&#39;</span>)];
+end
+out = [out(<span class="fl">1</span>:end-<span class="fl">3</span>), sprintf(<span class="st">&#39;\n\\end{matrix}&#39;</span>)];
+end</code></pre></div>
+<p>Esta función debe ejecutarse, pasando como argumento la matriz de la cual quiere obtenerse la representación LaTeX.</p>
+<div class="sourceCode"><pre class="sourceCode matlab"><code class="sourceCode matlab">&gt;&gt; A=rand(<span class="fl">3</span>)
+
+A =
+
+    <span class="fl">0.1067</span>    <span class="fl">0.7749</span>    <span class="fl">0.0844</span>
+    <span class="fl">0.9619</span>    <span class="fl">0.8173</span>    <span class="fl">0.3998</span>
+    <span class="fl">0.0046</span>    <span class="fl">0.8687</span>    <span class="fl">0.2599</span>
+
+&gt;&gt; matrix2latex(A)
+
+ans =
+
+begin{matrix}
+<span class="fl">0.1067</span>  &amp;  <span class="fl">0.7749</span>  &amp;  <span class="fl">0.0844</span>  \\
+<span class="fl">0.9619</span>  &amp;  <span class="fl">0.8173</span>  &amp;  <span class="fl">0.3998</span>  \\
+<span class="fl">0.0046</span>  &amp;  <span class="fl">0.8687</span>  &amp;  <span class="fl">0.2599</span>  
+\end{matrix}</code></pre></div>
+<p>¿Bastante bien, cierto?, sí, hasta cierto punto, pero es una porción de código sin testear más allá de algunos casos básicos considerados.</p>
+<p>Por ello les adjunto enseguida un código compartido por Toby Driscoll en <a href="http://www.mathworks.com/matlabcentral/fileexchange/">File Exchange</a> el cual contiene al menos sentencias que verifican que los argumentos pasados sean del tipo esperado, y eso es bastante bueno, al menos para empezar.</p>
+<button class="btn-primary" data-toggle="collapse" data-target="#latex-fun-code" href>
+Mostrar código
+</button>
+<div id="latex-fun-code" class="collapse">
+<div class="sourceCode"><pre class="sourceCode matlab"><code class="sourceCode matlab">function s = latex(M,varargin)
+<span class="co">%LATEX   Print a matrix in LaTeX tabular format.</span>
+<span class="co">%   LATEX(M) prints out the numeric matrix M in a LaTeX tabular</span>
+<span class="co">%   format. The &#39;&amp;&#39; character appears between entries in a row, &#39;\\&#39;</span>
+<span class="co">%   is appended to the ends of rows, and each entry is set in math</span>
+<span class="co">%   mode. Complex numbers are understood, and exponentials will be</span>
+<span class="co">%   converted to a suitable format.</span>
+<span class="co">%</span>
+<span class="co">%   LATEX(M,&#39;nomath&#39;) does not include the $$ needed to put each </span>
+<span class="co">%   entry in math mode (e.g., for use with the amsmath matrix modes).</span>
+<span class="co">%   </span>
+<span class="co">%   LATEX(M,FMT) uses a format specifier FMT of the SPRINTF type for</span>
+<span class="co">%   each entry.</span>
+<span class="co">%   </span>
+<span class="co">%   LATEX(M,FMT1,FMT2,...) works through the given format specifiers</span>
+<span class="co">%   on each row of M. If fewer are given than the column size of M,</span>
+<span class="co">%   the last is used repeatedly for the rest of the row.</span>
+<span class="co">%   </span>
+<span class="co">%   S = LATEX(M,...) does not display output but returns a character</span>
+<span class="co">%   array S.</span>
+<span class="co">%   </span>
+<span class="co">%   Examples:</span>
+<span class="co">%     latex( magic(4) )</span>
+<span class="co">%     latex( magic(4), &#39;%i&#39;, &#39;nomath&#39; )</span>
+<span class="co">%     latex( magic(4), &#39;%i&#39;, &#39;%.2f&#39; )</span>
+<span class="co">%   </span>
+<span class="co">%   See also SPRINTF, SYM/LATEX.</span>
+
+<span class="co">%   Copyright 2002 by Toby Driscoll. Last updated 12/06/02.</span>
+
+if ~isa(M,<span class="st">&#39;double&#39;</span>)
+  error(<span class="st">&#39;Works only for arrays of numbers.&#39;</span>)
+elseif ndims(M) &gt; <span class="fl">2</span>
+  error(<span class="st">&#39;Works only for 2D arrays.&#39;</span>)
+end
+
+if nargin &lt; <span class="fl">2</span>
+  fmt = {<span class="st">&#39;%#.5g&#39;</span>};
+  mathstr = <span class="st">&#39;$&#39;</span>;
+else
+  fmt = varargin;
+  idx = strmatch(<span class="st">&#39;nomath&#39;</span>,fmt);
+  if isempty(idx)
+    mathstr = <span class="st">&#39;$&#39;</span>;
+  else  
+    mathstr = <span class="st">&#39;&#39;</span>;
+    fmt = fmt([<span class="fl">1</span>:idx-<span class="fl">1</span> idx+<span class="fl">1</span>:end]);
+    if isempty(fmt), fmt = {<span class="st">&#39;%#.5g&#39;</span>}; end
+  end 
+end
+
+<span class="co">% Extend the format specifiers.</span>
+[m,n] = size(M);
+if n &gt; length(fmt)
+  [fmt{end:n}] = deal(fmt{end});
+end
+  
+<span class="co">% Create one format for a row.</span>
+rowfmt = <span class="st">&#39;&#39;</span>;
+for p = <span class="fl">1</span>:n
+  <span class="co">% Remove blanks.</span>
+  thisfmt = deblank(fmt{p});
+
+  <span class="co">% Add on imaginary part if needed.</span>
+  if ~isreal(M(:,p)) 
+    <span class="co">% Use the same format as for the real part, but force a + sign for</span>
+    <span class="co">% positive numbers. </span>
+    ifmt = thisfmt;
+    j = findstr(ifmt,<span class="st">&#39;%&#39;</span>);
+    if ~any(strcmp(ifmt(j+<span class="fl">1</span>),[<span class="st">&#39;-&#39;</span>;<span class="st">&#39;+&#39;</span>;<span class="st">&#39; &#39;</span>;<span class="st">&#39;#&#39;</span>]))
+      ifmt = [ifmt(<span class="fl">1</span>:j) <span class="st">&#39;+&#39;</span> ifmt(j+<span class="fl">1</span>:end)];
+    else
+      ifmt(j+<span class="fl">1</span>) = <span class="st">&#39;+&#39;</span>;
+    end
+    ifmt = [ifmt <span class="st">&#39;i&#39;</span>];
+    thisfmt = [thisfmt ifmt];
+  end
+
+  <span class="co">% Add to row.</span>
+  rowfmt = [rowfmt mathstr thisfmt mathstr <span class="st">&#39; &amp; &#39;</span>];
+end
+
+<span class="co">% After last column, remove column separator and put in newline.</span>
+rowfmt(end-<span class="fl">1</span>:end) = [];
+rowfmt = [rowfmt <span class="st">&#39;\\\\\n&#39;</span>];
+
+<span class="co">% Use it.</span>
+A = M.&#39;;
+if isreal(M)
+  S = sprintf(rowfmt,A);
+else
+  S = sprintf(rowfmt,[real(A(:)) imag(A(:))].&#39;);
+end
+
+<span class="co">% Remove extraneous imaginary part for real entries.</span>
+if ~isreal(M)
+  zi = sprintf(ifmt,<span class="fl">0</span>);
+  S = strrep(S,zi,blanks(length(zi)));
+end
+
+<span class="co">% Remove NaNs.</span>
+S = strrep(S,<span class="st">&#39;$NaN$&#39;</span>,<span class="st">&#39;--&#39;</span>);
+S = strrep(S,<span class="st">&#39;NaN&#39;</span>,<span class="st">&#39;--&#39;</span>);
+
+<span class="co">% Convert &#39;e&#39; exponents to LaTeX form. This is probably really slow, but</span>
+<span class="co">% what can you do without regular expressions?</span>
+S = strrep(S,<span class="st">&#39;e&#39;</span>,<span class="st">&#39;E&#39;</span>);
+ex = min(findstr(S,<span class="st">&#39;E&#39;</span>));
+while ~isempty(ex)
+  <span class="co">% Find first non-digit character. Where is ISDIGIT?</span>
+  j = ex+<span class="fl">2</span>;
+  while ~isempty(str2num(S(j))) &amp; ~strcmp(S(j),<span class="st">&#39;i&#39;</span>)
+    j = j+<span class="fl">1</span>;
+  end
+
+  <span class="co">% This strips off leading &#39;+&#39; and zeros.</span>
+  num = sprintf(<span class="st">&#39;%i&#39;</span>,str2num(S(ex+<span class="fl">1</span>:j-<span class="fl">1</span>)));
+  
+  ee = [<span class="st">&#39;\times 10^{&#39;</span> num <span class="st">&#39;}&#39;</span>];
+  S = [S(<span class="fl">1</span>:ex-<span class="fl">1</span>) ee S(j:end)];
+  
+  ex = ex + min(findstr(S(ex+<span class="fl">1</span>:end),<span class="st">&#39;E&#39;</span>));
+end
+
+<span class="co">% For good form, remove that last &#39;\\&#39;.</span>
+S(end-<span class="fl">2</span>:end-<span class="fl">1</span>) = <span class="st">&#39;  &#39;</span>;
+
+<span class="co">% Display or output?</span>
+if nargout==<span class="fl">0</span>
+  disp(S)
+else
+  s = S;
+end</code></pre></div>
+</div>
+<p>La ejecución de la función anterior es practicamente similar a nuestra función propuesta:</p>
+<div class="sourceCode"><pre class="sourceCode matlab"><code class="sourceCode matlab">&gt;&gt; A=rand(<span class="fl">3</span>)
+
+A =
+
+    <span class="fl">0.5499</span>    <span class="fl">0.6221</span>    <span class="fl">0.4018</span>
+    <span class="fl">0.1450</span>    <span class="fl">0.3510</span>    <span class="fl">0.0760</span>
+    <span class="fl">0.8530</span>    <span class="fl">0.5132</span>    <span class="fl">0.2399</span>
+
+&gt;&gt; latex(A)
+$<span class="fl">0.54986</span>$ &amp; $<span class="fl">0.62206</span>$ &amp; $<span class="fl">0.40181</span>$ \\
+$<span class="fl">0.14495</span>$ &amp; $<span class="fl">0.35095</span>$ &amp; $<span class="fl">0.075967</span>$ \\
+$<span class="fl">0.85303</span>$ &amp; $<span class="fl">0.51325</span>$ &amp; $<span class="fl">0.23992</span>$   </code></pre></div>
+<p>La salida, un tanto similar, si, cosas más cosas menos, pero la idea central es la misma.</p>
+<p>Y bueno, en el siguiente link podrá encontrar más funciones similares que exportan cosas de MATLAB a código LaTeX, lo cual nunca está de más.</p>
+<p><a href="http://www.mathworks.com/matlabcentral/fileexchange/?term=latex&amp;sort=ratings_desc" class="uri">http://www.mathworks.com/matlabcentral/fileexchange/?term=latex&amp;sort=ratings_desc</a></p>
+</body>
+</html>

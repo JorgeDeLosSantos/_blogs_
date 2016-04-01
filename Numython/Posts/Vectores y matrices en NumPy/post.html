@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="vectores-y-matrices-en-numpy">Vectores y matrices en NumPy</h1>
+<p>NumPy es una librería muy útil y un <em>estándar</em> en Python para el manejo de matrices y/o arreglos que contienen datos de tipo numérico. La mayoría del ecosistema científico de Python está basado en los arreglos de NumPy para el manejo de datos.</p>
+<p>Normalmente se acostumbra importar el módulo NumPy utilizando el alias <strong>np</strong>:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> numpy <span class="im">as</span> np</code></pre></div>
+<p>Se puede crear un arreglo de NumPy a partir de una lista ordinaria de Python, utilizando la función <code>np.array</code>.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> lista<span class="op">=</span>[<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">8</span>]
+<span class="op">&gt;&gt;&gt;</span> A<span class="op">=</span>np.array(lista)
+<span class="op">&gt;&gt;&gt;</span> A
+array([<span class="op">-</span><span class="dv">1</span>,  <span class="dv">0</span>,  <span class="dv">2</span>,  <span class="dv">5</span>,  <span class="dv">8</span>])</code></pre></div>
+<p>La función <code>np.array</code> crea un objeto de la clase <code>numpy.ndarray</code>,</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="bu">type</span>(A)
+<span class="op">&lt;</span><span class="bu">type</span> <span class="st">&#39;numpy.ndarray&#39;</span><span class="op">&gt;</span></code></pre></div>
+<p>Si se requiere crear una matriz debe pasarse como argumento de entrada una lista de listas, donde cada sublista representa una fila de la matriz, por ejemplo para definir la matriz <span class="math inline"><em>M</em></span> siguiente:</p>
+<p><br /><span class="math display">$$
+M = \left(\begin{matrix}
+1 &amp; 2 &amp; 3 \\
+4 &amp; 5 &amp; 6 \\
+7 &amp; 8 &amp; 9 \\
+\end{matrix}\right)
+$$</span><br /></p>
+<p>utilizando una lista de listas,</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> M<span class="op">=</span>np.array([[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],[<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>],[<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>]])
+<span class="op">&gt;&gt;&gt;</span> M
+array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],
+       [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>],
+       [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]])</code></pre></div>
+<p>Se puede determinar la forma (número de filas y columnas) de una matriz o arreglo utilizando la propiedad <code>shape</code> de la clase <code>numpy.ndarray</code>.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> A.shape
+(5L,)
+<span class="op">&gt;&gt;&gt;</span> M.shape
+(3L, 3L)</code></pre></div>
+<p>En entradas posteriores veremos cómo realizar operaciones matriciales con matrices vectores.</p>
+</body>
+</html>

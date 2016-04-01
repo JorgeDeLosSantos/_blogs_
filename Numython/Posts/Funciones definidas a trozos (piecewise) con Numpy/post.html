@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="funciones-definidas-a-trozos-piecewise-con-numpy">Funciones definidas a trozos (piecewise) con NumPy</h1>
+<p>Una función definida a trozos es una función real \(f\) de una variable real \(x\), cuya definición está dada por varios conjuntos disjuntos de su dominio. <sup>[1]</sup></p>
+<p>El ejemplo clásico de una función definida por secciones es la función valor absoluto \(abs(x)\), habitualmente definida por:</p>
+<p><br /><span class="math display">$$
+f(x) = \left\{
+\begin{matrix}
+-x &amp; si \,\, x &lt; 0 \\
+x &amp; si \,\, x \geq 0 \\
+\end{matrix}\right.
+$$</span><br /></p>
+<p>De manera ordinaria, en NumPy, para definir una función en un intervalo tendríamos que crear un vector de \(n\) cantidad de puntos en ese intervalo, y posteriormente crear la expresión que define la función, por ejemplo, definiendo a \(f(x)=x\,\,cos(x)\)</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> numpy <span class="im">as</span> np
+<span class="op">&gt;&gt;&gt;</span> x<span class="op">=</span>np.linspace(<span class="dv">0</span>,<span class="dv">10</span>)
+<span class="op">&gt;&gt;&gt;</span> y<span class="op">=</span>x<span class="op">*</span>np.cos(x)</code></pre></div>
+<p>Ahora, dada la naturaleza de las funciones por tramos, estás no pueden definirse como en las líneas anteriores, puesto que la expresión que las define depende del intervalo. Una opción para crear una función a trozos sería definiendo un intervalo para cada expresión y posteriormente concatenar todo en un mismo arreglo, tanto para los intervalos como las expresiones.</p>
+<p>Por ejemplo, definiendo la función valor absoluto en el intervalo \((-10,10)\):</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy <span class="im">as</span> np
+
+x1 <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">10</span>,<span class="dv">0</span>)
+x2 <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">10</span>)
+y1 <span class="op">=</span> <span class="op">-</span>x1
+y2 <span class="op">=</span> x2
+x <span class="op">=</span> np.concatenate((x1,x2))
+y <span class="op">=</span> np.concatenate((y1,y2))</code></pre></div>
+<p>Si, lo anterior puede parecer un poco <em>tedioso</em>, así que NumPy también dispone de una función que nos ahorra el estar escribiendo mucho código: <code>piecewise</code>, la cual nos permite crear un arreglo a partir de otro (intervalo), seccionando este acorde a las expresiones/funciones pasadas como argumentos y a las condiciones lógicas para definir los subintervalos. En términos simples la sintaxis de <code>piecewise</code> es:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">np.piecewise(x, logls, funls)</code></pre></div>
+<p>Donde <code>x</code> es un arreglo que define la variable independiente, <code>logls</code> una lista de condiciones lógicas para seccionar y definir los subintervalos, y <code>funls</code> una lista de funciones o constantes que definen el valor de la función para el subintervalo correspondiente.</p>
+<p>Siguiendo con nuestro ejemplo de la función valor absoluto, haríamos algo como lo siguiente:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy <span class="im">as</span> np
+
+x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>)
+y <span class="op">=</span> np.piecewise(x, [x<span class="op">&lt;</span><span class="dv">0</span>, x<span class="op">&gt;=</span><span class="dv">0</span>], [<span class="kw">lambda</span> x: <span class="op">-</span>x, <span class="kw">lambda</span> x: x])</code></pre></div>
+<p>Desde luego también se pueden usar funciones ordinarias en lugar de lambdas.</p>
+<p>Para hacer esto un poco más <em>ilustrativo</em> vamos a utilizar Matplotlib para trazar la gráfica correspondiente:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy <span class="im">as</span> np
+<span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt 
+
+x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>)
+y <span class="op">=</span> np.piecewise(x, [x<span class="op">&lt;</span><span class="dv">0</span>, x<span class="op">&gt;=</span><span class="dv">0</span>], [<span class="kw">lambda</span> x: <span class="op">-</span>x, <span class="kw">lambda</span> x: x])
+
+plt.plot(x, y)
+
+plt.show()</code></pre></div>
+<p><a href="img/img_01.png"></a></p>
+<p><strong>Referencias:</strong></p>
+<p>[1]. <a href="https://es.wikipedia.org/wiki/Funci%C3%B3n_definida_a_trozos">https://es.wikipedia.org/wiki/Funci%C3%B3n_definida_a_trozos</a></p>
+</body>
+</html>

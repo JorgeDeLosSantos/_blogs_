@@ -1,0 +1,82 @@
+body
+{
+	background-color:#fefefe;
+	/**background-image: url("_img/back.png");**/
+	font-family: sans-serif;
+}
+
+h1
+{
+	color:#000011;
+}
+
+h3
+{
+	color: #555555;
+	font-size: 12px;
+}
+
+nav ul
+{
+	list-style: none;
+	position: relative;
+	margin-top: 30px;
+	width: 200px;
+	padding: 0;
+}
+
+nav ul li
+{	
+	display: block;
+	font-size: 20px;
+	font-family: "Arial";
+	/*background-color: #333;
+	color: #fff;*/
+	border-bottom: 2px solid #555;
+
+	transition:all 0.5s linear;
+}
+nav ul li:hover
+{
+	background-color: #f0f0f0;
+	color: #0f0f0f;
+}
+nav ul li a
+{
+	text-decoration:none;
+	color: #ffffff;
+}
+
+
+/** =============  Libros ============= **/
+
+.lista-blog
+{
+	list-style-type: none;
+	display: inline-block;
+}
+
+.lista-blog li a
+{
+	display: block;
+	background-color: #ededed;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	cursor:pointer;
+	padding: 5px;
+	border-radius: 5px;
+	text-decoration:none;
+	color: #080808;
+	font-family: "Franklin Gothic lista-blog";
+	font-size: 16px;
+	font-weight: bold;
+	box-shadow:0px 0px 20px rgba(0,0,0,0.5);
+	
+	transition: all 0.5s linear;
+}
+
+.lista-blog li a:hover
+{
+	background-color:#505050;
+	color:#f0f0f0;
+}

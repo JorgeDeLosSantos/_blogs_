@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="eventos-en-un-botón-wx.button">Eventos en un botón (wx.Button)</h1>
+<p>Los botones son componentes gráficos muy comunes que nos encontramos en cualquier interfaz de usuario y cuyo propósito es, generalmente, inicializar o confirmar un evento. En wxPython un botón ordinario se crea utilizando la clase <code>wx.Button</code>, a la cual habrán de pasarse como argumentos de inicialización mínimos, el objeto padre, un ID, y una cadena indicando la etiqueta visible del botón. Por ejemplo:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding: utf-8 -*-</span>
+<span class="im">import</span> wx
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">200</span>,<span class="dv">200</span>))
+        <span class="va">self</span>.boton <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Botón&quot;</span>)
+        <span class="va">self</span>.Centre(<span class="va">True</span>)
+        <span class="va">self</span>.Show()
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Test wxButton&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<p><a href="img/img_01.png"></a></p>
+<p>Lo anterior crea un botón ocupando todo el espacio disponible en el Frame. Para colocar dos o más botones tendríamos que especificar el tamaño y posición de cada uno mediante los <em>keyword argument</em> <code>size</code> y <code>pos</code>. Por ejemplo:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding: utf-8 -*-</span>
+<span class="im">import</span> wx
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">200</span>,<span class="dv">200</span>))
+        
+        <span class="va">self</span>.boton1 <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Uno&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>),
+                                pos<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">10</span>))
+        <span class="va">self</span>.boton2 <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Dos&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>),
+                                pos<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">50</span>))
+        <span class="va">self</span>.boton3 <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Tres&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>),
+                                pos<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">90</span>))
+        
+        <span class="va">self</span>.Centre(<span class="va">True</span>)
+        <span class="va">self</span>.Show()
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Test wxButton&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<p><a href="img/img_02.png"></a></p>
+<p>Otra manera más conveniente de posicionar los botones o cualquier objeto gráfico sería utilizando sizers, de los cuales se estará hablando en posteriores entradas, pero vamos, que por ahora veremos cómo implementar manejo eventos en botones.</p>
+<p>Así, en wxPython cuando se presiona un botón se <em>lanza</em> un evento del tipo <code>wx.EVT_BUTTON</code>, por ello lo que debemos hacer es utilizar el método <code>Bind</code> y agregar eventos de tipo <code>wx.EVT_BUTTON</code> al <em>escuchador</em> de eventos, asignando además un <em>handler</em>, que es básicamente una función o método que se encargará de manejar la respuesta de la interfaz al evento en cuestión.</p>
+<p>Por ejemplo, vamos a imprimir un mensaje en consola cada vez que se presiona cualquiera de los tres botones que componen nuestra interfaz de usuario:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding: utf-8 -*-</span>
+<span class="im">import</span> wx
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">200</span>,<span class="dv">200</span>))
+        
+        <span class="va">self</span>.boton1 <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Uno&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>),
+                                pos<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">10</span>))
+        <span class="va">self</span>.boton2 <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Dos&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>),
+                                pos<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">50</span>))
+        <span class="va">self</span>.boton3 <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Tres&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>),
+                                pos<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">90</span>))
+        <span class="co"># Conectando evento</span>
+        <span class="va">self</span>.Bind(wx.EVT_BUTTON, <span class="va">self</span>.OnClick)
+        
+        <span class="va">self</span>.Centre(<span class="va">True</span>)
+        <span class="va">self</span>.Show()
+        
+    <span class="kw">def</span> OnClick(<span class="va">self</span>,event):
+        <span class="bu">print</span> <span class="st">u&quot;Has presionado un botón&quot;</span>
+        
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Test wxButton&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<p>Note que hemos <em>conectado</em> los eventos de tipo <code>wx.EVT_BUTTON</code> al método <code>OnClick</code> que hace las veces de un <em>handler</em>. Luego, el método <code>OnClick</code> simplemente imprime en consola un mensaje.</p>
+<p>Ahora, ¿cómo podríamos hacer que para cada botón presionado se tenga una respuesta diferente?. Hay dos formas comunes, a saber: especificando un <em>handler</em> para cada botón y utilizando el argumento <code>event</code> para identificar de dónde proviene el evento.</p>
+<p>Primero vamos a utilizar un handler para cada botón. Debemos saber entonces que el método <code>Bind</code> acepta como tercer argumento un <code>source</code> o referencia a un objeto gráfico del cual se espera que provenga el evento. Algo como:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="va">self</span>.Bind(wx.EVT_BUTTON, <span class="va">self</span>.OnClick, boton)</code></pre></div>
+<p>Pero vamos con el ejemplo que venimos trabajando:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding: utf-8 -*-</span>
+<span class="im">import</span> wx
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">200</span>,<span class="dv">200</span>))
+        
+        <span class="va">self</span>.boton1 <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Uno&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>),
+                                pos<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">10</span>))
+        <span class="va">self</span>.boton2 <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Dos&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>),
+                                pos<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">50</span>))
+        <span class="va">self</span>.boton3 <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Tres&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>),
+                                pos<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">90</span>))
+        <span class="co"># Conectando eventos</span>
+        <span class="va">self</span>.Bind(wx.EVT_BUTTON, <span class="va">self</span>.OnClick1, <span class="va">self</span>.boton1)
+        <span class="va">self</span>.Bind(wx.EVT_BUTTON, <span class="va">self</span>.OnClick2, <span class="va">self</span>.boton2)
+        <span class="va">self</span>.Bind(wx.EVT_BUTTON, <span class="va">self</span>.OnClick3, <span class="va">self</span>.boton3)
+        
+        <span class="va">self</span>.Centre(<span class="va">True</span>)
+        <span class="va">self</span>.Show()
+        
+    <span class="kw">def</span> OnClick1(<span class="va">self</span>,event):
+        <span class="bu">print</span> <span class="st">u&quot;Has presionado el botón 1&quot;</span>
+        
+    <span class="kw">def</span> OnClick2(<span class="va">self</span>,event):
+        <span class="bu">print</span> <span class="st">u&quot;Has presionado el botón 2&quot;</span>
+        
+    <span class="kw">def</span> OnClick3(<span class="va">self</span>,event):
+        <span class="bu">print</span> <span class="st">u&quot;Has presionado el botón 3&quot;</span>
+        
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Test wxButton&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<p>Como puede ver, por cada botón se conecta un evento <code>wx.EVT_BUTTON</code> con el handler correspondiente, así cada vez que se presione un botón diferente la respuesta obtenida será dependiendo del handler asignado.</p>
+<p>Finalmente, la segunda forma consiste en utilizar el segundo parámetro del <em>handler</em> asignado para manejar un evento (normalmente y por <em>convención</em> llamado <code>event</code>). ¿Pero qué es el parámetro <code>event</code>?, en términos simples es un objeto de la clase <code>wx.CommandEvent</code> que contiene información acerca del evento lanzado. Implementando esta manera para el ejemplo anterior se tiene:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding: utf-8 -*-</span>
+<span class="im">import</span> wx
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">200</span>,<span class="dv">200</span>))
+        
+        <span class="va">self</span>.boton1 <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Uno&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>),
+                                pos<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">10</span>))
+        <span class="va">self</span>.boton2 <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Dos&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>),
+                                pos<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">50</span>))
+        <span class="va">self</span>.boton3 <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Tres&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>),
+                                pos<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">90</span>))
+        <span class="co"># Conectando eventos</span>
+        <span class="va">self</span>.Bind(wx.EVT_BUTTON, <span class="va">self</span>.OnClick)
+        
+        <span class="va">self</span>.Centre(<span class="va">True</span>)
+        <span class="va">self</span>.Show()
+        
+    <span class="kw">def</span> OnClick(<span class="va">self</span>,event):
+        bt_label <span class="op">=</span> event.GetEventObject().GetLabel()
+        <span class="bu">print</span> <span class="st">u&quot;Has presionado el botón </span><span class="sc">%s</span><span class="st">&quot;</span><span class="op">%</span>(bt_label)
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Test wxButton&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<p>El método <code>GetEventObject</code> del objeto <code>event</code> devuelve la referencia al objeto del cual proviene el evento, y posteriormente con el método <code>GetLabel()</code> se obtiene simplemente la etiqueta del botón correspondiente para imprimirla en pantalla.</p>
+</body>
+</html>

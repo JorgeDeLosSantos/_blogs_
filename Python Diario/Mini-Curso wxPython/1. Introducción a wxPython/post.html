@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="introducción-a-wxpython">Introducción a wxPython</h1>
+<h3 id="qué-es-wxpython">¿Qué es wxPython?</h3>
+<p><a href="http://www.wxpython.org/">wxPython</a> es una librería muy popular para el desarrollo de interfaces gráficas en Python. Permite crear aplicaciones robustas y funcionales de una manera muy simple, proporcionando además una enorme cantidad de controles gráficos. Básicamente, wxPython es un <em>wrapper</em> de la librería wxWidgets escrita en C++, y por tanto al igual que esta es de código abierto, multiplataforma y cuenta con una documentación bastante elaborada.</p>
+<h3 id="qué-aprenderemos-en-el-curso">¿Qué aprenderemos en el curso?</h3>
+<p>Bueno, la idea de este mini-curso es proporcionar una introducción al desarrollo de interfaces gráficas en Python utilizando wxPython como librería gráfica. Desde luego se comenzará con cuestiones muy básicas para que sea fácil de seguir, así, la idea es ver al menos los controles básicos que puede contener una interfaz gráfica: la ventana principal o frame, los paneles, campos de texto, botones, check boxes, radio buttons, list boxes, combo boxes, sliders, entre muchos otros. Además, en etapas posteriores del curso se introducirá el concepto de Sizers y su influencia en el posicionamiento automatizado de controles gráficos, lo cual representa una enorme ventaja.</p>
+<h3 id="lo-necesario-para-seguir-el-curso">Lo necesario para seguir el curso</h3>
+<p>Primero mencionar que este curso se desarrollará utilizando la versión 2.7.5 de Python y la versión 2.9.4.0 de wxPython. En principio no debería haber muchos problemas debido a las versiones, más allá de las adecuaciones que pudiera necesitar para una versión 3.X de Python, pero, cualquier detalle que no se pudiese solucionar siéntase libre de hacérnoslo saber en los comentarios.</p>
+<p><strong>Python</strong></p>
+<p>Por aquí asumimos que el lector ya tiene una versión de Python instalada. Recomendaría tener una versión 2.7.x para seguir el curso, pero si no, tampoco está mal, mientras sea funcional.</p>
+<p><strong>wxPython</strong></p>
+<p>Como no queremos <em>reinventar</em> la rueda les dejo un enlace de la página oficial de wxPython en la cual se indica claramente el proceso de instalación que debe seguirse dependiendo del SO que tenga el usuario: <a href="http://wiki.wxpython.org/How%20to%20install%20wxPython">http://wiki.wxpython.org/How%20to%20install%20wxPython</a></p>
+<p><strong>Editor/IDE</strong></p>
+<p>Siéntase libre de utilizar el editor o IDE de su preferencia, desde luego para seguir el curso no necesitará más que un simple editor código tipo Notepad++, Sublime Text, Geany o algo similar. Por ahora no utilizaremos un IDE para desarrollar las interfaces gráficas, sólo al final del curso se hará una entrada para ver cómo utilizar <a href="https://sourceforge.net/projects/wxformbuilder/">wxFormBuilder</a> para el desarrollo de las aplicaciones wxPython.</p>
+<h3 id="para-involucrarnos-más...">Para involucrarnos más...</h3>
+<p>Lo siguiente es una lista de recursos que pueden resultar muy útiles para aprender más sobre este magnífica librería.</p>
+<p><strong>Sitio web oficial</strong></p>
+<p><a href="http://www.wxpython.org/" class="uri">http://www.wxpython.org/</a></p>
+<p><strong>Documentación en línea</strong></p>
+<p><a href="http://www.wxpython.org/onlinedocs.php" class="uri">http://www.wxpython.org/onlinedocs.php</a></p>
+<p><strong>Libros / Apuntes</strong></p>
+<p><em>En español</em></p>
+<p><a href="http://vfp-python.blogspot.mx/2011/12/manual-de-wxpython-en-espanol.html">Manual de wxPython</a></p>
+<p><em>En inglés</em></p>
+<div class="figure">
+<img src="http://www.tutorialspoint.com/wxpython/images/wxpython-mini-logo.jpg" alt="wxPython tutorialspoint" style="width:10.0%" />
+<p class="caption"><a href="http://www.tutorialspoint.com/wxpython/wxpython_tutorial.pdf">wxPython tutorialspoint</a></p>
+</div>
+<div class="figure">
+<img src="http://ecx.images-amazon.com/images/I/41AEDpqzGSL._SX404_BO1,204,203,200_.jpg" alt="wxPython in Action" style="width:10.0%" />
+<p class="caption"><a href="http://www.amazon.com/gp/product/1932394621?ie=UTF8&amp;tag=wxpython-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1932394621">wxPython in Action</a></p>
+</div>
+<div class="figure">
+<img src="https://dz13w8afd47il.cloudfront.net/sites/default/files/imagecache/ppv4_main_book_cover/1780OS_MockupCover_Cookbook_0.jpg" alt="wxPython Cookbook" style="width:10.0%" />
+<p class="caption"><a href="http://www.amazon.com/gp/product/1849511780?ie=UTF8&amp;tag=wxpython-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1849511780">wxPython Cookbook</a></p>
+</div>
+<p><strong>Blogs</strong></p>
+<p><em>En español</em></p>
+<p><strong><a href="http://elviajedelnavegante.blogspot.mx/">El viaje del navegante</a></strong>. Un blog en español sobre programación en Python, pero con información muy interesante sobre el desarrollo de GUIs con wxPython, muy recomendable.</p>
+<p><strong><a href="http://codigo-wxpython.blogspot.mx/">Código wxPython</a></strong>. Un blog <em>recién nacido</em> en el que se prentende compartir información acerca del desarrollo de aplicaciones en wxPython.</p>
+<p><em>En inglés</em></p>
+<p><strong><a href="http://www.blog.pythonlibrary.org/">The Mouse vs The Python</a></strong>. Escrito por Michael Driscoll, es sin duda el blog que más información tiene sobre wxPython, muchos ejemplos con controles básicos y avanzados. Un blog que seguramente les sacará de apuro en cualquier momento.</p>
+<p>Y bueno <em>Pythoneros</em>, no queda más que invitarlos a seguir este mini-curso de wxPython, y sobre todo animarlos a que nos hagan llegar sugerencias, comentarios y cualquier duda que pudiera surgir en este viaje que vamos a iniciar.</p>
+
+
+<div style="background-color: #fafafa; padding-left: 10px; border-radius: 5px; border: 1px dotted #f0f0f0;">
+<h3 id="sumario-del-curso">Sumario del curso</h3>
+<p>Esta lista se irá actualizando conforme el curso vaya avanzando.</p>
+<ul style="list-style: none;">
+<li><a href="http://www.pythondiario.com/2016/03/mini-curso-de-wxpython-1-introduccion.html">1. Introducción a wxPython</a></li>
+<li><a href="http://www.pythondiario.com/2016/03/mini-curso-de-wxpython-2-nuestra.html">2. Nuestra primera aplicación</a></li>
+</ul>
+</div>
+
+</body>
+</html>

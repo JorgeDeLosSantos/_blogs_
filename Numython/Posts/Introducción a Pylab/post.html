@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="una-introducción-a-pylab">Una introducción a Pylab</h1>
+<p>Pylab es un módulo de Matplotlib que, básicamente, integra en un mismo espacio de nombres utilidades gráficas del módulo pyplot y las numéricas de NumPy, resultando un entorno que se asemeja a MATLAB en el manejo de matrices/vectores y el trazo de gráficas.</p>
+<p>Para importar todas las funciones de pylab podemos hacerlo como sigue:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> pylab <span class="im">import</span> <span class="op">*</span></code></pre></div>
+<p>Con esto tendremos disponible todas las funciones y/o constantes en el espacio de trabajo actual.</p>
+<h2 id="matrices-y-vectores">Matrices y vectores</h2>
+<p>Algo básico que podemos hacer con Pylab es crear con vectores y matrices de una forma rápida:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> v<span class="op">=</span>array([<span class="op">-</span><span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>]) <span class="co">#Definiendo un vector</span>
+<span class="op">&gt;&gt;&gt;</span> v
+array([<span class="op">-</span><span class="dv">2</span>,  <span class="dv">0</span>,  <span class="dv">1</span>,  <span class="dv">5</span>,  <span class="dv">3</span>])
+<span class="op">&gt;&gt;&gt;</span> A<span class="op">=</span>array([[<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">5</span>],[<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">10</span>],[<span class="op">-</span><span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">3</span>]]) <span class="co"># Definiendo una matriz</span>
+<span class="op">&gt;&gt;&gt;</span> A
+array([[ <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">5</span>],
+       [ <span class="dv">8</span>,  <span class="dv">2</span>, <span class="dv">10</span>],
+       [<span class="op">-</span><span class="dv">5</span>,  <span class="dv">2</span>,  <span class="dv">3</span>]])</code></pre></div>
+<p>Realizar operaciones matriciales básicas:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> B<span class="op">=</span>array([[<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">0</span>],[<span class="dv">7</span>,<span class="op">-</span><span class="dv">9</span>,<span class="dv">2</span>],[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>]])
+<span class="op">&gt;&gt;&gt;</span> <span class="co"># Suma de matrices</span>
+<span class="op">&gt;&gt;&gt;</span> A<span class="op">+</span>B
+array([[ <span class="dv">2</span>,  <span class="dv">4</span>, <span class="op">-</span><span class="dv">5</span>],
+       [<span class="dv">15</span>, <span class="op">-</span><span class="dv">7</span>, <span class="dv">12</span>],
+       [<span class="op">-</span><span class="dv">4</span>,  <span class="dv">3</span>,  <span class="dv">6</span>]])
+<span class="op">&gt;&gt;&gt;</span> <span class="co"># Resta de matrices</span>
+<span class="op">&gt;&gt;&gt;</span> A<span class="op">-</span>B
+array([[ <span class="dv">0</span>, <span class="op">-</span><span class="dv">6</span>, <span class="op">-</span><span class="dv">5</span>],
+       [ <span class="dv">1</span>, <span class="dv">11</span>,  <span class="dv">8</span>],
+       [<span class="op">-</span><span class="dv">6</span>,  <span class="dv">1</span>,  <span class="dv">0</span>]])
+<span class="op">&gt;&gt;&gt;</span> <span class="co"># Multiplicación matricial</span>
+<span class="op">&gt;&gt;&gt;</span> dot(A,B)
+array([[<span class="op">-</span><span class="dv">11</span>,   <span class="dv">9</span>, <span class="op">-</span><span class="dv">17</span>],
+       [ <span class="dv">32</span>,  <span class="dv">32</span>,  <span class="dv">34</span>],
+       [ <span class="dv">12</span>, <span class="op">-</span><span class="dv">40</span>,  <span class="dv">13</span>]])</code></pre></div>
+<p>Note que la multiplicación matricial se debe realizar con la función <code>dot</code>, si se efectua la multiplicación con el operador <code>*</code>, este dará el resultado de una multiplicación elemento por elemento.</p>
+<p>También se pueden utilizar algunas funciones típicas de un paquete de álgebra lineal para operar sobre matrices:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> det(A) <span class="co"># Determinante de A</span>
+<span class="op">-</span><span class="fl">69.999999999999957</span>
+<span class="op">&gt;&gt;&gt;</span> inv(A) <span class="co"># Matriz inversa de A</span>
+array([[  <span class="fl">2.00000000e-01</span>,   <span class="fl">1.00000000e-01</span>,   <span class="fl">2.77555756e-17</span>],
+       [  <span class="fl">1.05714286e+00</span>,   <span class="fl">3.14285714e-01</span>,   <span class="fl">7.14285714e-01</span>],
+       [ <span class="op">-</span><span class="fl">3.71428571e-01</span>,  <span class="op">-</span><span class="fl">4.28571429e-02</span>,  <span class="op">-</span><span class="fl">1.42857143e-01</span>]])
+<span class="op">&gt;&gt;&gt;</span> transpose(A) <span class="co"># Transpuesta de A</span>
+array([[ <span class="dv">1</span>,  <span class="dv">8</span>, <span class="op">-</span><span class="dv">5</span>],
+       [<span class="op">-</span><span class="dv">1</span>,  <span class="dv">2</span>,  <span class="dv">2</span>],
+       [<span class="op">-</span><span class="dv">5</span>, <span class="dv">10</span>,  <span class="dv">3</span>]])</code></pre></div>
+<h2 id="gráficas">Gráficas</h2>
+<p>Otra utilidad de pylab son las gráficas, es tan sencillo como utilizar la función <code>plot</code>:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">plot([<span class="dv">1</span>,<span class="dv">3</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>])
+show()</code></pre></div>
+<!-- ![](img/img_01.png) -->
+<p>Si se requiere algo más elaborado:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x <span class="op">=</span> linspace(<span class="dv">0</span>,<span class="dv">10</span>)
+y <span class="op">=</span> exp(<span class="fl">0.1</span><span class="op">*</span>x)<span class="op">*</span>cos(x)
+
+plot(x,y,<span class="st">&#39;k&#39;</span>)
+xlabel(<span class="st">&quot;Tiempo (s)&quot;</span>)
+ylabel(<span class="st">&quot;Amplitud (mm)&quot;</span>)
+title(<span class="st">u&quot;Gráfica 01&quot;</span>)
+grid(<span class="va">True</span>)
+
+show()</code></pre></div>
+<p>AAAA <!-- ![](img/img_02.png) --></p>
+<p>O múltiples gráficas:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x <span class="op">=</span> linspace(<span class="dv">0</span>,<span class="dv">10</span>)
+y1 <span class="op">=</span> exp(<span class="fl">0.1</span><span class="op">*</span>x)<span class="op">*</span>cos(x)
+y2 <span class="op">=</span> exp(<span class="fl">0.5</span><span class="op">*</span>x)<span class="op">*</span>sin(x)
+
+subplot(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>)
+plot(x,y1,<span class="st">&#39;r&#39;</span>)
+ylabel(<span class="st">&quot;Amplitud (mm)&quot;</span>)
+grid(<span class="va">True</span>)
+
+subplot(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>)
+plot(x,y2,<span class="st">&#39;b&#39;</span>)
+xlabel(<span class="st">&quot;Tiempo (s)&quot;</span>)
+ylabel(<span class="st">&quot;Amplitud (mm)&quot;</span>)
+grid(<span class="va">True</span>)</code></pre></div>
+<p>ABC</p>
+</body>
+</html>

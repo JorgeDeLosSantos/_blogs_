@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="utilizando-grillas-de-celdas-en-wxpython-wx.grid.grid">Utilizando grillas de celdas en wxPython (wx.grid.Grid)</h1>
+<p>Las grillas o conjunto de celdas se utilizan para mostrar conjuntos de datos numéricos y/o cualquier otro tipo en una interfaz sencilla y muy similar a las tradicionales celdas de las hojas de cálculos.</p>
+<p>En wxPython para crear una grilla debemos importar el módulo <code>wx.grid</code> y utilizar la clase <code>Grid</code> de dicho módulo. Para inicializar/instanciar un objeto de la clase <code>Grid</code> debemos pasarle como argumentos mínimos el objeto padre y un ID, y enseguida debemos definir el número de filas y columnas que compondrán la grilla utilizando el método <code>CreateGrid</code>, tal cómo se observa en el siguiente ejemplo:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding: utf-8 -*-</span>
+<span class="im">import</span> wx
+<span class="im">import</span> wx.grid <span class="im">as</span> wxgrid
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">250</span>,<span class="dv">250</span>))
+        
+        <span class="va">self</span>.grid <span class="op">=</span> wxgrid.Grid(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>)
+        <span class="va">self</span>.grid.CreateGrid(<span class="dv">10</span>,<span class="dv">2</span>)
+        
+        <span class="va">self</span>.Centre(<span class="va">True</span>)
+        <span class="va">self</span>.Show()
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Test Grid&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<p><a href="img/img_01.png"></a></p>
+<h3 id="insertando-valores">Insertando valores</h3>
+<p>Y ahora, ¿cómo insertamos valores en cada celda?. Para <em>rellenar</em> las celdas de una grilla utilizamos el método <code>SetCellValue</code>, pasando como argumentos la posición fila-columna de la celda y un string con el valor a insertar. Algo como:</p>
+<pre><code>self.grid.SetCellValue(fila,columna,valor)</code></pre>
+<p>Donde <code>fila</code> y <code>columna</code> son valores enteros que especifican la posición de la celda y <code>valor</code> una cadena de caracteres. Veamos el siguiente ejemplo:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding: utf-8 -*-</span>
+<span class="im">import</span> wx
+<span class="im">import</span> wx.grid <span class="im">as</span> wxgrid
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">250</span>,<span class="dv">250</span>))
+        
+        filas <span class="op">=</span> <span class="dv">10</span>
+        columnas <span class="op">=</span> <span class="dv">2</span>
+        <span class="va">self</span>.grid <span class="op">=</span> wxgrid.Grid(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>)
+        <span class="va">self</span>.grid.CreateGrid(filas,columnas)
+        
+        <span class="cf">for</span> i <span class="op">in</span> <span class="bu">range</span>(filas):
+            <span class="cf">for</span> j <span class="op">in</span> <span class="bu">range</span>(columnas):
+                valor <span class="op">=</span> <span class="st">&quot;(</span><span class="sc">%s</span><span class="st">,</span><span class="sc">%s</span><span class="st">)&quot;</span><span class="op">%</span>(i,j)
+                <span class="va">self</span>.grid.SetCellValue(i,j,valor)
+        
+        <span class="va">self</span>.Centre(<span class="va">True</span>)
+        <span class="va">self</span>.Show()
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Test Grid&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<p><a href="img/img_02.png"></a></p>
+<h3 id="modificando-el-color-de-celdas">Modificando el color de celdas</h3>
+<p>Para modificar el color de una celda debemos utilizar el método <code>SetCellBackgroundColour</code> al cual se le pasan como argumentos la posición de la celda y el color a usar (en forma de cadena hexadecimal o bien mediante la clase <code>wx.Colour</code>). En el siguiente ejemplo se muestra como colorear las filas impares de un color determinado:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding: utf-8 -*-</span>
+<span class="im">import</span> wx
+<span class="im">import</span> wx.grid <span class="im">as</span> wxgrid
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">250</span>,<span class="dv">250</span>))
+        
+        filas <span class="op">=</span> <span class="dv">10</span>
+        columnas <span class="op">=</span> <span class="dv">2</span>
+        <span class="va">self</span>.grid <span class="op">=</span> wxgrid.Grid(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>)
+        <span class="va">self</span>.grid.CreateGrid(filas,columnas)
+        
+        <span class="co"># Asignando valores</span>
+        <span class="cf">for</span> i <span class="op">in</span> <span class="bu">range</span>(filas):
+            <span class="cf">for</span> j <span class="op">in</span> <span class="bu">range</span>(columnas):
+                valor <span class="op">=</span> <span class="st">&quot;(</span><span class="sc">%s</span><span class="st">,</span><span class="sc">%s</span><span class="st">)&quot;</span><span class="op">%</span>(i,j)
+                <span class="va">self</span>.grid.SetCellValue(i,j,valor)
+        
+        <span class="co"># Modificando el color de fondo</span>
+        <span class="cf">for</span> ii <span class="op">in</span> <span class="bu">range</span>(<span class="dv">0</span>,filas,<span class="dv">2</span>):
+            <span class="cf">for</span> jj <span class="op">in</span> <span class="bu">range</span>(columnas):
+                <span class="va">self</span>.grid.SetCellBackgroundColour(ii,jj,<span class="st">&quot;#fafa77&quot;</span>)
+        
+        <span class="va">self</span>.Centre(<span class="va">True</span>)
+        <span class="va">self</span>.Show()
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Test Grid&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<p><a href="img/img_03.png"></a></p>
+<p>Para quitar las etiquetas de filas, que a veces pueden resultar poco convenientes, puede utilizar el método <code>SetRowLabelSize</code> y pasar 0 (cero) como argumento.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="va">self</span>.grid.SetRowLabelSize(<span class="dv">0</span>)</code></pre></div>
+<h3 id="personalizando-encabezados-y-anchos-de-columnas">Personalizando encabezados y anchos de columnas</h3>
+<p>Los encabezados (<em>headers</em>) de columnas por defecto están rotulados como en una hoja de cálculo (letras en orden alfabético), pero pueden personalizarse utilizando el método <code>SetColLabelValue</code>. Además también puede modificarse el ancho por defecto que tienen las columnas mediante el método <code>SetColSize</code>. En el siguiente ejemplo se muestra lo mencionado anteriormente:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding: utf-8 -*-</span>
+<span class="im">import</span> wx
+<span class="im">import</span> wx.grid <span class="im">as</span> wxgrid
+<span class="im">from</span> random <span class="im">import</span> randint
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">250</span>,<span class="dv">250</span>))
+        
+        filas <span class="op">=</span> <span class="dv">10</span>
+        columnas <span class="op">=</span> <span class="dv">2</span>
+        <span class="va">self</span>.grid <span class="op">=</span> wxgrid.Grid(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>)
+        <span class="va">self</span>.grid.CreateGrid(filas,columnas)
+        <span class="va">self</span>.grid.SetRowLabelSize(<span class="dv">0</span>)
+        
+        <span class="co"># Asignando valores aleatorios</span>
+        <span class="cf">for</span> i <span class="op">in</span> <span class="bu">range</span>(filas):
+            <span class="cf">for</span> j <span class="op">in</span> <span class="bu">range</span>(columnas):
+                valor <span class="op">=</span> <span class="st">&quot;</span><span class="sc">%g</span><span class="st">&quot;</span><span class="op">%</span>(randint(<span class="dv">1</span>,<span class="dv">100</span>))
+                <span class="va">self</span>.grid.SetCellValue(i,j,valor)
+        
+        <span class="co"># Modificando el color de fondo</span>
+        <span class="cf">for</span> ii <span class="op">in</span> <span class="bu">range</span>(<span class="dv">0</span>,filas,<span class="dv">2</span>):
+            <span class="cf">for</span> jj <span class="op">in</span> <span class="bu">range</span>(columnas):
+                <span class="va">self</span>.grid.SetCellBackgroundColour(ii,jj,<span class="st">&quot;#fafa77&quot;</span>)
+        
+        <span class="co"># Modificando los encabezados y anchos de columna</span>
+        encabezados <span class="op">=</span> [<span class="st">&quot;Tiempo (s)&quot;</span>, <span class="st">&quot;Amplitud (mm)&quot;</span>]
+        anchos <span class="op">=</span> [<span class="dv">100</span>, <span class="dv">100</span>]
+        <span class="cf">for</span> n,col <span class="op">in</span> <span class="bu">enumerate</span>(<span class="bu">range</span>(columnas)):
+            <span class="va">self</span>.grid.SetColLabelValue(col,encabezados[n])
+            <span class="va">self</span>.grid.SetColSize(col,anchos[n])
+        
+        <span class="va">self</span>.Centre(<span class="va">True</span>)
+        <span class="va">self</span>.Show()
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Test Grid&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<p><a href="img/img_04.png"></a></p>
+<p>Y bueno, hasta aquí esta entrada introductoria al uso de grillas en wxPython, ya estaremos viendo posteriormente características más avanzadas que permitan personalizar mejor una grilla.</p>
+<h3 id="y-una-mini-aplicación">Y una mini-aplicación</h3>
+<p>A continuación se adjunta una mini-aplicación en la cual se utiliza un grilla de 2x2 para emular los elementos de una matriz de 2x2, de la cual habrá de calcularse el determinante. Esta mini-aplicación incluye algunas consideraciones básicas sobre eventos en la grilla que posiblemente resulten de utilidad para el lector:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding: utf-8 -*-</span>
+<span class="im">import</span> wx
+<span class="im">import</span> wx.grid <span class="im">as</span> wxgrid
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">200</span>,<span class="dv">200</span>))
+        <span class="va">self</span>.panel <span class="op">=</span> wx.Panel(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>)
+        <span class="va">self</span>.sz <span class="op">=</span> wx.BoxSizer(wx.VERTICAL)
+        
+        <span class="co"># Grilla</span>
+        filas <span class="op">=</span> <span class="dv">2</span>
+        columnas <span class="op">=</span> <span class="dv">2</span>
+        <span class="va">self</span>.grid <span class="op">=</span> wxgrid.Grid(<span class="va">self</span>.panel, <span class="op">-</span><span class="dv">1</span>)
+        <span class="va">self</span>.grid.CreateGrid(filas,columnas)
+        <span class="va">self</span>.grid.SetRowLabelSize(<span class="dv">60</span>)
+        <span class="cf">for</span> col <span class="op">in</span> <span class="bu">range</span>(columnas):
+            <span class="va">self</span>.grid.SetColSize(col, <span class="dv">60</span>)
+            <span class="va">self</span>.grid.SetColLabelValue(col, <span class="st">&quot;</span><span class="sc">%s</span><span class="st">&quot;</span><span class="op">%</span>(col<span class="dv">+1</span>))
+        
+        <span class="co"># Campo de texto para resultados</span>
+        <span class="va">self</span>.res <span class="op">=</span> wx.TextCtrl(<span class="va">self</span>.panel, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;&quot;</span>, style<span class="op">=</span>wx.TE_CENTRE)
+        
+        <span class="co"># Botón para calcular</span>
+        <span class="va">self</span>.bt <span class="op">=</span> wx.Button(<span class="va">self</span>.panel, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Calcular&quot;</span>)
+        
+        <span class="co"># Agregando elementos al sizer</span>
+        <span class="va">self</span>.sz.Add(<span class="va">self</span>.grid, <span class="dv">5</span>, wx.EXPAND<span class="op">|</span>wx.ALL, <span class="dv">2</span>)
+        <span class="va">self</span>.sz.Add(<span class="va">self</span>.res, <span class="dv">1</span>, wx.EXPAND<span class="op">|</span>wx.ALL, <span class="dv">2</span>)
+        <span class="va">self</span>.sz.Add(<span class="va">self</span>.bt, <span class="dv">1</span>, wx.ALIGN_CENTRE<span class="op">|</span>wx.ALL, <span class="dv">2</span>)
+        
+        <span class="co"># Conectando eventos </span>
+        <span class="va">self</span>.Bind(wx.EVT_BUTTON, <span class="va">self</span>.OnCalc, <span class="va">self</span>.bt)
+        <span class="va">self</span>.Bind(wxgrid.EVT_GRID_CELL_CHANGED, <span class="va">self</span>.OnCellEdit)
+        
+        <span class="va">self</span>.panel.SetSizer(<span class="va">self</span>.sz)
+        <span class="va">self</span>.Centre(<span class="va">True</span>)
+        <span class="va">self</span>.Show()
+        
+    <span class="kw">def</span> OnCalc(<span class="va">self</span>,event):
+        <span class="co">&quot;&quot;&quot;</span>
+<span class="co">        Ejecuta el cálculo del determinante, utilizando </span>
+<span class="co">        como punto de entrada la matriz obtenida mediante </span>
+<span class="co">        el método GetMatrix. El resultado obtenido se </span>
+<span class="co">        muestra en el TextCtrl destinado para tal uso.</span>
+<span class="co">        &quot;&quot;&quot;</span>
+        M <span class="op">=</span> <span class="va">self</span>.GetMatrix()
+        <span class="cf">if</span> M <span class="op">is</span> <span class="va">None</span>:
+            wx.MessageBox(<span class="st">&quot;Rellene todas las celdas...&quot;</span>)
+            <span class="cf">return</span> <span class="va">None</span>
+        det <span class="op">=</span> (M[<span class="dv">0</span>][<span class="dv">0</span>]<span class="op">*</span>M[<span class="dv">1</span>][<span class="dv">1</span>]) <span class="op">-</span> (M[<span class="dv">0</span>][<span class="dv">1</span>]<span class="op">*</span>M[<span class="dv">1</span>][<span class="dv">0</span>])
+        res <span class="op">=</span> <span class="st">&quot;det(M) = </span><span class="sc">%s</span><span class="st">&quot;</span><span class="op">%</span>(det)
+        <span class="va">self</span>.res.SetValue(res)
+        
+    <span class="kw">def</span> GetMatrix(<span class="va">self</span>):
+        <span class="co">&quot;&quot;&quot;</span>
+<span class="co">        Construye una lista de listas para </span>
+<span class="co">        representar una matriz de 2x2.</span>
+<span class="co">        &quot;&quot;&quot;</span>
+        rows <span class="op">=</span> <span class="va">self</span>.grid.GetNumberRows()
+        cols <span class="op">=</span> <span class="va">self</span>.grid.GetNumberCols()
+        M <span class="op">=</span> []
+        <span class="cf">for</span> row <span class="op">in</span> <span class="bu">range</span>(rows):
+            _crow <span class="op">=</span> []
+            <span class="cf">for</span> col <span class="op">in</span> <span class="bu">range</span>(cols):
+                cval <span class="op">=</span> <span class="va">self</span>.grid.GetCellValue(row,col)
+                <span class="cf">if</span> <span class="op">not</span> cval:
+                    <span class="cf">return</span> <span class="va">None</span>
+                _crow.append(<span class="bu">float</span>(cval))
+            M.append(_crow)
+        <span class="cf">return</span> M
+        
+    <span class="kw">def</span> OnCellEdit(<span class="va">self</span>,event):
+        <span class="co">&quot;&quot;&quot;</span>
+<span class="co">        Verifica que el valor introducido en una </span>
+<span class="co">        celda sea un número, de lo contrario elimina el valor.</span>
+<span class="co">        &quot;&quot;&quot;</span>
+        ii,jj <span class="op">=</span> event.GetRow(), event.GetCol()
+        inval <span class="op">=</span> <span class="va">self</span>.grid.GetCellValue(ii,jj)
+        <span class="cf">try</span>:
+            cnum <span class="op">=</span> <span class="bu">float</span>(inval)
+        <span class="cf">except</span>:
+            <span class="va">self</span>.grid.SetCellValue(ii,jj,<span class="st">&quot;&quot;</span>)
+        
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Determinante&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<p><a href="img/img_05.png"></a></p>
+</body>
+</html>

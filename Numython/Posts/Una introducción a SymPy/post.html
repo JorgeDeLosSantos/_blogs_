@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="una-introducción-a-sympy">Una introducción a SymPy</h1>
+<p>SymPy es una librería de Python desarrollada para resolver problemas de matemáticas simbólicas. Existen diversos software comerciales que realizan estas tareas: Maple, Mathematica, MATLAB, entre otros, pero requieren una licencia de uso que puede resultar poco accesible en algunos casos. En cambio, SymPy se distribuye bajo licencia BSD, que en resumen permite el uso libre de la misma.</p>
+<h3 id="importando-sympy">Importando SymPy</h3>
+<p>Para importar SymPy y disponer de todos los módulos y funciones que le componen puede hacerse de diversas formas:</p>
+<ol style="list-style-type: decimal">
+<li>Forma tradicional</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> sympy</code></pre></div>
+<p>Es la manera más habitual, se carga toda la librería y se accede a cada una de las funciones mediante la sintaxis:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> r<span class="op">=</span>sympy.funcion(args)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Importando funciones seleccionadas</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> sympy <span class="im">import</span> Symbol,integrate,sin,cos</code></pre></div>
+<p>De este modo se importan solamente las funciones que vayan a utilizarse, es recomendable cuando se utilizará un número reducido de las mismas. Proporciona cierta ventaja dado que para acceder a una función no es necesario anteponer el nombre de la librería (sympy), aunque esto mismo represente una desventaja en aquellos casos en los que existen funciones de diferentes librerías con el mismo nombre.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Utilizando un alias o seudónimo</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> sympy <span class="im">as</span> sp</code></pre></div>
+<p>Funciona del mismo modo que para el primer caso, con la diferencia que el usuario puede asignarle un nombre más corto o bien más representativo para hacer las llamadas a funciones.</p>
+<p>Para los ejemplos que se mostrarán en esta entrada se utilizará la segunda forma.</p>
+<h3 id="declarando-una-variable-simbólica">Declarando una variable simbólica</h3>
+<p>Para declarar una variable simbólica podemos utilizar la función Symbol, para ello primero importamos la función y posteriormente declaramos una variable simbólica &quot;x&quot;:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> sympy <span class="im">import</span> Symbol
+<span class="op">&gt;&gt;&gt;</span> x<span class="op">=</span>Symbol(<span class="st">&#39;x&#39;</span>)
+<span class="op">&gt;&gt;&gt;</span> x
+x
+<span class="op">&gt;&gt;&gt;</span> x<span class="dv">+2</span>
+x <span class="op">+</span> <span class="dv">2</span></code></pre></div>
+<p>Como puede verse, una vez se ha declarado la variable simbólica podemos utilizarle para formar expresiones algebraicas de todo tipo. Existe una forma más &quot;simple&quot; de declarar una variable simbólica, para ello habrá de importarse del módulo &quot;abc&quot; la letra correspondiente, por ejemplo:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> sympy.abc <span class="im">import</span> x</code></pre></div>
+<p>O bien:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> sympy.abc <span class="im">import</span> x,y,z</code></pre></div>
+<p>Lo anterior en el caso de que se requieran múltiples variables simbólicas.</p>
+<h3 id="manipulaciones-algebraicas">Manipulaciones algebraicas</h3>
+<h4 id="factorizar-una-expresión-algebraica.">Factorizar una expresión algebraica.</h4>
+<p>Para factorizar una expresión algebraica podemos utilizar la función factor, por ejemplo suponga que se quiere factorizar la expresión (x^2+2x+1):</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> sympy <span class="im">import</span> factor,Symbol
+<span class="op">&gt;&gt;&gt;</span> x<span class="op">=</span>Symbol(<span class="st">&#39;x&#39;</span>)
+<span class="op">&gt;&gt;&gt;</span> factor(x<span class="op">**</span><span class="dv">2+2</span><span class="op">*</span>x<span class="dv">+1</span>)
+(x <span class="op">+</span> <span class="dv">1</span>)<span class="op">**</span><span class="dv">2</span></code></pre></div>
+<h4 id="expandir-una-expresión-algebraica">Expandir una expresión algebraica</h4>
+<p>Enseguida se muestra un ejemplo de cómo &quot;expandir&quot; o multiplicar dos expresiones algebraicas.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> sympy <span class="im">import</span> Symbol,expand
+<span class="op">&gt;&gt;&gt;</span> x<span class="op">=</span>Symbol(<span class="st">&#39;x&#39;</span>)
+<span class="op">&gt;&gt;&gt;</span> expand((x<span class="dv">+2</span>)<span class="op">*</span>(x<span class="dv">-3</span>))
+x<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> x <span class="op">-</span> <span class="dv">6</span></code></pre></div>
+</body>
+</html>

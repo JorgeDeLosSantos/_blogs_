@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="personalizando-frames-en-wxpython">Personalizando Frames en wxPython</h1>
+<p>Un frame ordinario en wxPython se puede construir de manera muy sencilla, heredando simplemente de <code>wx.Frame</code>.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">400</span>,<span class="dv">300</span>))
+        <span class="va">self</span>.Show()
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Mi Frame&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<p>[IMG]</p>
+<p>A continuación vamos a ver algunas cuestiones interesantes para crear frames personalizados.</p>
+<h3 id="cambiando-el-color-de-fondo">Cambiando el color de fondo</h3>
+<p>Para cambiar el color de fondo de un Frame podemos utilizar el método <code>SetBackgroundColour</code>, al cual debemos pasarle como argumento un objeto de la clase <code>wx.Colour</code> o bien una cadena en notación hexadecimal para especificar el color.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">400</span>,<span class="dv">300</span>))
+        <span class="co"># Modificando el color de fondo</span>
+        rojo <span class="op">=</span> wx.Colour(<span class="dv">255</span>,<span class="dv">0</span>,<span class="dv">0</span>)
+        <span class="co"># rojo = &quot;#ff0000&quot;   # Equivalente en notación hexadecimal</span>
+        <span class="va">self</span>.SetBackgroundColour(rojo)
+        <span class="va">self</span>.Show()
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Mi Frame&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<p>[IMG]</p>
+<h3 id="colocando-un-ícono">Colocando un ícono</h3>
+<p>Para colocar un ícono en la barra superior de nuestro Frame utilizamos el método <code>SetIcon</code>, al cual debemos pasarle como argumento un objeto de la clase <code>wx.Icon</code>. Para instanciar un objeto de <code>wx.Icon</code> necesitamos simplemente pasar como argumento la ruta de la imagen/ícono.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">400</span>,<span class="dv">300</span>))
+        <span class="co"># Colocando un ícono</span>
+        icono <span class="op">=</span> wx.Icon(<span class="st">&quot;icono.png&quot;</span>)
+        <span class="va">self</span>.SetIcon(icono)
+        <span class="co"># ...</span>
+        <span class="va">self</span>.Show()
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Mi Frame&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<p>[IMG]</p>
+<h3 id="modificando-estilos">Modificando estilos</h3>
+<p><strong>Ventana no redimensionable</strong></p>
+<p>Si queremos tener una ventana con un tamaño fijo, podemos hacerlo modificando el estilo por defecto de nuestro Frame. Cuando creamos un Frame por defecto se toma el estilo <code>wx.DEFAULT_FRAME_STYLE</code>. Para modificarlo debemos pasar el <em>keyword argument</em> <code>style</code> con una lista de estilos determinados. Para nuestro caso de una ventana no redimensionable:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        styles <span class="op">=</span> (wx.CLOSE_BOX<span class="op">|</span>wx.CAPTION)
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">400</span>,<span class="dv">300</span>),
+                          style<span class="op">=</span>styles)
+        <span class="va">self</span>.Show()
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Mi Frame&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<p>[IMG]</p>
+<p><strong>Ventana sin barra de título</strong></p>
+<p>Si queremos una ventana sin barra de título, podemos <em>quitar</em> el estilo <code>wx.CAPTION</code>:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
+
+<span class="kw">class</span> TestFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,parent,title):
+        styles <span class="op">=</span> wx.DEFAULT_FRAME_STYLE <span class="op">&amp;</span> <span class="op">~</span> (wx.CAPTION)
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,parent<span class="op">=</span>parent,title<span class="op">=</span>title,size<span class="op">=</span>(<span class="dv">400</span>,<span class="dv">300</span>),
+                          style<span class="op">=</span>styles)
+        <span class="va">self</span>.SetBackgroundColour(<span class="st">&quot;#ff00ff&quot;</span>)
+        <span class="va">self</span>.Show()
+
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App()
+    fr <span class="op">=</span> TestFrame(<span class="va">None</span>, <span class="st">&quot;Mi Frame&quot;</span>)
+    app.MainLoop()</code></pre></div>
+<div class="figure">
+<img src="img/img_05.png" />
+
+</div>
+<p>El estilo <code>wx.DEFAULT_FRAME_STYLE &amp; ~ (wx.CAPTION)</code> toma todos los estilos incluidos en <code>wx.DEFAULT_FRAME_STYLE</code>, exceptuando a <code>wx.CAPTION</code>, un poco de combinación de operaciones lógicas AND-NOT.</p>
+</body>
+</html>

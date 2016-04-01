@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="introducción-a-scikit-image-procesamiento-de-imágenes-en-python.">Introducción a scikit-image, procesamiento de imágenes en Python.</h1>
+<p>En este post vamos a hacer una pequeña introducción a la librería scikit-image, la cual básicamente es una colección de algoritmos para el procesamiento de imágenes en Python.</p>
+<h2 id="para-comenzar">Para comenzar</h2>
+<p>Todas las instrucciones referente a descarga e instalación, así como algunos códigos de ejemplos pueden encontrarse en la página oficial: <a href="http://scikit-image.org/" class="uri">http://scikit-image.org/</a>.</p>
+<p>A manera de referencia rápida, puede instalar scikit-image utilizando pip:</p>
+<pre><code>&gt;&gt; pip install -U scikit-image</code></pre>
+<p>En general, scikit-image o skimage, trabaja con arrays de numpy, así como también hace uso de algunas utilidades gráficas de Matplotlib para la visualización, por ello también es necesario tener instaladas las librerías SciPy, Matplotlib, NetWorkX, y PIL/pillow.</p>
+<h2 id="lo-muy-básico-cómo-leer-y-mostrar-imágenes">Lo muy básico: cómo leer y mostrar imágenes</h2>
+<p>Bueno, aquí un primer ejemplo de cómo leer y mostrar una imagen desde un archivo. Tenemos una imagen llamada &quot;lenna.png&quot; en el mismo directorio de nuestro código, luego, podemos utilizar el módulo <code>io</code> de <code>scikit-image</code> para leer y mostrar esta imagen. Básicamente se procede como sigue:</p>
+<p>Primero importamos el modulo correspondiente:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> skimage <span class="im">import</span> io</code></pre></div>
+<p>Ahora utilizamos la función <code>imread</code> del módulo <code>io</code> para leer la imagen, y guardamos esto en una variable, en la cual se almacenará un array de NumPy con la información de los colores que componen la imagen.</p>
+<p>`<code>python img = io.imread('lenna.png')</code></p>
+<p>Enseguida utilizamos la función <code>imshow</code> para mostrar la imagen que pasemos como argumento y la función <code>show</code> para mostrar toda la ventana o <code>figure</code> que contiene la(s) imágenes a desplegar en la pantalla.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">io.imshow(img)
+io.show()</code></pre></div>
+<p>Juntando este mini código nos quedaría algo como lo siguiente:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> skimage <span class="im">import</span> io
+
+img <span class="op">=</span> io.imread(<span class="st">&quot;lenna.png&quot;</span>)
+io.imshow(img)
+io.show()</code></pre></div>
+<p>Si ejecutamos lo anterior nos mostrará la imagen leída en una ventana o <code>figure</code> de Matplotlib, tal como se aprecia en la siguiente imagen:</p>
+<p>[IMAGEN 1]</p>
+<p>Podemos <em>averiguar</em> la forma o cantidad de elementos del array <code>img</code> utilizando el método <code>shape</code>, por ejemplo en el script anterior se puede añadir:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span> img.shape</code></pre></div>
+<p>Y con ello nos mostrará en consola una tupla de 3 elementos (para el caso de esta imagen) con la información del número de filas, columnas y <em>capas</em> de la matriz. En nuestro ejemplo nos muestra:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">(512L, 512L, 3L)</code></pre></div>
+<p>Lo cual implica que tenemos una imagen de 512x512 pixeles. El tercer número indica que tenemos tres capas o <em>canales</em> del módelo de color RGB, en el cual la primer capa representa el rojo, la segunda el verde y la tercera el azul. Así, toda la gama de colores para un pixel en específico se puede obtener mediante la combinación de estos tres colores primarios.</p>
+<h2 id="un-poco-de-gris...">Un poco de gris...</h2>
+<p>Ahora, ya sabemos leer y mostrar imágenes. Vamos a operar un poco y a convertir nuestra matriz RGB de entrada en una matriz de intensidades en escala de grises, o en pocas palabras vamos a transformar una matriz de color en una en tono de grises. Para ello vamos a importar el módulo <code>color</code> y a utilizar la función <code>rgb2gray</code>:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> skimage <span class="im">import</span> io,color
+
+img <span class="op">=</span> io.imread(<span class="st">&quot;lenna.png&quot;</span>)
+img_gris <span class="op">=</span> color.rgb2gray(img)
+io.imshow(img_gris)
+io.show()</code></pre></div>
+<p>[IMAGEN 2]</p>
+<p>¿Y qué pasa si queremos mostrar ambas imágenes en una misma ventana?, bueno, para ello podemos hacer uso de la función <code>subplot</code> de Matplotlib:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt
+<span class="im">from</span> skimage <span class="im">import</span> io,color
+
+img <span class="op">=</span> io.imread(<span class="st">&quot;lenna.png&quot;</span>)
+img_gris <span class="op">=</span> color.rgb2gray(img)
+plt.subplot(<span class="dv">211</span>)
+io.imshow(img)
+plt.subplot(<span class="dv">212</span>)
+io.imshow(img_gris)
+io.show()</code></pre></div>
+<p>[IMAGEN 3]</p>
+<p>Hasta aquí esta breve introducción a scikit-image, una librería que sin duda vale la pena revisar y que proporciona una cantidad razonable de algoritmos que pueden ser muy útiles en el procesamiento digital de imágenes. Posteriormente se hablará de algunos tópicos básicos adicionales, como la binarización, segmentación, y otras operaciones típicas.</p>
+</body>
+</html>

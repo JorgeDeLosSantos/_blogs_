@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="gráficas-de-contorno-curvas-de-nivel-en-matplotlib">Gráficas de contorno (curvas de nivel) en Matplotlib</h1>
+<p>Una manera de visualizar una función de dos variables es usar un campo escalar, en el que el escalar $ z = f(x,y) $ se asigna al punto $ (x,y) $. Un campo escalar puede caracterizarse por sus curvas de nivel (o líneas de contorno) a lo largo de las cuales el valor de $ f(x,y) $ es constante.</p>
+<p>El trazo de gráficas de lineas de contorno o curvas de nivel puede hacerse en Matplotlib utilizando la función <code>contour</code>, por ejemplo:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt 
+<span class="im">import</span> numpy <span class="im">as</span> np
+
+fig <span class="op">=</span> plt.figure()
+ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>)
+
+x <span class="op">=</span> y <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">100</span>)
+X,Y <span class="op">=</span> np.meshgrid(x,y)
+Z <span class="op">=</span> (<span class="op">-</span><span class="dv">4</span><span class="op">*</span>X)<span class="op">/</span>(X<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Y<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">1</span>)
+
+cs <span class="op">=</span> ax.contour(X,Y,Z)
+plt.show()</code></pre></div>
+<p><a href="img/img_01.png"></a></p>
+<p>Podemos aumentar el número de niveles si agregamos un argumento de entrada a la función <code>contour</code>, por ejemplo:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">cs <span class="op">=</span> ax.contour(X, Y, Z, <span class="dv">20</span>)</code></pre></div>
+<p>Con lo anterior tendríamos representados 20 niveles o 20 <em>planos</em> de valores constantes <span class="math inline"><em>f</em>(<em>x</em>, <em>y</em>)=<em>C</em></span>.</p>
+<p><a href="img/img_02.png"></a></p>
+<p>Se pueden agregar etiquetas a cada curva de nivel si utilizamos el método <code>clabel</code>, por ejemplo:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt 
+<span class="im">import</span> numpy <span class="im">as</span> np
+
+fig <span class="op">=</span> plt.figure()
+ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>)
+
+x <span class="op">=</span> y <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">100</span>)
+X,Y <span class="op">=</span> np.meshgrid(x,y)
+Z <span class="op">=</span> (<span class="op">-</span><span class="dv">4</span><span class="op">*</span>X)<span class="op">/</span>(X<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Y<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">1</span>)
+
+cs <span class="op">=</span> ax.contour(X, Y, Z, <span class="dv">15</span>)
+ax.clabel(cs, fontsize<span class="op">=</span><span class="dv">8</span>)
+
+plt.show()</code></pre></div>
+<p><a href="img/img_03.png"></a></p>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="borrar-lineas-en-matplotlib-de-manera-interactiva">Borrar lineas en Matplotlib de manera interactiva</h1>
+<p>Matplotlib es una librería normalmente utilizada para trazar gráficas que habrán de exportarse como un archivo &quot;estático&quot; e incluirse en algún tipo de documento posteriormente. Pero además, Matplotlib también tiene algunas características que permiten que el usuario pueda interactuar, tales como los widgets o los eventos definidos por el usuario. Y esta última característica vamos a aprovechar en este post para ver cómo poder borrar líneas de una gráfica Matplotlib una vez que esta ha sido creada, esto mediante la selección a través del mouse.</p>
+<p>Los eventos en Matplotlib se &quot;conectan&quot; utilizando el método <code>mpl_connect</code> de la clase <code>FigureCanvas</code>, mediante la sintaxis siguiente:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">hevt <span class="op">=</span> fig.canvas.mpl_connect(<span class="st">&#39;tipo_evento&#39;</span>, fun)</code></pre></div>
+<p>Donde <code>hevt</code> es una variable en la cual se guarda la referencia al evento y que puede ser utilizada para desconectarlo cuando no lo necesitemos más, <code>fig</code> es una instancia de la clase <code>Figure</code>, <code>tipo_evento</code> es uno de los eventos que pueden ser conectados en Matplotlib, cuya lista puede ver <a href="http://matplotlib.org/users/event_handling.html#event-connections">aquí</a>, y <code>fun</code> es una función en la cual deberá programarse la respuesta de nuestro programa cuando se lance el evento.</p>
+<p>Por ahora nos interesa el tipo de evento <code>pick_event</code>, el cual se &quot;lanza&quot; cuando un objeto en el canvas actual es seleccionado. Así, para conectar nuestro evento haremos algo como lo siguiente:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">pick <span class="op">=</span> fig.canvas.mpl_connect(<span class="st">&quot;pick_event&quot;</span>, OnSelect)</code></pre></div>
+<p>Ahora vamos a por todo el código y enseguida explicamos para qué cada cosa:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding: utf-8 -*-</span>
+<span class="im">import</span> wx
+<span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt
+<span class="im">import</span> numpy <span class="im">as</span> np
+
+<span class="kw">def</span> OnSelect(event):
+    app <span class="op">=</span> wx.App()
+    dlg <span class="op">=</span> wx.MessageDialog(<span class="va">None</span>, <span class="st">&quot;Desea borrar&quot;</span>,
+    <span class="co">&#39;Matplotlib Demo&#39;</span>, wx.YES_NO<span class="op">|</span>wx.ICON_QUESTION)
+    <span class="cf">if</span> dlg.ShowModal() <span class="op">==</span> wx.ID_YES:
+        event.artist.remove()
+    dlg.Destroy()
+    app.MainLoop()
+    fig.canvas.draw()
+
+<span class="co"># Definir datos a plotear</span>
+X <span class="op">=</span> np.random.random((<span class="dv">10</span>,<span class="dv">5</span>))
+<span class="co"># Crear figure y axes</span>
+fig <span class="op">=</span> plt.figure()
+ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>)
+<span class="co"># Graficar datos</span>
+ax.plot(X, picker<span class="op">=</span><span class="va">True</span>)
+<span class="co"># Conectar evento &quot;pick_event&quot;</span>
+pick <span class="op">=</span> fig.canvas.mpl_connect(<span class="st">&quot;pick_event&quot;</span>, OnSelect)
+plt.show()</code></pre></div>
+<p>Primero, importamos, claro, los módulos a utilizar. Lo de wxPython es <em>opcional</em>, sólo nos servirá para confirmar si realmente queremos borrar cierta línea y puede sustituirse con cualquier otra librería gráfica, Tkinter por ejemplo. Luego, definimos unos datos aleatorios, creamos nuestra <code>Figure</code> y nuestro <code>Axes</code> de la manera en que se debe, y posteriormente <em>ploteamos</em> los datos utilizando <code>plot</code>, pero adicionando el <em>keyword argument</em> <code>picker=True</code> para decirle a Matplotlib que para nuestro objeto gráfico resultante requerimos que esté disponible para ser seleccionado mediante el mouse. Y finalmente conectamos el evento de tipo <code>&quot;pick_event&quot;</code> al canvas correspondiente, pasando a la función <code>OnSelect</code> como la encargada de <em>dar una respuesta</em> a ese evento.</p>
+<p>La función <code>OnSelect</code> bien puede reducirse a dos líneas si es que no requerimos confirmación de borrado, algo como:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> OnSelect(event):
+    event.artist.remove()
+    fig.canvas.draw()</code></pre></div>
+<p>El resto de código es para crear un cuadro de diálogo en wxPython que nos pregunta si realmente queremos borrar la línea que hemos seleccionado.</p>
+<p><a href="img/img_01.png"></a></p>
+<p>Podríamos <em>mejorar</em> un poquito nuestro &quot;demo&quot; si por ejemplo cada vez que seleccionamos una línea esta sea modificada para distinguirse un poco más del resto, por ejemplo modificar su grosor, y en caso de no confirmar su borrado entonces regresar al aspecto original. Agregando algunas líneas nos queda un código más o menos como este:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding: utf-8 -*-</span>
+<span class="im">import</span> wx
+<span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt
+<span class="im">import</span> numpy <span class="im">as</span> np
+
+<span class="kw">def</span> OnSelect(event):
+    klw <span class="op">=</span> <span class="dv">2</span>
+    event.artist.set_lw(event.artist.get_lw() <span class="op">+</span> klw)
+    fig.canvas.draw()
+    app <span class="op">=</span> wx.App()
+    dlg <span class="op">=</span> wx.MessageDialog(<span class="va">None</span>, <span class="st">&quot;Desea borrar&quot;</span>,
+    <span class="co">&#39;Matplotlib Demo&#39;</span>, wx.YES_NO<span class="op">|</span>wx.ICON_QUESTION)
+    <span class="cf">if</span> dlg.ShowModal() <span class="op">==</span> wx.ID_YES:
+        event.artist.remove()
+    <span class="cf">else</span>:
+        event.artist.set_lw(event.artist.get_lw() <span class="op">-</span> klw)
+    dlg.Destroy()
+    app.MainLoop()
+    fig.canvas.draw()
+
+<span class="co"># Definir datos a plotear</span>
+X <span class="op">=</span> np.random.random((<span class="dv">10</span>,<span class="dv">5</span>))
+<span class="co"># Crear figure y axes</span>
+fig <span class="op">=</span> plt.figure()
+ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>)
+<span class="co"># Graficar datos</span>
+ax.plot(X, picker<span class="op">=</span><span class="va">True</span>)
+<span class="co"># Conectar evento &quot;pick_event&quot;</span>
+pick <span class="op">=</span> fig.canvas.mpl_connect(<span class="st">&quot;pick_event&quot;</span>, OnSelect)
+plt.show()</code></pre></div>
+<p><a href="img/img_02.png"></a></p>
+<p>Y bueno, con esto finalizamos esta pequeña introducción a las formas interactivas de Matplotlib, desde luego existen muchas posibilidades para implementar, de tal modo que nos quede algo más <em>chulo</em>.</p>
+</body>
+</html>
