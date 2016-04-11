@@ -60,7 +60,7 @@ io.show()
 Si ejecutamos lo anterior nos mostrará la imagen leída en una ventana o `figure` de Matplotlib, tal 
 como se aprecia en la siguiente imagen:
 
-[IMAGEN 1]
+<img src="img/img_01.png" width="40%">
 
 Podemos *averiguar* la forma o cantidad de elementos del array `img` utilizando el método `shape`, por ejemplo 
 en el script anterior se puede añadir:
@@ -97,7 +97,7 @@ io.imshow(img_gris)
 io.show()
 ```
 
-[IMAGEN 2]
+<img src="img/img_02.png" width="40%">
 
 ¿Y qué pasa si queremos mostrar ambas imágenes en una misma ventana?, bueno, para ello podemos hacer uso de 
 la función `subplot` de Matplotlib:
@@ -115,7 +115,7 @@ io.imshow(img_gris)
 io.show()
 ```
 
-[IMAGEN 3]
+<img src="img/img_03.png" width="40%">
 
 Hasta aquí esta breve introducción a scikit-image, una librería que sin duda vale la pena revisar y que 
 proporciona una cantidad razonable de algoritmos que pueden ser muy útiles en el procesamiento digital 

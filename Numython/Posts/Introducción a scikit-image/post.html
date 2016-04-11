@@ -68,7 +68,7 @@ img <span class="op">=</span> io.imread(<span class="st">&quot;lenna.png&quot;</
 io.imshow(img)
 io.show()</code></pre></div>
 <p>Si ejecutamos lo anterior nos mostrará la imagen leída en una ventana o <code>figure</code> de Matplotlib, tal como se aprecia en la siguiente imagen:</p>
-<p>[IMAGEN 1]</p>
+<p><img src="img/img_01.png" width="40%"></p>
 <p>Podemos <em>averiguar</em> la forma o cantidad de elementos del array <code>img</code> utilizando el método <code>shape</code>, por ejemplo en el script anterior se puede añadir:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span> img.shape</code></pre></div>
 <p>Y con ello nos mostrará en consola una tupla de 3 elementos (para el caso de esta imagen) con la información del número de filas, columnas y <em>capas</em> de la matriz. En nuestro ejemplo nos muestra:</p>
@@ -82,7 +82,7 @@ img <span class="op">=</span> io.imread(<span class="st">&quot;lenna.png&quot;</
 img_gris <span class="op">=</span> color.rgb2gray(img)
 io.imshow(img_gris)
 io.show()</code></pre></div>
-<p>[IMAGEN 2]</p>
+<p><img src="img/img_02.png" width="40%"></p>
 <p>¿Y qué pasa si queremos mostrar ambas imágenes en una misma ventana?, bueno, para ello podemos hacer uso de la función <code>subplot</code> de Matplotlib:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt
 <span class="im">from</span> skimage <span class="im">import</span> io,color
@@ -94,7 +94,7 @@ io.imshow(img)
 plt.subplot(<span class="dv">212</span>)
 io.imshow(img_gris)
 io.show()</code></pre></div>
-<p>[IMAGEN 3]</p>
+<p><img src="img/img_03.png" width="40%"></p>
 <p>Hasta aquí esta breve introducción a scikit-image, una librería que sin duda vale la pena revisar y que proporciona una cantidad razonable de algoritmos que pueden ser muy útiles en el procesamiento digital de imágenes. Posteriormente se hablará de algunos tópicos básicos adicionales, como la binarización, segmentación, y otras operaciones típicas.</p>
 </body>
 </html>
