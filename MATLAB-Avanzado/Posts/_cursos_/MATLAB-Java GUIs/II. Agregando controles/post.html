@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="matlab-java-guis-i.-una-introducción">MATLAB-Java GUIs I. Una introducción</h1>
+<p>Bienvenidos, esta será una mini-serie de entradas dedicadas a introducir a los usuarios de MATLAB en el desarrollo de interfaces gráficas utilizando una combinación de controles ordinarios de MATLAB con controles de la librería Swing de Java. Es necesario que el lector tenga conocimientos sólidos en el desarrollo de interfaces gráficas en MATLAB utilizando solamente código (no GUIDE), de programación orientada a objetos en MATLAB, y bueno, sería sensacional si conoce algo de Java.</p>
+<h3 id="para-comenzar">Para comenzar</h3>
+<p>Las interfaces gráficas en MATLAB suelen considerarse hasta cierto punto muy limitadas en cuanto a apariencia, funcionalidad y sobre todo a la poca diversidad de controles gráficos disponibles en la librería estándar. Se extraña, por poner un ejemplo, que los <em>Static Text</em> tengan la posibilidad de añadir una imagen, o que a un botón le podamos agregar un ícono junto al texto, o bueno, varias de esas cosas que son posibles y relativamente sencillas de implementar en muchos otros toolkits de interfaces gráficas.</p>
+<p>No obstante, MATLAB tiene la posibilidad (y facilidad) de integrar controles gráficos de la librería Swing de Java de manera muy simple en una interfaz gráfica ordinaria. Esto puede lograrse utilizando la función <code>javacomponent</code>, con la cual podemos <em>incrustar</em> controles gráficos de Java en una <em>figure</em> de MATLAB.</p>
+<p>Para ir entrando un poco en el tema vamos a mostrar un código muy simple que coloca un JLabel (similar al <em>Static Text</em>) dentro de una GUI:</p>
+<div class="sourceCode"><pre class="sourceCode matlab"><code class="sourceCode matlab">import javax.swing.*
+
+fig = figure(<span class="st">&#39;Name&#39;</span>,<span class="st">&#39;Ejemplo MATLAB-Java&#39;</span>,...
+    <span class="st">&#39;NumberTitle&#39;</span>,<span class="st">&#39;off&#39;</span>,...
+    <span class="st">&#39;MenuBar&#39;</span>,<span class="st">&#39;none&#39;</span>,...
+    <span class="st">&#39;Position&#39;</span>,[<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">200</span>,<span class="fl">100</span>]);
+centerfig(fig);
+
+lab = JLabel(<span class="st">&#39;JLabel Java&#39;</span>);
+hJlab = javacomponent(lab, <span class="st">&#39;East&#39;</span>, fig);</code></pre></div>
+<p>Ahora vamos a <em>desmenuzar</em> el código anterior:</p>
+<p>Primero, importamos todas las clases de la librería Swing, también hubiese sido muy recomendable sólo importar la clase Java que vamos a utilizar: <code>import javax.swing.JLabel</code>. Pero, normalmente (<em>en la vida rea</em>l) no sólo se utiliza una de las clases de Swing, así que podríamos dejarlo tal cual y ya está. Al importar con <code>import javax.swing.*</code> tenemos disponibles todas las clases de Swing en el <em>workspace</em> de MATLAB, así, sólo necesitamos escribir <code>JLabel</code> para instanciar una etiqueta en lugar del <code>javax.swing.JLabel</code> que deberíamos colocar si no colocamos la instrucción de importar.</p>
+<p>Lo que sigue es crear una ventana con la función <code>figure</code>, en la cual colocaremos nuestros controles Java. Y claro, la función <code>centerfig</code> para centrar la ventana en la pantalla.</p>
+<p>Aquí viene la parte en donde instanciamos un objeto de la clase <code>JLabel</code>. Normalmente, en Java, tendríamos que escribir algo como:</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">JLabel lab = <span class="kw">new</span> JLabel(<span class="st">&quot;JLabel Java&quot;</span>);</code></pre></div>
+<p>Pero en MATLAB la sintaxis es más sencilla.</p>
+<p>Una vez tenemos creado un objeto de la clase <code>JLabel</code>, tenemos que colocarlo dentro de la ventana que hemos definido con anterioridad, y para eso usaremos la función <code>javacomponent</code>. Lo primero: la función <code>javacomponent</code> tiene la siguiente sintaxis:</p>
+<div class="sourceCode"><pre class="sourceCode matlab"><code class="sourceCode matlab">[hJ, hM] = javacomponent(javaClassName, position, parent, callback);</code></pre></div>
+<p>Donde <code>javaClassName</code> puede ser un objeto o una clase de Java (en este caso la etiqueta que hemos instanciado), <code>position</code> puede ser un vector de cuatro elementos típico de MATLAB o bien una cadena de texto: <em>South</em>, <em>West</em>, <em>North</em> o <em>East</em>, indicando la ubicación del elemento dentro de la ventana, <code>parent</code> será la ventana o panel en el cual colocaremos el objeto gráfico, y finalmente <code>callback</code> es un cell array de elementos <em>pareados</em> del tipo evento-handler y cuyo objetivo es especificar el comportamiento de un control gráfico ante un evento determinado, por ahora esto lo hemos dejado vacío, ya que no entraremos aún en el manejo de eventos.</p>
+<p>La función <code>javacomponent</code> devuelve normalmente dos valores de salida: <code>hJ</code> será la referencia a la clase Java del control gráfico y a través de este podremos modificar sus características; <code>hM</code> es un handle cuasi ordinario de MATLAB y este nos servirá para modificar las propiedades de posición, unidades y visibilidad del objeto gráfico una vez que este haya sido agregado a la GUI MATLAB.</p>
+<h3 id="modificando-las-propiedades-de-un-control-java-swing">Modificando las propiedades de un control Java Swing</h3>
+<p>Para modificar las propiedades de un componente creado con <code>javacomponent</code> podemos hacerlo a través de su referencia, por ejemplo, para el JLabel que utilizamos al principio:</p>
+<div class="sourceCode"><pre class="sourceCode matlab"><code class="sourceCode matlab">clear;clc;
+import javax.swing.*
+
+fig = figure(<span class="st">&#39;Name&#39;</span>,<span class="st">&#39;Ejemplo MATLAB-Java&#39;</span>,...
+    <span class="st">&#39;NumberTitle&#39;</span>,<span class="st">&#39;off&#39;</span>,...
+    <span class="st">&#39;MenuBar&#39;</span>,<span class="st">&#39;none&#39;</span>,...
+    <span class="st">&#39;Position&#39;</span>,[<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">200</span>,<span class="fl">100</span>]);
+centerfig(fig);
+
+lab = JLabel(<span class="st">&#39;JLabel Java&#39;</span>);
+[hJLab,hMLab] = javacomponent(lab, <span class="st">&#39;North&#39;</span>, fig);
+hJLab.setOpaque(true);
+hJLab.setForeground(java.awt.Color.RED);
+hJLab.setBackground(java.awt.Color.YELLOW)
+hJLab.setHorizontalAlignment(JLabel.CENTER);</code></pre></div>
+<p>Como puede notar, las propiedades se modifican a través de métodos. Todos estos métodos disponibles para los controles de Java Swing puede consultarlos en la <a href="https://docs.oracle.com/javase/7/docs/api/javax/swing/package-summary.html">documentación oficial de Java</a>.</p>
+<h3 id="para-aprender-más...">Para aprender más...</h3>
+<p>La referencia obligatoria y necesaria será siempre el blog <a href="http://undocumentedmatlab.com/"><strong>Undocumented MATLAB</strong></a> del gran Yair Altman, que es sin duda el lugar donde más información online encontraremos sobre la integración MATLAB-Java y muchas otras utilidades no documentadas de MATLAB.</p>
+<p>También existe el libro <strong>Undocumented Secrets of MATLAB-Java Programming</strong> del mismo Yair Altman, muy recomendable.</p>
+<p><a href="https://www.crcpress.com/Undocumented-Secrets-of-MATLAB-Java-Programming/Altman/9781439869031"> <img src="https://images.tandf.co.uk/common/jackets/amazon/978143986/9781439869031.jpg" width="15%"> </a></p>
+<h3 id="sumario-del-curso">Sumario del curso</h3>
+<p>Esta lista de se irá actualizando conforme se publiquen nuevas entradas:</p>
+<ul>
+<li><a href="">MATLAB-Java GUIs I. Una introducción</a></li>
+</ul>
+</body>
+</html>
