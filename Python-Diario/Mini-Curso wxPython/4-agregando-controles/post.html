@@ -6,7 +6,6 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<<<<<<< HEAD
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -46,82 +45,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   </style>
 </head>
 <body>
-<h1 id="aplicaciones-y-poo">Aplicaciones y POO</h1>
-<p>En la <em>entrega anterior</em> vimos como desarrollar una aplicación wxPython muy elemental, con unas cuantas líneas de código. Todo esto está muy bien, pero cuando querramos desarrollar una aplicación un poco más compleja vamos a tener muchos problemas con ese mismo enfoque. Además, cuando se requiera programar las respuestas a los eventos, se necesita mucho <em>intercambio de información</em> entre el objeto que lanza el evento y las funciones o rutinas que los manejan (handlers), y de esa manera, aun con la <em>ayuda</em> de las funciones es un tanto díficil mantener el código legible.</p>
-<p>Debido a lo comentado en el párrafo anterior, las aplicaciones en wxPyhon comúnmente se desarrollan utilizando un diseño orientado a objetos, donde, típicamente se escriben clases heredadas de los controles gráficos de wxPython.</p>
-<p>Lo más común, es crear una clase que herede de <code>wx.Frame</code>, y en esta ir agregando todos los controles gráficos que necesitemos para que la aplicación sea funcional. Como este mini-curso es de caracter básico/introductorio utilizaremos casi siempre la <em>plantilla</em> que a continuación se muestra:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
-
-<span class="kw">class</span> MiFrame(wx.Frame):
-    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,<span class="op">*</span>args,<span class="op">**</span>kwargs):
-        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,<span class="op">*</span>args,<span class="op">**</span>kwargs)
-        <span class="co"># Agregamos controles</span>
-        <span class="co"># Conectamos eventos</span>
-        <span class="va">self</span>.Show() <span class="co"># Mostramos el Frame</span>
-
-    <span class="kw">def</span> OnEvent(<span class="va">self</span>,event):
-        <span class="co"># Método que &quot;maneja&quot; un evento</span>
-
-<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
-    app <span class="op">=</span> wx.App()
-    fr <span class="op">=</span> MiFrame(<span class="va">None</span>, wx.ID_ANY, <span class="st">&quot;wxPython App&quot;</span>, size<span class="op">=</span>(<span class="dv">300</span>,<span class="dv">200</span>))
-    app.MainLoop()</code></pre></div>
-<p>Ahora vamos a tratar de explicar un poco lo anterior.</p>
-<p>Primero, definimos una clase <code>MiFrame</code> heredada de <code>wx.Frame</code>, agregamos el método <code>__init__</code> que para efectos de este mini-curso será nuestro <em>constructor</em> de la clase, y aquí en <code>__init__</code> es necesario llamar también al método <code>__init__</code> de la superclase, pasándole como argumentos aquellos que hemos recibido desde el constructor de nuestra clase <code>MiFrame</code>. Note que, debido a la sintaxis de Python, el parámetro <code>self</code> será siempre el primer argumento del método <code>__init__</code> de la clase y superclase. Dentro del método <code>__init__</code> habrán de agregarse todos los controles (que veremos en la siguiente entrega) y hacer las <em>conexiones</em> de eventos requeridas. El método Show sirve, claro está, para mostrar el Frame en la pantalla.</p>
-<blockquote style="border-radius: 5px; font-size: 12px; padding: 5px; 
-border-left: thick solid #ddddff; border-right: thick solid #ddddff;
-background-color: #fafafa;">
-<p>Para llamar al método <code>__init__</code> de la superclase, también puede utilizar la otra notación que implica el uso de <code>super</code>, algo como:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">super</span>(MiFrame, <span class="va">self</span>).<span class="fu">__init__</span>(<span class="op">*</span>args,<span class="op">**</span>kwargs)</code></pre></div>
-</blockquote>
-<p>El método <code>OnEvent</code> ejemplifica la estructura de un método que se encarga de <em>manejar</em> la respuesta a un evento, lo cual estaremos viendo en entradas posteriores.</p>
-<p>Finalmente, lo único que hacemos es instanciar un objeto de la clase <code>MiFrame</code>, con los mismos argumentos que utilizaríamos para uno de <code>wx.Frame</code>. Y bueno, lo de la clase <code>wx.App</code> ya nos lo sabemos, puesto que lo hemos visto en la entrada anterior.</p>
-<p>Para que lo anterior quede un poco más claro vamos a ver ejemplo <em>reproducible</em>, para que ustedes puedan escribir (o copiar) el código, correrlo y jugar con el, de eso se trata.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
-
-<span class="kw">class</span> MiFrame(wx.Frame):
-    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,<span class="op">*</span>args,<span class="op">**</span>kwargs):
-        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,<span class="op">*</span>args,<span class="op">**</span>kwargs)
-
-        <span class="co"># Agregando botones</span>
-        <span class="va">self</span>.button <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Botón A&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>), pos<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))
-        <span class="va">self</span>.button <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Botón B&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>), pos<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">50</span>))
-        
-        <span class="co"># Conectando el evento de un botón</span>
-        <span class="va">self</span>.Bind(wx.EVT_BUTTON, <span class="va">self</span>.OnClick)
-        
-        <span class="co"># Mostrando la interfaz</span>
-        <span class="va">self</span>.Show()
-        
-    <span class="kw">def</span> OnClick(<span class="va">self</span>,event):
-        <span class="bu">print</span>(<span class="st">u&quot;Botón presionado: </span><span class="sc">%s</span><span class="st">&quot;</span><span class="op">%</span>(event.EventObject.GetLabel()))
-
-            
-<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
-    app <span class="op">=</span> wx.App() 
-    fr <span class="op">=</span> MiFrame(<span class="va">None</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">&quot;wxPython App&quot;</span>, size<span class="op">=</span>(<span class="dv">300</span>,<span class="dv">200</span>))
-    app.MainLoop()</code></pre></div>
-<p>No deben preocuparse si hay algunas partes del código que puedan resultar incomprensibles ahora, la idea de lo anterior es nada más mostrar una mini-estructura de aplicación wxPython, ya iremos viendo y puliendo cada uno de esos elementos.</p>
-<p>Ya en la siguiente entrada veremos cómo agregar controles a un Frame, y posicionarlos manualmente mediante el atributo <code>pos</code>, haciendo referencia también otros detalles como el posicionamiento automático mediante Sizers (un tema que veremos un poco después de habernos familiarizado más con wxPython).</p>
-<p>Y ya saben: cualquier sugerencia, comentario, duda u otro tipo de colaboración será siempre bienvenida.</p>
-<button type="button" style="background-color: rgba(102,217,255,0.6); border-radius: 5px; box-shadow: 2px #ffaaff; padding: 5px;">
-<a href="http://www.pythondiario.com/2016/03/mini-curso-de-wxpython-1-introduccion.html#sumario-del-curso" style="color: #505050"><strong>Volver al índice</strong></a>
-=======
-</head>
-<body>
 <p>// # Agregando controles</p>
 <p>En las entradas anteriores hemos visto algunos ejemplos de aplicaciones muy sencillas que contienen algunos controles, pero aún no hemos <em>hecho hincapié</em> en la forma de agregar los controles y todas las consideraciones que esto conlleva.</p>
-<p>Antes de comenzar hay algunas cuestiones que debemos aclarar un poco. En toda librería gráfica existe el concepto de componente y contenedor, o de <em>padre</em> e <em>hijo</em>, el componente u <em>objeto hijo</em> será cualquier control gráfico contenido dentro de un contenedor (sí, suena raro, pero así es)</p>
-<p>En wxPython existen dos formas de agregar y distribuir los objetos gráficos dentro de nuestra aplicación, a saber:</p>
+<p>Antes de comenzar hay algunas cuestiones que debemos aclarar un poco. En toda librería gráfica existe el concepto de componente y contenedor, o de <em>padre</em> e <em>hijo</em>, el componente u <em>objeto hijo</em> será cualquier control gráfico contenido dentro de un contenedor (sí, suena raro, pero así es). Normalmente dentro del grupo de contenedores se incluyen todos aquellos elementos como los paneles y frames, que sirven para organizar el contenido de una interfaz gráfica.</p>
+<p>En wxPython existen dos formas de agregar y distribuir los objetos gráficos dentro de nuestra interfaz, a saber:</p>
 <ul>
 <li>Posicionamiento absoluto</li>
-<li>Posicionamiento relativo</li>
+<li>Utilizando sizers</li>
 </ul>
-<p>El <strong>posicionamiento absoluto</strong> refiere a colocar los controles gráficos</p>
+<p>El <strong>posicionamiento absoluto</strong> implica colocar los controles gráficos de manera absoluta mediante el argumento <code>pos</code>, en el cual se indica mediante una tupla de dos elementos la posición en X e Y medida en pixeles. Esta es una forma un tanto sencilla de posicionar componentes, pero que en aplicaciones que van más allá de unos cuantos controles resulta difícil de implementar.</p>
+<p>El <strong>uso de sizers</strong> es, digamos, la forma <em>correcta</em> de ir agregando controles a nuestra aplicación, quizá al principio pueda resultar un poco más complicada de entender, pero, las ventajas son muy notorias desde muy temprano. Sin entrar en muchos detalles técnicos, los <strong>sizers</strong> son <em>mecanismos de diseño</em> que sirven para posicionar y redimensionar los objetos dentro de una interfaz gráfica.</p>
+<p>Bueno, una vez <em>puestos en la mesa</em> los puntos anteriores, vamos a ver cómo agregamos controles a una interfaz gráfica. Normalmente, para instanciar un control de wxPython, el primer argumento será siempre el objeto padre, por ejemplo, veamos que nos dice la ayuda de wxPython sobre la sintaxis para crear un Botón:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>(wx.Button.<span class="fu">__init__</span>)
+Help on method <span class="fu">__init__</span> <span class="op">in</span> module wx._controls:
+
+<span class="fu">__init__</span>(<span class="va">self</span>, <span class="op">*</span>args, <span class="op">**</span>kwargs) unbound wx._controls.Button method
+    <span class="fu">__init__</span>(<span class="va">self</span>, Window parent, <span class="bu">int</span> <span class="bu">id</span><span class="op">=-</span><span class="dv">1</span>, String label<span class="op">=</span>EmptyString, 
+        Point pos<span class="op">=</span>DefaultPosition, Size size<span class="op">=</span>DefaultSize, 
+        <span class="bu">long</span> style<span class="op">=</span><span class="dv">0</span>, Validator validator<span class="op">=</span>DefaultValidator, 
+        String name<span class="op">=</span>ButtonNameStr) <span class="op">-&gt;</span> Button</code></pre></div>
 <button type="button" style="background-color: rgba(102,217,255,0.6); border-radius: 5px; box-shadow: 2px #ffaaff; padding: 5px;">
 <a href="http://www.pythondiario.com/2016/03/mini-curso-de-wxpython-1-introduccion.html#sumario-del-curso" style="color: #505050; 
 text-decoration: none;"><strong>Volver al índice</strong></a>
->>>>>>> 560f6d83f76c6ea405b09d0a656a5ee5325b4b59
 </button>
 </body>
 </html>
