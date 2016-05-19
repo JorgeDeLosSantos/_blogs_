@@ -4,41 +4,42 @@ Esta es una traducción/adaptación de [Numpy for Matlab users](https://docs.sci
 
 ### Introducción
 
-MATLAB® and NumPy/SciPy have a lot in common. But there are many differences. NumPy and SciPy were created to do numerical and scientific computing in the most natural way with Python, not to be MATLAB® clones. This page is intended to be a place to collect wisdom about the differences, mostly for the purpose of helping proficient MATLAB® users become proficient NumPy and SciPy users.
+<!-- MATLAB® and NumPy/SciPy have a lot in common. But there are many differences. NumPy and SciPy were created to do numerical and scientific computing in the most natural way with Python, not to be MATLAB® clones. This page is intended to be a place to collect wisdom about the differences, mostly for the purpose of helping proficient MATLAB® users become proficient NumPy and SciPy users. -->
 
 MATLAB y NumPy/SciPy tienen mucho en común. Pero hay muchas diferencias. NumPy y SciPy fueron creados para 
 *hacer* computación científica y numérica de manera más natural con Python, no como un clon de MATLAB. 
 
-### Some Key Differences
+<!-- ### Some Key Differences -->
+### Algunas diferencias fundamentales
 
-In MATLAB®, the basic data type is a multidimensional array of double precision floating point numbers. Most expressions take such arrays and return such arrays. Operations on the 2-D instances of these arrays are designed to act more or less like matrix operations in linear algebra.
+<!-- In MATLAB®, the basic data type is a multidimensional array of double precision floating point numbers. Most expressions take such arrays and return such arrays. Operations on the 2-D instances of these arrays are designed to act more or less like matrix operations in linear algebra. -->
 
 En MATLAB, el tipo de dato básico es un array multidimensional de precisión doble. La mayoría de las expresiones 
 toman un array y devuelven justamente el mismo tipo de dato. Las operaciones de arrays bidimensionales están 
 diseñadas para actuar más o menos como las operaciones matriciales del álgebra lineal.
 
-In NumPy the basic type is a multidimensional array. Operations on these arrays in all dimensionalities including 2D are elementwise operations. However, there is a special matrix type for doing linear algebra, which is just a subclass of the array class. Operations on matrix-class arrays are linear algebra operations.
+<!-- In NumPy the basic type is a multidimensional array. Operations on these arrays in all dimensionalities including 2D are elementwise operations. However, there is a special matrix type for doing linear algebra, which is just a subclass of the array class. Operations on matrix-class arrays are linear algebra operations. -->
 
 En NumPy el tipo básico es un array multidimensional. Las operaciones en estos arrays en todas sus dimensiones, 
 incluyendo 2D, son operaciones elemento a elemento. Sin embargo, hay un tipo `matrix` especial para hacer 
 operaciones de álgebra lineal, el cual es justamente una subclase de la clase `array`. Las operaciones 
 en la clase `matrix` son operaciones de álgebra lineal.
 
-MATLAB® uses 1 (one) based indexing. The initial element of a sequence is found using a(1). See note INDEXING	
+<!-- MATLAB® uses 1 (one) based indexing. The initial element of a sequence is found using a(1). See note INDEXING	 -->
 
 MATLAB utiliza indexación basada en 1 (uno). El elemento inicial de la secuencia A se obtiene usando A(1).
 
-Python uses 0 (zero) based indexing. The initial element of a sequence is found using a[0].
+<!-- Python uses 0 (zero) based indexing. The initial element of a sequence is found using a[0]. -->
 
 Python utiliza indexación basada en 0 (cero). El elemento inicial de la secuencia A se obtiene usando A[0].
 
-MATLAB®’s scripting language was created for doing linear algebra. The syntax for basic matrix operations is nice and clean, but the API for adding GUIs and making full-fledged applications is more or less an afterthought.	
+<!-- MATLAB®’s scripting language was created for doing linear algebra. The syntax for basic matrix operations is nice and clean, but the API for adding GUIs and making full-fledged applications is more or less an afterthought.	 -->
 
 El lenguaje de scripting MATLAB fue creado para *hacer* algebra lineal. La sintaxis para la mayoría de las operaciones 
 matriciales básicas es buena y clara, pero la API para agregar una interfaz gráfica y hacer *aplicaciones de verdad* 
 es más o menos una idea adicionada posteriormente y cuya integración es poco fluida.
 
-NumPy is based on Python, which was designed from the outset to be an excellent general-purpose programming language. While Matlab’s syntax for some array manipulations is more compact than NumPy’s, NumPy (by virtue of being an add-on to Python) can do many things that Matlab just cannot, for instance subclassing the main array type to do both array and matrix math cleanly.
+<!-- NumPy is based on Python, which was designed from the outset to be an excellent general-purpose programming language. While Matlab’s syntax for some array manipulations is more compact than NumPy’s, NumPy (by virtue of being an add-on to Python) can do many things that Matlab just cannot, for instance subclassing the main array type to do both array and matrix math cleanly. -->
 
 NumPy está basado en Python, el cuál fue diseñado desde un inicio para ser un excelente lenguaje de programación 
 de propósito general. Mientras la sintaxis de MATLAB para algunas manipulaciones de arrays es más compacta 
@@ -46,40 +47,62 @@ que la de NumPy, NumPy puede hacer muchas cosas que en MATLAB son imposibles, po
 principal tipo de array (clase `np.ndarray`) para hacer un tipo `matrix` que sea más claro para realizar 
 operaciones de álgebra lineal.
 
-In MATLAB®, arrays have pass-by-value semantics, with a lazy copy-on-write scheme to prevent actually creating copies until they are actually needed. Slice operations copy parts of the array.	
+<!-- In MATLAB®, arrays have pass-by-value semantics, with a lazy copy-on-write scheme to prevent actually creating copies until they are actually needed. Slice operations copy parts of the array.	 -->
 
 En MATLAB, los arrays tiene 
 
-In NumPy arrays have pass-by-reference semantics. Slice operations are views into an array.
+<!-- In NumPy arrays have pass-by-reference semantics. Slice operations are views into an array. -->
 
-En NumPy, 
+En NumPy, los arrays 
 
-### ‘array’ or ‘matrix’? Which should I use?
+<!-- ### ‘array’ or ‘matrix’? Which should I use? -->
 
 ### ¿`array` o `matrix`? ¿Cuál debería utilizar?
 
-Numpy provides, in addition to np.ndarray` an additional matrix type that you may see used in some existing code. Which one to use?
+<!-- Numpy provides, in addition to np.ndarray` an additional matrix type that you may see used in some existing code. Which one to use? -->
 
-#### Short answer
+NumPy proporciona adicionalmente a `np.ndarray` un tipo `matrix`, que puede utilizarse en algunas situaciones 
+¿Cuál debo usar?
+
+<!-- #### Short answer -->
 
 #### Respuesta corta
 
-**Use arrays**
+<!-- **Use arrays** -->
 
-They are the standard vector/matrix/tensor type of numpy. Many numpy function return arrays, not matrices.
+**Usar el tipo `array`**
+
+<!-- They are the standard vector/matrix/tensor type of numpy. Many numpy function return arrays, not matrices.
 There is a clear distinction between element-wise operations and linear algebra operations.
-You can have standard vectors or row/column vectors if you like.
-The only disadvantage of using the array type is that you will have to use dot instead of * to multiply (reduce) two tensors (scalar product, matrix vector multiplication etc.).
+You can have standard vectors or row/column vectors if you like. -->
+<!-- The only disadvantage of using the array type is that you will have to use dot instead of * to multiply (reduce) two tensors (scalar product, matrix vector multiplication etc.). -->
+* Es el tipo de matriz/vector estándar de NumPy. Muchas funciones de NumPy devuelven un array, no matrices.
+* Hay una distinción clara entre las operaciones elemento a elemento y las de álgebra lineal.
+* Puede tener vectores estándar o vectores filas/columnas si lo requiere.
 
-#### Long answer
+La única desventaja de usar el tipo array es que tendrás que utilizar la función/método `dot` en lugar de `*` para 
+multiplicar dos tensores (producto escalar, multiplicación matricial,...)
 
-#### 
+<!-- #### Long answer -->
 
-Numpy contains both an array class and a matrix class. The array class is intended to be a general-purpose n-dimensional array for many kinds of numerical computing, while matrix is intended to facilitate linear algebra computations specifically. In practice there are only a handful of key differences between the two.
+#### Respuesta larga
 
-Operator *, dot(), and multiply():
+<!-- Numpy contains both an array class and a matrix class. The array class is intended to be a general-purpose n-dimensional array for many kinds of numerical computing, while matrix is intended to facilitate linear algebra computations specifically. In practice there are only a handful of key differences between the two. -->
+
+NumPy contiene una clase `array` y una clase `matrix`. La clase `array` tiene la finalidad de ser un 
+array n-dimensional de propósito general para muchos tipos de computación numérica, mientras la 
+clase `matrix` tiene la finalidad de facilitar especificamente cuestiones relacionadas con la 
+computación del álgebra lineal. En la práctica, sólo hay un puñado de diferencias claves 
+entre ambas:
+
+<!-- Operator *, dot(), and multiply():
 For array, ‘``*``’ means element-wise multiplication, and the dot() function is used for matrix multiplication.
-For matrix, ‘``*``’ means matrix multiplication, and the multiply() function is used for element-wise multiplication.
+For matrix, ‘``*``’ means matrix multiplication, and the multiply() function is used for element-wise multiplication. -->
+
+* Operator `*`, `dot()`, and `multiply()`:
+	- Para array ---
+	- Para matrix
+
 Handling of vectors (rank-1 arrays)
 For array, the vector shapes 1xN, Nx1, and N are all different things. Operations like A[:,1] return a rank-1 array of shape N, not a rank-2 of shape Nx1. Transpose on a rank-1 array does nothing.
 For matrix, rank-1 arrays are always upconverted to 1xN or Nx1 matrices (row or column vectors). A[:,1] returns a rank-2 matrix of shape Nx1.
@@ -112,7 +135,7 @@ matrix
 <:( The use of operator overloading is a bit illogical: * does not work elementwise but / does.
 The array is thus much more advisable to use.
 
-Facilities for Matrix Users
+### Facilities for Matrix Users
 Numpy has some features that facilitate the use of the matrix type, which hopefully make things easier for Matlab converts.
 
 A matlib module has been added that contains matrix versions of common array constructors like ones(), zeros(), empty(), eye(), rand(), repmat(), etc. Normally these functions return arrays, but the matlib versions return matrix objects.
