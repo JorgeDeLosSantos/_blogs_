@@ -64,6 +64,27 @@ Help on method <span class="fu">__init__</span> <span class="op">in</span> modul
         Point pos<span class="op">=</span>DefaultPosition, Size size<span class="op">=</span>DefaultSize, 
         <span class="bu">long</span> style<span class="op">=</span><span class="dv">0</span>, Validator validator<span class="op">=</span>DefaultValidator, 
         String name<span class="op">=</span>ButtonNameStr) <span class="op">-&gt;</span> Button</code></pre></div>
+<p>Como se observa, el primer argumento indicado es el parámetro <strong>self</strong>, el cual no se pasa de manera explícita en los argumentos de entrada, seguido por un objeto padre, que es el primer argumento real que se pasa al momento de instanciar un objeto gráfico. Luego se debe colocar un identificador, que debe ser un entero cualesquiera, pero que normalmente se recomienda utilizar el -1 o la constante wx.ID_ANY para dejar que wxPython se encargue de asignar el número correspondiente. Luego, el resto de argumentos incluyen algunas cuestiones más propias de cada control. Note que también podemos pasar tanto la posición como el tamaño del objeto, mediante los argumentos <code>pos</code> y <code>size</code>, respectivamente. Una linea típica para el caso de un botón sería:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">boton <span class="op">=</span> wx.Button(panel, wx.ID_ANY, <span class="st">u&quot;Botón 1&quot;</span>, pos<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">0</span>), size<span class="op">=</span>(<span class="dv">80</span>,<span class="dv">20</span>))</code></pre></div>
+<p>De hecho en la entrada anterior vimos un ejemplo con dos botones posicionados de manera manual:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
+
+<span class="kw">class</span> MiFrame(wx.Frame):
+    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,<span class="op">*</span>args,<span class="op">**</span>kwargs):
+        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,<span class="op">*</span>args,<span class="op">**</span>kwargs)
+
+        <span class="co"># Agregando botones</span>
+        <span class="va">self</span>.button <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Botón A&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>), pos<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))
+        <span class="va">self</span>.button <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Botón B&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>), pos<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">50</span>))
+        
+        <span class="co"># Mostrando la interfaz</span>
+        <span class="va">self</span>.Show()
+
+            
+<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
+    app <span class="op">=</span> wx.App() 
+    fr <span class="op">=</span> MiFrame(<span class="va">None</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">&quot;wxPython App&quot;</span>, size<span class="op">=</span>(<span class="dv">300</span>,<span class="dv">200</span>))
+    app.MainLoop()</code></pre></div>
 <button type="button" style="background-color: rgba(102,217,255,0.6); border-radius: 5px; box-shadow: 2px #ffaaff; padding: 5px;">
 <a href="http://www.pythondiario.com/2016/03/mini-curso-de-wxpython-1-introduccion.html#sumario-del-curso" style="color: #505050; 
 text-decoration: none;"><strong>Volver al índice</strong></a>

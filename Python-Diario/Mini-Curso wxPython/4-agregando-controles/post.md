@@ -44,8 +44,47 @@ __init__(self, *args, **kwargs) unbound wx._controls.Button method
         String name=ButtonNameStr) -> Button
 ```
 
-Como se observa, el primer argumento indicado es el parámetro **self**, el cual no se pasa de manera explícita en 
-los argumentos de entrada.
+Como se observa, el primer argumento indicado es el parámetro **self**, el cual no se pasa de manera 
+explícita en los argumentos de entrada, seguido por un objeto padre, que es el primer 
+argumento real que se pasa al momento de instanciar un objeto gráfico. Luego se debe colocar un 
+identificador, que debe ser un entero cualesquiera, pero que normalmente se recomienda utilizar 
+el -1 o la constante wx.ID_ANY para dejar que wxPython se encargue de asignar el número correspondiente. 
+Luego, el resto de argumentos incluyen algunas cuestiones más propias de cada control. Note que 
+también podemos pasar tanto la posición como el tamaño del objeto, mediante los argumentos 
+`pos` y `size`, respectivamente. Una linea típica para el caso de un botón sería:
+
+```python
+boton = wx.Button(panel, wx.ID_ANY, u"Botón 1", pos=(0,0), size=(80,20))
+```
+
+De hecho en la entrada anterior vimos un ejemplo con dos botones posicionados de manera manual:
+
+```python
+import wx
+
+class MiFrame(wx.Frame):
+    def __init__(self,*args,**kwargs):
+        wx.Frame.__init__(self,*args,**kwargs)
+
+        # Agregando botones
+        self.button = wx.Button(self, -1, u"Botón A", size=(100,20), pos=(10,10))
+        self.button = wx.Button(self, -1, u"Botón B", size=(100,20), pos=(10,50))
+        
+        # Mostrando la interfaz
+        self.Show()
+
+            
+if __name__=='__main__':
+    app = wx.App() 
+    fr = MiFrame(None, -1, "wxPython App", size=(300,200))
+    app.MainLoop()
+```
+
+En este caso, el objeto padre es el Frame mismo, y por ello se pasa el parámetro `self` como 
+primer argumento.
+
+
+
 
 <button type="button" style="background-color: rgba(102,217,255,0.6); border-radius: 5px; box-shadow: 2px #ffaaff; padding: 5px;">
 <a href="http://www.pythondiario.com/2016/03/mini-curso-de-wxpython-1-introduccion.html#sumario-del-curso" style="color: #505050; 
