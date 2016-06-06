@@ -1,9 +1,0 @@
-digraph{
-A [label="wx.MenuBar"];
-B [label="wx.Menu"];
-C [label="wx.MenuItem"];
-
-A -> B;
-B -> C;
-
-}
