@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<p>!# Análisis estructural con Python I</p>
+<p>El análisis estructural es uno de los aspectos elementales para aquellos que nos dedicamos al diseño mecánico o cuestiones similares. En los cursos universitarios de resistencia de materiales se enseñan algunos métodos analíticos que permiten obtener soluciones rápidas para componentes mecánicos simples. No obstante, cuando las geometrías se complican se hace necesario utilizar el enfoque numérico e implementar una metodología de solución utilizando el método de los elementos finitos, el cual proporciona una solución aproximada que será adecuada en medida de ciertos criterios, tales como el tamaño y tipo de elementos, la física del problema, entre otros.</p>
+<p>El propósito del presente minicurso es introducir al lector en el uso de las herramientas numéricas que proporciona Python para la solución de problemas de análisis estructural utilizando el MEF.</p>
+<p>Como pequeño recordatorio, sabemos que el método de los elementos finitos consiste en la discretización de un continuo en pequeños elementos, con la finalidad de establecer un sistema de ecuaciones que describa de manera aproximada el comportamiento individual y global del sistema, pasando por la inclusión de las condiciones de frontera y todas las consideraciones físicas que deriven en la simplificación del problema.</p>
+<p>En análisis numérico estructural el método de los desplazamientos o de la rigidez, asume que los desplazamientos nodales son las variables desconocidas y comúnmente se debe resolver una ecuación algebraica del tipo:</p>
+<p><br /><span class="math display"><em>F</em> = <em>K</em><em>U</em></span><br /></p>
+<p>Donde F es el vector de fuerzas nodales, K la matriz global de rigidez y U el vector de desplazamientos nodales.</p>
+<p>Dado que normalmente los desplazamientos son las incógnitas, se tiene que:</p>
+<p>\[ U = K^{-1} F \]</p>
+<h3 id="un-caso-muy-simple-elementos-resorte">Un caso muy simple: elementos resorte</h3>
+<p>Vamos a comenzar con un ejemplo muy simple del sistema de resortes que se muestra en la figura siguiente.</p>
+<p>El elemento resorte es el elemento más sencillo, sólo tiene un grado de libertad: en dirección axial. La matriz de rigidez para un elemento viene dada por:</p>
+<p><br /><span class="math display">$$ 
+k^{(e)} = 
+\begin{matrix}
+k_e &amp; - k_e \\
+- k_e &amp; k_e \\
+\end{matrix}
+$$</span><br /></p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># -*- coding: utf8 -*-</span>
+<span class="im">import</span> numpy <span class="im">as</span> np
+<span class="im">import</span> numpy.linalg <span class="im">as</span> la
+
+<span class="co"># Datos iniciales</span>
+k1 <span class="op">=</span> <span class="fl">1000.0</span>
+k2 <span class="op">=</span> <span class="fl">2000.0</span>
+k3 <span class="op">=</span> <span class="fl">3000.0</span>
+P <span class="op">=</span> <span class="fl">5000.0</span>
+
+<span class="co"># Matrices por elemento</span>
+K1 <span class="op">=</span> np.array([[k1,<span class="op">-</span>k1],[<span class="op">-</span>k1,k1]])
+K2 <span class="op">=</span> np.array([[k2,<span class="op">-</span>k2],[<span class="op">-</span>k2,k2]])
+K3 <span class="op">=</span> np.array([[k3,<span class="op">-</span>k3],[<span class="op">-</span>k3,k3]])
+
+<span class="co"># Matriz global </span>
+K <span class="op">=</span> np.array([[  K1[<span class="dv">0</span>,<span class="dv">0</span>],        <span class="dv">0</span>,           K1[<span class="dv">0</span>,<span class="dv">1</span>],                <span class="dv">0</span>],
+               [      <span class="dv">0</span> ,  K3[<span class="dv">0</span>,<span class="dv">0</span>],                 <span class="dv">0</span>,          K3[<span class="dv">0</span>,<span class="dv">1</span>]],
+               [ K1[<span class="dv">1</span>,<span class="dv">0</span>],        <span class="dv">0</span>,   K1[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">+</span>K2[<span class="dv">0</span>,<span class="dv">0</span>],          K2[<span class="dv">0</span>,<span class="dv">1</span>]],
+               [       <span class="dv">0</span>,  K3[<span class="dv">1</span>,<span class="dv">0</span>],           K2[<span class="dv">1</span>,<span class="dv">0</span>],  K2[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">+</span>K3[<span class="dv">1</span>,<span class="dv">1</span>]]])
+               
+F <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, P])
+
+<span class="co"># Condiciones de frontera</span>
+<span class="co"># Nodos 1 y 2 conocidos -&gt; UX = 0</span>
+KS <span class="op">=</span> K[<span class="dv">2</span>:,<span class="dv">2</span>:]
+FS <span class="op">=</span> F[<span class="dv">2</span>:]
+
+<span class="co"># Resolviendo</span>
+USOL <span class="op">=</span> la.solve(KS, FS)
+
+<span class="co"># Vector de desplazamientos</span>
+USOL <span class="op">=</span> np.concatenate(([<span class="dv">0</span>,<span class="dv">0</span>],USOL))
+
+<span class="co"># Obteniendo las fuerzas nodales</span>
+NF <span class="op">=</span> np.dot(K,USOL)
+
+<span class="co"># Presentando los resultados</span>
+<span class="cf">for</span> nodo <span class="op">in</span> <span class="bu">range</span>(<span class="dv">4</span>):
+    <span class="bu">print</span>(<span class="st">&quot;</span><span class="sc">%g</span><span class="st">  UX = </span><span class="sc">%-8.4f</span><span class="st">    FX = </span><span class="sc">%-8.4f</span><span class="st">&quot;</span><span class="op">%</span>(nodo<span class="dv">+1</span>, USOL[nodo], NF[nodo]))</code></pre></div>
+</body>
+</html>
