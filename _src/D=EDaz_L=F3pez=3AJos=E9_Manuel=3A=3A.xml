@@ -1,0 +1,669 @@
+<?xml version='1.0' encoding='utf-8'?>
+<eprints xmlns='http://eprints.org/ep2/data/2.0'>
+  <eprint id='http://oa.upm.es/id/eprint/34780'>
+    <eprintid>34780</eprintid>
+    <rev_number>13</rev_number>
+    <documents>
+      <document id='http://oa.upm.es/id/document/90125'>
+        <docid>90125</docid>
+        <rev_number>1</rev_number>
+        <files>
+          <file id='http://oa.upm.es/id/file/499015'>
+            <fileid>499015</fileid>
+            <datasetid>document</datasetid>
+            <objectid>90125</objectid>
+            <filename>PFC_victor_lera_martinez.pdf</filename>
+            <mime_type>application/pdf</mime_type>
+            <hash>e377db685a6355d2ced3d23485aee90e</hash>
+            <hash_type>MD5</hash_type>
+            <filesize>4711733</filesize>
+            <mtime>2015-03-17 16:49:21</mtime>
+            <url>http://oa.upm.es/34780/1/PFC_victor_lera_martinez.pdf</url>
+          </file>
+        </files>
+        <eprintid>34780</eprintid>
+        <pos>1</pos>
+        <placement>1</placement>
+        <mime_type>application/pdf</mime_type>
+        <format>application/pdf</format>
+        <language>es</language>
+        <security>public</security>
+        <main>PFC_victor_lera_martinez.pdf</main>
+      </document>
+    </documents>
+    <eprint_status>archive</eprint_status>
+    <userid>2544</userid>
+    <dir>disk0/00/03/47/80</dir>
+    <datestamp>2015-03-18 11:09:44</datestamp>
+    <lastmod>2015-03-18 11:09:44</lastmod>
+    <status_changed>2015-03-18 11:09:44</status_changed>
+    <type>other</type>
+    <metadata_visibility>show</metadata_visibility>
+    <creators>
+      <item>
+        <name>
+          <family>Lera Martínez</family>
+          <given>Víctor Manuel</given>
+        </name>
+      </item>
+    </creators>
+    <contributors>
+      <item>
+        <name>
+          <family>Díaz López</family>
+          <given>José Manuel</given>
+        </name>
+      </item>
+    </contributors>
+    <title>Interacción desde dispositivos Android vía Bluetooth, con juguete teledirigido, para su uso por personas con discapacidad</title>
+    <rights>by-nc-nd</rights>
+    <ispublished>unpub</ispublished>
+    <subjects>
+      <item>informatica</item>
+      <item>telecomunicaciones</item>
+    </subjects>
+    <full_text_status>public</full_text_status>
+    <abstract>El Proyecto Fin de Carrera, con título, &quot;Interacción desde dispositivos Android vía Bluetooth, con juguete teledirigido, para su uso por personas con discapacidad&quot; pretende completar la primera versión de la aplicación sobre dispositivo Android para manejar un juguete teledirigido añadiendo nuevas formas de interactuar con el dispositivo Android. Para este caso, el juguete teledirigido es el mismo: el robot esférico llamado Sphero. Dicho robot posee una interfaz a través de la cual puede recibir instrucciones, y mediante las cuales, se puede poner en movimiento o iluminarse con diferentes colores. Esta ampliación facilitará la interacción del usuario con el dispositivo Android, además de ampliar la funcionalidad hacia la inversa: recibir los movimientos del robot Sphero en el dispositivo Android cuando es manejado con la mano.
+Completando la primera versión, como cumplimiento de este Proyecto Fin de Carrera, se han realizado una serie de mandos nuevos, los cuales abarcan desde el manejo del robot por instrucciones de voz, movimientos del dispositivo Android desde el que se ejecuta, describir una trayectoria dibujada previamente en el dispositivo Android, o, realizar una serie de movimientos corregidos mediante la aplicación gracias a los límites de movimientos para un usuario concreto que pueden introducirse. Además, completando lo anteriormente escrito, se ha desarrollado una aplicación web que registrará todos los datos de uso del juguete, la cual, explota una base de datos que almacena toda interacción con el juguete. Estos datos estarán asociados a un usuario, debido a que la aplicación Android debe perfilarse para el uso de un usuario concreto. El perfilado de usuario se ha completado añadiendo una serie de
+información que puede ser útil para la persona que analice el comportamiento de una persona con discapacidad que utilice la aplicación. Por último, se ha realizado un estudio de elementos externos que puedan facilitar la interacción con los dispositivos Android a personas que sufran alguna discapacidad.
+ABSTRACT.
+The Thesis, titled &quot;Interaction from Android devices via Bluetooth, with remote control toy, for use by people with disabilities&quot; project aims to complete the first version of the application on Android device to manage a remote control toy adding new ways of interacting to Android
+device. For this case, the remote control toy is the same: the spherical robot called Sphero.
+This robot has an interface through which it can receive instructions, and by means of which can be set in motion or illuminated with different colors. This expansion will facilitate user interaction with the Android device, and extend the functionality to reverse: receiving Sphero
+robot movements in the Android device when handled by hand. Completing the first version, in fulfillment of this Thesis, there have been a number of new controls, which range from control of robot by voice instructions, movements Android device from which it runs, describe
+a path drawn previously on your Android device, or perform a series of movements corrected by applying through limits of movement for a particular user can be made. Besides completing the above written, has developed a web application that will record all data on use of the toy,
+which exploits a database that stores all interaction with the toy. These data will be associated with a user, because the Android application should be outlined for the use of a particular user. The user profile is completed by adding a range of information that can be useful for the person to analyze the behavior of a disabled person to use the application. Finally, a study was made of external elements that can facilitate interaction with Android devices to people who suffer from a disability.</abstract>
+    <date_type>completed</date_type>
+    <date>2014-09-17</date>
+    <place_of_pub>Madrid</place_of_pub>
+    <institution>ETSIS_Telecomunicacion</institution>
+    <department>Ingenieria</department>
+    <refereed>TRUE</refereed>
+    <referencetext>Páginas Web Consultadas
+-http://developer.android.com
+-www.xatakandroid.com
+-www.wikipedia.org
+-www.niubie.com
+-http://www.androidcurso.com/
+-www.ausdroid.net
+-http://droideando.blogspot.com/
+-www.androidpit.es
+-www.fandroides.com
+-www.computerhoy.com
+-www.pcworld.es
+-www.europapress.es
+-www.mediamarkt.es
+-www.matamarcianos.es
+-http://www.google.com/glass/start/
+-http://stackoverflow.com/
+-https://github.com
+-www.php.net
+-www.w3schools.com
+-http://www.gosphero.com/
+-www.flurry.com</referencetext>
+  </eprint>
+  <eprint id='http://oa.upm.es/id/eprint/22179'>
+    <eprintid>22179</eprintid>
+    <rev_number>23</rev_number>
+    <documents>
+      <document id='http://oa.upm.es/id/document/25513'>
+        <docid>25513</docid>
+        <rev_number>4</rev_number>
+        <files>
+          <file id='http://oa.upm.es/id/file/354427'>
+            <fileid>354427</fileid>
+            <datasetid>document</datasetid>
+            <objectid>25513</objectid>
+            <filename>PFC_FERNANDO_PRIETO_MOYANO.pdf</filename>
+            <mime_type>application/pdf</mime_type>
+            <filesize>4552257</filesize>
+            <mtime>2014-09-22 11:29:28</mtime>
+            <url>http://oa.upm.es/22179/1/PFC_FERNANDO_PRIETO_MOYANO.pdf</url>
+          </file>
+        </files>
+        <eprintid>22179</eprintid>
+        <pos>1</pos>
+        <mime_type>application/pdf</mime_type>
+        <format>application/pdf</format>
+        <language>es</language>
+        <security>public</security>
+        <main>PFC_FERNANDO_PRIETO_MOYANO.pdf</main>
+        <relation>
+          <item>
+            <type>http://eprints.org/relation/hasVolatileVersion</type>
+            <uri>http://oa.upm.es/id/document/46209</uri>
+          </item>
+          <item>
+            <type>http://eprints.org/relation/haspreviewThumbnailVersion</type>
+            <uri>http://oa.upm.es/id/document/46209</uri>
+          </item>
+          <item>
+            <type>http://eprints.org/relation/hasVersion</type>
+            <uri>http://oa.upm.es/id/document/46209</uri>
+          </item>
+        </relation>
+      </document>
+      <document id='http://oa.upm.es/id/document/25514'>
+        <docid>25514</docid>
+        <rev_number>4</rev_number>
+        <files>
+          <file id='http://oa.upm.es/id/file/354428'>
+            <fileid>354428</fileid>
+            <datasetid>document</datasetid>
+            <objectid>25514</objectid>
+            <filename>PFC_FERNANDO_PRIETO_MOYANO_ANEXOS1.zip</filename>
+            <mime_type>application/zip</mime_type>
+            <filesize>55858960</filesize>
+            <mtime>2014-09-22 11:29:28</mtime>
+            <url>http://oa.upm.es/22179/2/PFC_FERNANDO_PRIETO_MOYANO_ANEXOS1.zip</url>
+          </file>
+        </files>
+        <eprintid>22179</eprintid>
+        <pos>2</pos>
+        <mime_type>application/zip</mime_type>
+        <format>application/zip</format>
+        <language>es</language>
+        <security>campus</security>
+        <main>PFC_FERNANDO_PRIETO_MOYANO_ANEXOS1.zip</main>
+      </document>
+      <document id='http://oa.upm.es/id/document/25515'>
+        <docid>25515</docid>
+        <rev_number>4</rev_number>
+        <files>
+          <file id='http://oa.upm.es/id/file/354429'>
+            <fileid>354429</fileid>
+            <datasetid>document</datasetid>
+            <objectid>25515</objectid>
+            <filename>PFC_FERNANDO_PRIETO_MOYANO_ANEXOS2.zip</filename>
+            <mime_type>application/zip</mime_type>
+            <filesize>26268877</filesize>
+            <mtime>2014-09-22 11:29:28</mtime>
+            <url>http://oa.upm.es/22179/3/PFC_FERNANDO_PRIETO_MOYANO_ANEXOS2.zip</url>
+          </file>
+        </files>
+        <eprintid>22179</eprintid>
+        <pos>3</pos>
+        <mime_type>application/zip</mime_type>
+        <format>application/zip</format>
+        <language>es</language>
+        <security>campus</security>
+        <main>PFC_FERNANDO_PRIETO_MOYANO_ANEXOS2.zip</main>
+      </document>
+    </documents>
+    <eprint_status>archive</eprint_status>
+    <userid>2544</userid>
+    <dir>disk0/00/02/21/79</dir>
+    <datestamp>2014-01-23 16:52:43</datestamp>
+    <lastmod>2014-09-22 11:29:28</lastmod>
+    <status_changed>2014-01-23 16:52:42</status_changed>
+    <type>other</type>
+    <metadata_visibility>show</metadata_visibility>
+    <item_issues_count>0</item_issues_count>
+    <creators>
+      <item>
+        <name>
+          <family>Prieto Moyano</family>
+          <given>Fernando</given>
+        </name>
+      </item>
+    </creators>
+    <contributors>
+      <item>
+        <name>
+          <family>Díaz López</family>
+          <given>José Manuel</given>
+        </name>
+      </item>
+    </contributors>
+    <title>Interacción con juguetes para usuarios con discapacidad usando equipos con S.O. Android</title>
+    <rights>by-nc-nd</rights>
+    <ispublished>unpub</ispublished>
+    <subjects>
+      <item>telecomunicaciones</item>
+      <item>informatica</item>
+    </subjects>
+    <full_text_status>restricted</full_text_status>
+    <abstract>El proyecto realizado, trata de una aplicación desarrollada en la plataforma Android, orientada a personas con algún tipo de discapacidad sensorial o psíquica. Dicha aplicación fomenta el uso y la integración de dispositivos móviles en este tipo de sector de población. Está pensada, para que, un usuario con discapacidad, pueda interactuar con ella y de forma transparente a él, se ha creado un sistema mediante el cual, se registra todo el comportamiento que ese usuario ha tenido durante el tiempo de uso de la aplicación, con el fin de llevar un seguimiento del mismo; evaluar si existen cambios en él; determinar si son necesarios algunos cambios en la aplicación que favorezcan una mejoría en cuanto al uso y consecución de resultados en el paciente, etc. Se ha combinado el uso de una aplicación instalada sobre un sistema operativo de libre distribución, concretamente Android, con un juguete de código abierto, como es Sphero. Eso ha permito el desarrollo de una aplicación perfectamente ajustada a los requisitos funcionales definidos, con una robustez y eficiencia similar a una aplicación de sistemas operativos móviles cerrados. Es importarte remarcar, que la primera finalidad de este proyecto es ofrecer la posibilidad de usar un juguete, como Sphero, que está orientado a un sector de población sin discapacidad, haciendo uso de cualquier dispositivo móvil, a personas con diferentes grados de discapacidad sensorial, motora y psíquica. Siempre clarificando, que no existe la posibilidad de usar esta aplicación para cualquier tipo y grado de discapacidad, ya que, ello supondría, un proyecto de una envergadura enorme. El hecho de usar un dispositivo móvil, es un derecho, que todos tenemos. Y por ello, se espera que tras la lectura y comprensión de este proyecto, se motive a los lectores a seguir desarrollando aplicaciones para que cualquier usuario, con discapacidad o no, tenga las mismas oportunidades de interactuación con dispositivos móviles.
+The carried out project, is an application developed on the Android platform , aimed at people with some kind of sensory or mental disability . This application encourages the use and integration of mobile devices in this type of population sector. It is designed to be interacted by a disable person and transparently to that user, it has been created a system by which all behavior, that user has had during the time of use of the application, is recorded, that’s to keep track of it ; assess whether there are changes in it, determine if changes are needed in the application that favor an improvement in the use and achieving patient outcomes , etc. . It has combined the use of an application installed on an open source operating system, namely Android, an open source toy , as is Sphero . That has made it possible to develop an application perfectly adjusted to the functional requirements defined with a robustness and efficiency similar to a mobile OS application closed. It is important to note, that the first aim of this project is to offer the possibility of using a toy, like Sphero , which is geared to a sector of the population without disabilities , using any mobile device , for people with different degrees of sensory impairment , motor and mental . Always clarifying that there is no possibility to use this application for any type and degree of disability, because the magnitude of the project would have been infinitely greater. The fact of using a mobile device, is a right we all have. And so, it is expected that upon reading and understanding of this project, motivate readers to continue developing applications for any user , disabled or not, have the same opportunities for interaction with mobile devices .</abstract>
+    <date_type>completed</date_type>
+    <date>2013-09-30</date>
+    <place_of_pub>Madrid</place_of_pub>
+    <institution>E_Telecomunicacion</institution>
+    <department>Ingenieria</department>
+    <refereed>TRUE</refereed>
+    <referencetext> Páginas Web Consultadas:
+o Historia de Android:
+http://es.wikipedia.org/wiki/Android
+http://www.slideshare.net/JoseDavidLeon/historia-de-android
+o Evolución de Android:
+http://www.elandroidelibre.com/2013/06/especial-la-evolucion-de-androiddesde-sus-inicios-hasta-ahora-1a-parte.html
+http://www.elandroidelibre.com/2013/06/especial-la-evolucion-de-androidde-froyo-a-jelly-bean-un-dulce-presente-y-futuro.html
+o Dalvik:
+http://androideity.com/2011/07/07/la-maquina-virtual-dalvik/
+o Ciclo de vida de actividades
+http://elbauldelprogramador.com/opensource/fundamentos-programacionandroid-ciclo/
+o Arquitectura
+http://androideity.com/2011/07/04/arquitectura-de-android/
+o Flurry Analytics
+http://support.flurry.com/index.php?title=Analytics/Overview
+o Comunicación, definición:
+http://www.definicionabc.com/comunicacion/comunicacion.php
+o Elementos de la comunicación:
+http://recursos.cnice.mec.es/lengua/profesores/eso1/t1/teoria_1.htm
+o Factores que limitan la comunicación:
+http://cangurorico.com/2009/02/barreras-en-la-comunicacion.html
+o Trastornos en la comunicación
+http://diversidad.murciaeduca.es/orientamur/gestion/documentos/unidad23.pdf
+o Discapacidad psíquica
+http://multiblog.educacion.navarra.es/iibarrog/diversidad/discapacidadpsiquica/
+o Discapacidad motora
+http://soleyma.wordpress.com/discapacidades/discapacidad-motora-2/
+o Discapacidad visual
+http://www.news-medical.net/health/Types-of-visual-impairment-%28Spanish%29.aspx
+o Juguetes adaptados
+http://www.bj-adaptaciones.com
+o Sistemas aumentativos SAAC
+http://www.catedu.es/arasaac/aac.php
+o Teléfonos adaptados para mayores
+http://www.emporia.eu/es/productos/vista-general/emporiacareplus
+o Flurry Analytics
+http://www.flurry.com/flurry-analytics.html
+ Documentación Android consultada para implementación de la aplicación:
+http://developer.android.com
+http://stackoverflow.com/
+https://github.com</referencetext>
+  </eprint>
+  <eprint id='http://oa.upm.es/id/eprint/13870'>
+    <eprintid>13870</eprintid>
+    <rev_number>31</rev_number>
+    <documents>
+      <document id='http://oa.upm.es/id/document/18110'>
+        <docid>18110</docid>
+        <rev_number>6</rev_number>
+        <files>
+          <file id='http://oa.upm.es/id/file/248500'>
+            <fileid>248500</fileid>
+            <datasetid>document</datasetid>
+            <objectid>18110</objectid>
+            <filename>PFC_EDUARDO_MARTIN_PASTOR.pdf</filename>
+            <mime_type>application/pdf</mime_type>
+            <filesize>1451049</filesize>
+            <mtime>2014-09-22 11:00:32</mtime>
+            <url>http://oa.upm.es/13870/3/PFC_EDUARDO_MARTIN_PASTOR.pdf</url>
+          </file>
+        </files>
+        <eprintid>13870</eprintid>
+        <pos>3</pos>
+        <mime_type>application/pdf</mime_type>
+        <format>application/pdf</format>
+        <language>es</language>
+        <security>public</security>
+        <main>PFC_EDUARDO_MARTIN_PASTOR.pdf</main>
+        <relation>
+          <item>
+            <type>http://eprints.org/relation/hasVolatileVersion</type>
+            <uri>http://oa.upm.es/id/document/41657</uri>
+          </item>
+          <item>
+            <type>http://eprints.org/relation/haspreviewThumbnailVersion</type>
+            <uri>http://oa.upm.es/id/document/41657</uri>
+          </item>
+          <item>
+            <type>http://eprints.org/relation/hasVersion</type>
+            <uri>http://oa.upm.es/id/document/41657</uri>
+          </item>
+        </relation>
+      </document>
+      <document id='http://oa.upm.es/id/document/18111'>
+        <docid>18111</docid>
+        <rev_number>6</rev_number>
+        <files>
+          <file id='http://oa.upm.es/id/file/248501'>
+            <fileid>248501</fileid>
+            <datasetid>document</datasetid>
+            <objectid>18111</objectid>
+            <filename>PFC_EDUARDO_MARTIN_PASTOR_ANEXOS.zip</filename>
+            <mime_type>application/zip</mime_type>
+            <filesize>2826</filesize>
+            <mtime>2014-09-22 11:00:32</mtime>
+            <url>http://oa.upm.es/13870/4/PFC_EDUARDO_MARTIN_PASTOR_ANEXOS.zip</url>
+          </file>
+        </files>
+        <eprintid>13870</eprintid>
+        <pos>4</pos>
+        <mime_type>application/zip</mime_type>
+        <format>application/zip</format>
+        <language>es</language>
+        <security>public</security>
+        <main>PFC_EDUARDO_MARTIN_PASTOR_ANEXOS.zip</main>
+      </document>
+    </documents>
+    <eprint_status>archive</eprint_status>
+    <userid>2544</userid>
+    <dir>disk0/00/01/38/70</dir>
+    <datestamp>2012-11-22 08:08:58</datestamp>
+    <lastmod>2014-09-22 11:00:32</lastmod>
+    <status_changed>2012-11-22 08:08:58</status_changed>
+    <type>other</type>
+    <metadata_visibility>show</metadata_visibility>
+    <item_issues_count>0</item_issues_count>
+    <creators>
+      <item>
+        <name>
+          <family>Martín Pastor</family>
+          <given>Eduardo</given>
+        </name>
+      </item>
+    </creators>
+    <contributors>
+      <item>
+        <name>
+          <family>Díaz López</family>
+          <given>José Manuel</given>
+        </name>
+      </item>
+    </contributors>
+    <title>Análisis de imágenes basado en correlación de imágenes</title>
+    <rights>by-nc-nd</rights>
+    <ispublished>unpub</ispublished>
+    <subjects>
+      <item>informatica</item>
+    </subjects>
+    <full_text_status>public</full_text_status>
+    <abstract>El objetivo principal del proyecto es la realización de una aplicación en el programa MATLAB. En primer lugar, realizaremos un estudio teórico relativo al tema de nuestro proyecto. En nuestro caso como el tema es Imagen y Televisión, explicaremos de forma teórica la información principal acerca del Tratamiento Digital de la Imagen. Una vez conocida las técnicas principales utilizadas en el tratamiento digital, realizaremos un estudio exhaustivo en las técnicas actuales que existen acerca del análisis de imágenes. Daremos una breve explicación mostrando en qué consiste esta técnica, los diferentes pasos que se llevan a cabo en una imagen para su análisis, explicando brevemente cada unos de ellos y enumerando algunas técnicas para la realización de cada una de ellas. Tras esta primera parte, nos centraremos en las técnicas de correlación de imágenes (DIC). Explicaremos como han surgido estas técnicas, cual son sus principales conceptos, sus inicios y las ventajas e inconvenientes que tienen. Dentro de las diferentes técnicas de correlación de imágenes, explicaremos de forma detallada la  correspondencia por áreas, ya que es la técnica que vamos a utilizar para la realización del proyecto. Explicaremos en qué consiste, y desarrollaremos teóricamente cual son los pasos que se deben realizar en las imágenes para realizar esta técnica. Explicaremos cual es su terminología, y cuáles son los posibles defectos que puede tener esta técnica. Finalmente, una vez estudiada la teoría, realizaremos una sencilla aplicación que nos permita evaluar y encontrar las diferencias en una secuencia de imágenes. El programa utilizado para este proyecto es MATLAB, que es un programa matemático, utilizado enormemente en el ámbito de la ingeniería. Mediante esta aplicación obtendremos dos figuras, una de ellas donde veremos los vectores de movimiento que existen entre las dos imágenes y la segunda, donde obtendremos el factor de correlación que hay entre las dos imágenes.  ABSTRACT OF MY PROJECT The main objective of the project is the development of an application in MATLAB program. Firstly carry out a theoretical study on the topic of our project. In our case as the theme is Picture and Television, we explain the main information about Digital Image Processing. Once known the main techniques used in digital images, we will make a study on current techniques that exist about image analysis. We will give a brief explanation showing what this technique is, the different steps that are performed on an image for analysis, briefly explaining each of them and listing some techniques for performing each. After this first part, we will focus on the techniques of image correlation (DIC). We explain how these techniques have emerged, which are the main concepts, the beginning and the advantages and disadvantages they have. There are different image correlation techniques. We will explain in detail the correspondence areas, as it is the technique that we will use for the project. Explain what it is, which is theoretically and we develop steps that must be performed on the images for this technique. We explain what their terminology is, and what are the possible defects that may have this technique. Finally, having explored the theory images, we will make a simple application that allows us to evaluate and find differences in a sequence of images. The program used for this project is MATLAB, a mathematical program, widely used in the field of engineering. Using this application will get two figures, one where we will see the motion vectors between the two images and the second where we get the correlation factor between the two images.</abstract>
+    <date_type>completed</date_type>
+    <date>2012-09-27</date>
+    <place_of_pub>Madrid</place_of_pub>
+    <institution>E_Telecomunicacion</institution>
+    <department>Ingenieria</department>
+    <refereed>TRUE</refereed>
+    <referencetext>- Apuntes de la asignatura Tratamiento Digital de la Imagen impartida por Alfonso Martín Marcos y José Manuel Díaz López.
+
+- Proyecto fin de carrera: “Control de movimiento basado en Imágenes”. Camilo Vázquez Herrero. Febrero 2012.
+
+- Proyecto fin de carera: “Análisis de Imágenes”. Carlos Martín Vallinas. 2001.
+
+- Análisis de deformaciones en probetas planas mediante correlación digital de imágenes. E. López-Alba, F.A. Díaz, R. Dorado, R. López-García.
+http://ww.uclm.es/actividades/2010/CongresolM/pdf/cdartículos/109.pdf
+
+- Lenguajes compilados vs Lenguajes interpretados.
+http://www.buenastareas.com/ensayos/Lenguajes-Interpretados-Vs-Lenguajes-Compilados-Desidia/3427582.html
+
+- Apuntes de Fotogrametría II. Universidad de Extremadura. Apartado 8.2: Principio de la correlación de imágenes.
+http://es.scribd.com/doc/36263964/98/Principio-de-la-correlacion-de-imagenes
+
+- Tutorial de Matlab.
+http://www.usc.es/gir/docencia_files/tdd/tutorial_matlab.pdf
+
+- Tutorial de Matlab. Antonio Souto Iglesias.
+http://canal.etsin.upm.es/web_cnum/main_matlab.pdf
+
+- Teoría de la Imagen Digital. Javier Monedero. 2008-2009.
+http://es.scribd.com/doc/67565862/15/Perturbaciones-caracteristicas-y-metodos-decorreccion</referencetext>
+  </eprint>
+  <eprint id='http://oa.upm.es/id/eprint/14013'>
+    <eprintid>14013</eprintid>
+    <rev_number>19</rev_number>
+    <documents>
+      <document id='http://oa.upm.es/id/document/18327'>
+        <docid>18327</docid>
+        <rev_number>6</rev_number>
+        <files>
+          <file id='http://oa.upm.es/id/file/251283'>
+            <fileid>251283</fileid>
+            <datasetid>document</datasetid>
+            <objectid>18327</objectid>
+            <filename>PFC_SARA_BILBAO_EGUREN.pdf</filename>
+            <mime_type>application/pdf</mime_type>
+            <filesize>5105907</filesize>
+            <mtime>2014-09-22 11:01:15</mtime>
+            <url>http://oa.upm.es/14013/1/PFC_SARA_BILBAO_EGUREN.pdf</url>
+          </file>
+        </files>
+        <eprintid>14013</eprintid>
+        <pos>1</pos>
+        <mime_type>application/pdf</mime_type>
+        <format>application/pdf</format>
+        <language>es</language>
+        <security>public</security>
+        <main>PFC_SARA_BILBAO_EGUREN.pdf</main>
+        <relation>
+          <item>
+            <type>http://eprints.org/relation/hasVolatileVersion</type>
+            <uri>http://oa.upm.es/id/document/41768</uri>
+          </item>
+          <item>
+            <type>http://eprints.org/relation/haspreviewThumbnailVersion</type>
+            <uri>http://oa.upm.es/id/document/41768</uri>
+          </item>
+          <item>
+            <type>http://eprints.org/relation/hasVersion</type>
+            <uri>http://oa.upm.es/id/document/41768</uri>
+          </item>
+        </relation>
+      </document>
+    </documents>
+    <eprint_status>archive</eprint_status>
+    <userid>2544</userid>
+    <dir>disk0/00/01/40/13</dir>
+    <datestamp>2012-12-07 08:55:40</datestamp>
+    <lastmod>2014-09-22 11:01:15</lastmod>
+    <status_changed>2012-12-07 08:55:40</status_changed>
+    <type>other</type>
+    <metadata_visibility>show</metadata_visibility>
+    <item_issues_count>0</item_issues_count>
+    <creators>
+      <item>
+        <name>
+          <family>Bilbao Eguren</family>
+          <given>Sara</given>
+        </name>
+      </item>
+      <item>
+        <name>
+          <family>Gravía García</family>
+          <given>Marina</given>
+        </name>
+      </item>
+    </creators>
+    <contributors>
+      <item>
+        <name>
+          <family>Díaz López</family>
+          <given>José Manuel</given>
+        </name>
+      </item>
+    </contributors>
+    <title>Reconocimiento de objetos a partir de imágenes termográficas</title>
+    <rights>by-nc-nd</rights>
+    <ispublished>unpub</ispublished>
+    <subjects>
+      <item>fisica</item>
+    </subjects>
+    <full_text_status>public</full_text_status>
+    <abstract>La termografía es un método de inspección y diagnóstico basado en la radiación infrarroja que emiten los cuerpos.
+Permite medir dicha radiación a distancia y sin contacto,
+obteniendo un termograma o imagen termográfica, objeto de
+estudio de este proyecto.
+Todos los cuerpos que se encuentren a una cierta temperatura
+emiten radiación infrarroja.
+Sin embargo, para hacer una inspección termográfica hay que
+tener en cuenta la emisividad de los cuerpos, capacidad que
+tienen de emitir radiación, ya que ésta no sólo depende de la temperatura del cuerpo, sino también de sus características superficiales.
+Las herramientas necesarias para conseguir un termograma son principalmente una cámara termográfica y un software que
+permita su análisis.
+La cámara percibe la emisión infrarroja de un objeto y lo convierte en una imagen visible, originalmente monocromática.
+Sin embargo, después es coloreada por la propia cámara o por
+un software para una interpretación más fácil del termograma.
+Para obtener estas imágenes termográficas existen varias técnicas, que se diferencian en cómo la energía calorífica
+se transfiere al cuerpo. Estas técnicas se clasifican en termografía pasiva, activa y vibrotermografía.
+El método que se utiliza en cada caso depende de las características térmicas del cuerpo, del tipo de defecto a
+localizar o la resolución espacial de las imágenes, entre otros factores.
+Para analizar las imágenes y así obtener diagnósticos y detectar defectos, es importante la precisión. Por ello existe un procesado de las imágenes, para minimizar los
+efectos provocados por causas externas, mejorar la calidad
+de la imagen y extraer información de las inspecciones realizadas.
+La termografía es un método de ensayo no destructivo muy
+flexible y que ofrece muchas ventajas.
+Por esta razón el campo de aplicación es muy amplio, abarcando desde aplicaciones industriales hasta investigación y desarrollo.
+Vigilancia y seguridad, ahorro energético, medicina o medio
+ambiente, son algunos de los campos donde la termografía aportaimportantes beneficios.
+Este proyecto es un estudio teórico de la termografía, donde
+se describen detalladamente cada uno de los aspectos mencionados.
+Concluye con una aplicación práctica, creando una cámara
+infrarroja a partir de una webcam, y realizando un análisis
+de las imágenes obtenidas con ella.
+Con esto se demuestran algunas de las teorías explicadas,
+así como la posibilidad de reconocer objetos mediante la
+termografía.
+Thermography is a method of testing and diagnosis based
+on the infrared radiation emitted by bodies.
+It allows to measure this radiation from a distance and with
+no contact, getting a thermogram or thermal image, object of
+study of this project.
+All bodies that are at a certain temperature emit infrared
+radiation.
+However, making a thermographic inspection must take into account the emissivity of the body, capability of emitting
+radiation.
+This not only depends on the temperature of the body, but also on its surface characteristics. The tools needed to
+get a thermogram are mainly a thermal imaging camera and software that allows analysis.
+The camera sees the infrared emission of an object and converts it into a visible image, originally monochrome.
+However, after it is colored by the camera or software for
+easier interpretation of thermogram.
+To obtain these thermal images it exists various techniques,
+which differ in how heat energy is transferred to the body.
+These techniques are classified into passive thermography,
+active and vibrotermografy.
+The method used in  each case depends on the thermal characteristics of the body, the type of defect to locate or spatial resolution of images, among other factors. To analyze the images and obtain diagnoses and defects, accuracy is important.
+Thus there is a image processing to minimize the effects caused by external causes, improving image quality and extract information from inspections.
+Thermography is a non-­‐destructive test method very flexible
+and offers many advantages.
+So the scope is very wide, ranging from industrial applications to research and development.Surveillance and
+security, energy saving, environmental or medicine are some
+of the areas where thermography provides significant benefits.
+This project is a theoretical study of thermography, which
+describes in detail each of these aspects.
+It concludes with a practical application, creating an infrared camera from a webcam, and making an analysis of the images obtained with it.
+This will demonstrate some of the theories explained as well as  the ability to recognize objects by thermography.</abstract>
+    <date_type>completed</date_type>
+    <date>2012-09-27</date>
+    <place_of_pub>Madrid</place_of_pub>
+    <institution>E_Telecomunicacion</institution>
+    <department>Ingenieria</department>
+    <refereed>TRUE</refereed>
+    <referencetext>Artículos consultados
+Detección de Peatones en el Espectro Visible e Infrarrojo para un Sistema Avanzado de Asistencia a la Conducción. Cristina Hilario Gómez. Departamento de Ingeniería de Sistemas y Automática. Universidad Carlos III de Madrid. Leganés, Octubre de 2008
+
+Termographic Image Processing for NDT. Clemente Ibarra-Castanedo, Abdelhakim Bendada and Xavier Maldade Electrical and Computing Engineering Department Quebec City (Quebec) G1V 0A6 Canada.
+
+Infrared Thermography Advances. John R. Snell Jr. Robert W. Spring. October 2, 2007
+
+Experimental Comparison of Lock-in and Pulsed Thermography for the Nondestructive Evaluation of Aerospace Materials. W. Ben Larbi, C. Ibarra-Castanedo, M. Klein , A. Bendada, and X. Maldague. Electrical and Computing Engineering Department, Université Laval, Quebec City (Quebec) G1V 0A6 Canada.
+
+Analysis of Ultrasonic Elastic Waves in Vibrothermography using FEM.
+W. Ben Larbi, C. Ibarra-Castanedo, M. Klein , A. Bendada, and X. Maldague
+Electrical and Computing Engineering Department, Université Laval,
+Quebec City (Quebec) G1V 0A6 Canada.
+
+Neonatal Infrared Thermography Image Processing. Lluis Bayo Catalan
+Helmholtz-Institute For Biomedical Engineering Rwth Aachen
+
+Procesamiento de imágenes infrarrojas para la detección de defectos en materiales. Hernán D Benítez1, Clemente Ibarra-Castanedo2, Abdelhakim Bendada3,Xavier Maldague4, Humberto Loaiza5,Eduardo Caicedo6
+
+Contribuciones a las técnicas no destructivas para evaluación y prueba de procesos y materiales basadas en radiaciones infrarrojas. Daniel Aquilino González Fernández Universidad de Cantabria
+
+Termografía Infrarroja Aérea: Una Herramienta en el Manejo de Propiedades Para Operadores de Sistemas de Calentamiento de un Distrito Determinado. Greg Stockton. Stockton Infrared Thermographic Services, Inc.
+
+Detección de incendios forestales con cámaras termográficas en Soria. Elena Soria Abad
+
+Aplicación de la termografía al estudio de pérdidas energéticas en edificios. G. SANGLIER. Dpto. de Observación de la Tierra, Teledetección y Atmósfera. INTA. Torrejón de Ardoz, Madrid
+
+Thermographic Inspection of Rotor Blades. Peter MEINLSCHMIDT, Jochen ADERHOLD. Fraunhofer-Institute for Wood Research (WKI), Braunschweig, Germany
+
+A review of NDT techniques for wind turbines. M A Drewry and G A Georgiou
+
+Aplicaciones de la termografia infrarroja y la espectrorradiometría en el estudio del deterioro del patrimonio arquitectónico nacional. J. A Cusido, M. Devant y J. Riba. Institut de Tecnología i Modelització Ambiental (UPC). Cataluña
+
+Páginas Web
+Termografía infrarroja como ensayo no destructivo: detección de defectos en componentes aerospaciales
+http://www.interempresas.net/MetalMecanica/Articulos/11149-Termografiainfrarroja-ensayo-no-destructivo-deteccion-defectos-componentesaerospaciales.html
+
+Obtesol, Observatotio Tecnológico de Soldadura
+http://www.obtesol.es/index.php?option=com_content&amp;task=view&amp;id=2794&amp;Itemid=31
+
+Xuletas – Principios de la Termografía
+http://www.xuletas.es/ficha/principios-de-la-termografia-1/
+
+QuimiNet, Información y Negocios Segundo a Segundo
+http://www.quiminet.com
+
+Universidad de Castilla y La Mancha
+http://www.info-ab.uclm.es/labelec/solar/otros/infrarrojos/fotodetectores.htm
+
+Cosmos, Tu Interfaz de Negocios
+http://www.cosmos.com.mx/j/tec/b1cx.htm
+
+SI Termografía Infrarroja
+http://www.termografia.com
+
+Jenck S.A, Instrumental Analítico
+http://www.jenck.com/productos/?idSubtecnica=10&amp;idProducto=119&amp;PHPSESSID=iljzfhqhsr#tab=0
+
+HGH, Systemes Infrarrouges
+http://www.hgh.fr/scanner-infrarouge-thermographie-infrared-thermographyes.php
+Rockwool
+http://www.rockwool.es/eficiencia+energ%C3%A9tica/stop+local+warming/termograf%C3%ADas
+
+Termografía Infrarroja, Soluciones en Imágenes Térmicas
+http://www.termografia.com.mx
+
+solomantenimiento.com, Portal de Mantenimiento e Industria
+http://www.solomantenimiento.com/m-termografia.htm
+
+investigaciondeincendios.com, Laboratorio de Ingeniería Forense
+http://estudios-termograficos.investigaciondeincendios.com/termografiaindustria/
+
+monografías.com - Mantenimiento Industrial. Termografía
+http://www.monografias.com/trabajos92/termografiamantenimiento/termografia-mantenimiento.shtml#aplicacioa
+
+InfraTec, Thermal imaging cameras for infrared thermography
+http://www.infratec.de/index.php?id=55&amp;L=2
+
+Soliclima, Energía Solar
+http://news.soliclima.com/divulgacion/eficiencia-energetica/la-termografiaaplicada-a-los-edificios
+
+Net-wind, Mantenimiento de parques eólicos
+http://www.net-wind.es/servicio-28-16-mantenimiento-predictivo-ypreventivo.php
+
+Icarus Solar, Energía solar, térmica y fotovoltaica
+http://www.icarus-solar.com/esFotovoltaica/instalacionesaisladas.html
+
+SoloStocks, mercado mayorista online de compraventa para empresas
+http://www.solostocks.com/venta-productos/negocios/industria/panelesfotovoltaicos-en-stock-3000420
+
+Voltimum, portal europeo líder de la instalación eléctrica
+http://www.voltimum.es/news/7484/cm/utilizacion-de-la-termografia-enplantas-fotovoltaicas.html
+
+Bottup – El mundo mágico de la fotografía infrarroja
+http://www.bottup.com/200902114302/cultura/el-mundo-magico-de-lafotografia-infrarroja.html
+
+El Mundo – Termografía en la restauración
+http://www.elmundo.es/magazine/2004/241/1083683781.html
+Heraldo de Soria - La restauración de las pinturas de Goya en la Cartuja de Aula Dei empezará en 2009
+http://www.heraldodesoria.es/index.php/mod.noticias/mem.detalle/idnoticia.10520/relcategoria.308
+
+FLIR, The World Leader in Thermal Imaging
+http://www.flir.com
+
+Nivela, Equipos de topografía, acústica y termografía
+http://www.nivelatermografia.net/termografia
+
+Goa Ibérica Tecnologías SL, diagnóstico de maquinaria
+http://goaiberica.es/uploadarchivos/vt.pdf
+
+Universidad Complutense de Madrid – Servicio de termografía aplicada a la edificación
+http://www.ucm.es/info/fisatom/docencia/Masterfisica/Renovables/info%20complementaria/Termografia%20aplicada%20ala%20edificacion.pdf
+
+Imedia Comunicación – Control de calidad en instalaciones fotovoltaicas
+http://www.imediapr.es/relatiosolar-documentos_files/control-calidadinstalaciones-fotovoltaicas.pdf</referencetext>
+  </eprint>
+</eprints>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rdf:RDF xmlns="http://usefulinc.com/ns/doap#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><Project><name>civeng</name>
+<shortdesc>civil engineering tools</shortdesc>
+<homepage rdf:resource="https://pypi.python.org/pypi/civeng" />
+<maintainer><foaf:Person><foaf:name>dutu8ure</foaf:name>
+<foaf:mbox_sha1sum>b35337a0337f73adfa9be2585d54a09c90c2dab9</foaf:mbox_sha1sum></foaf:Person></maintainer>
+<release><Version><revision>0.2.9</revision></Version></release>
+</Project></rdf:RDF>
