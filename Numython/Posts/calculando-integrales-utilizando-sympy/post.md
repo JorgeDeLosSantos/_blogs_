@@ -73,3 +73,12 @@ a*x**3/3 + b*x**2/2 + c*x
 ### Integrales definidas
 
 
+
+
+```python
+>>> from sympy.abc import x
+>>> from sympy import cos,pi,integrate
+>>> integrate(cos(x),(x,0,pi/2.0))
+1
+```
+

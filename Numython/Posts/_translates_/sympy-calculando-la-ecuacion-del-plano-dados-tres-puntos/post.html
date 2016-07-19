@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<h1 id="sympy-calculando-la-ecuación-de-un-plano-dados-tres-puntos">SymPy, calculando la ecuación de un plano dados tres puntos</h1>
+<p>SymPy es una de esas librerías que lo mismo sirven para hacer grandes cosas, que para <em>desempolvar</em> recuerdos y aplicarlos en cuestiones más orientadas a la etapa académica. Y es que las cuestiones de algebra simbólica suelen ser muy divertidas y lo suficientemente interesantes para mantener a un individuo ocupado.</p>
+<p>Bueno, sin más preámbulos, en este post vamos a ver cómo utilizar SymPy para calcular la ecuación de un plano dados tres puntos contenidos en este.</p>
+<p>Primero un poco de geometría elemental. Sean los tres puntos contenidos en el plano los siguientes:</p>
+<p><br /><span class="math display"><em>P</em><sub>1</sub> = (<em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>, <em>z</em><sub>1</sub>)</span><br /> <br /><span class="math display"><em>P</em><sub>2</sub> = (<em>x</em><sub>2</sub>, <em>y</em><sub>2</sub>, <em>z</em><sub>2</sub>)</span><br /> <br /><span class="math display"><em>P</em><sub>3</sub> = (<em>x</em><sub>3</sub>, <em>y</em><sub>3</sub>, <em>z</em><sub>3</sub>)</span><br /></p>
+<p>Luego, la ecuación implícita del plano podemos obtenerla resolviendo la ecuación dada por el determinante siguiente:</p>
+<p><br /><span class="math display">$$
+\left|\begin{matrix}
+x - x_1 &amp; y - y_1 &amp; z - z_1 \\
+x_2 - x_1 &amp; y_2 - y_2 &amp; z_2 - z_1 \\
+x_3 - x_1 &amp; y_3 - y_1 &amp; z_3 - z_1 \\
+\end{matrix}\right| = 0
+$$</span><br /></p>
+<p>La solución tradicional creo que, llegados a este punto, todos podemos obtenerla sin ningún tipo de sobresalto. Ahora, la idea es implementar una solución utilizando SymPy.</p>
+<p>SymPy dispone de una clase <code>Matrix</code>, que recibe como argumentos de entrada una lista de valores numéricos o bien de cualquier variable simbólica que haya sido definida previamente. Está claro que en este caso los valores de las coordenadas de los puntos son conocidos, pero las variables \(x, y, z\) serán variables de tipo simbólico. Para calcular el determinante de una matriz podemos utilizar la función <code>det</code>, que recibe como argumento de entrada un objeto de la clase Matrix. Una vez resuelto el determinante tendremos una ecuación de la forma:</p>
+<p><br /><span class="math display"><em>A</em><em>x</em> + <em>B</em><em>y</em> + <em>C</em><em>z</em> − <em>k</em> = 0</span><br /></p>
+<p>Veamos el código implementado en SymPy:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> sympy <span class="im">import</span> Matrix, det
+<span class="im">from</span> sympy.abc <span class="im">import</span> x,y,z
+
+P1 <span class="op">=</span> (<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)
+P2 <span class="op">=</span> (<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)
+P3 <span class="op">=</span> (<span class="op">-</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>)
+
+M <span class="op">=</span> Matrix([[x<span class="op">-</span>P1[<span class="dv">0</span>]     , y<span class="op">-</span>P1[<span class="dv">1</span>]     , z<span class="op">-</span>P1[<span class="dv">2</span>]]    ,
+            [P2[<span class="dv">0</span>]<span class="op">-</span>P1[<span class="dv">0</span>] , P2[<span class="dv">1</span>]<span class="op">-</span>P1[<span class="dv">1</span>] , P2[<span class="dv">2</span>]<span class="op">-</span>P1[<span class="dv">2</span>]],
+            [P3[<span class="dv">0</span>]<span class="op">-</span>P1[<span class="dv">0</span>] , P3[<span class="dv">1</span>]<span class="op">-</span>P1[<span class="dv">1</span>] , P3[<span class="dv">2</span>]<span class="op">-</span>P1[<span class="dv">2</span>]]])
+
+<span class="bu">print</span>(<span class="st">u&quot;Ecuación implícita: </span><span class="sc">%s</span><span class="st"> = 0&quot;</span><span class="op">%</span>det(M))</code></pre></div>
+<p>Lo cual nos devolverá en consola la ecuación implícita del plano:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">Ecuación implícita: <span class="dv">13</span><span class="op">*</span>x <span class="op">+</span> y <span class="op">-</span> <span class="dv">8</span><span class="op">*</span>z <span class="op">+</span> <span class="dv">9</span> <span class="op">=</span> <span class="dv">0</span></code></pre></div>
+<p>Ahora bien, si requerimos la ecuación anterior expresada de forma explícita como una función bivariable del tipo \(z=f(x,y)\), entonces, debemos utilizar la función <code>solve</code> y resolver la ecuación planteada respecto a \(z\), por ejemplo:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> sympy <span class="im">import</span> Matrix, solve, det
+<span class="im">from</span> sympy.abc <span class="im">import</span> x,y,z
+
+P1 <span class="op">=</span> (<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)
+P2 <span class="op">=</span> (<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)
+P3 <span class="op">=</span> (<span class="op">-</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>)
+
+M <span class="op">=</span> Matrix([[x<span class="op">-</span>P1[<span class="dv">0</span>]     , y<span class="op">-</span>P1[<span class="dv">1</span>]     , z<span class="op">-</span>P1[<span class="dv">2</span>]]    ,
+            [P2[<span class="dv">0</span>]<span class="op">-</span>P1[<span class="dv">0</span>] , P2[<span class="dv">1</span>]<span class="op">-</span>P1[<span class="dv">1</span>] , P2[<span class="dv">2</span>]<span class="op">-</span>P1[<span class="dv">2</span>]],
+            [P3[<span class="dv">0</span>]<span class="op">-</span>P1[<span class="dv">0</span>] , P3[<span class="dv">1</span>]<span class="op">-</span>P1[<span class="dv">1</span>] , P3[<span class="dv">2</span>]<span class="op">-</span>P1[<span class="dv">2</span>]]])
+
+sol <span class="op">=</span> solve(det(M), z)
+<span class="bu">print</span>(<span class="st">u&quot;Ecuación implícita: </span><span class="sc">%s</span><span class="st"> = 0&quot;</span><span class="op">%</span>det(M))
+<span class="bu">print</span>(<span class="st">u&quot;Ecuación explícita: z=</span><span class="sc">%s</span><span class="st">&quot;</span><span class="op">%</span>(sol[<span class="dv">0</span>]))</code></pre></div>
+<p>Resultando:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">Ecuación implícita: <span class="dv">13</span><span class="op">*</span>x <span class="op">+</span> y <span class="op">-</span> <span class="dv">8</span><span class="op">*</span>z <span class="op">+</span> <span class="dv">9</span> <span class="op">=</span> <span class="dv">0</span>
+Ecuación explícita: z<span class="op">=</span><span class="dv">13</span><span class="op">*</span>x<span class="op">/</span><span class="dv">8</span> <span class="op">+</span> y<span class="op">/</span><span class="dv">8</span> <span class="op">+</span> <span class="dv">9</span><span class="op">/</span><span class="dv">8</span></code></pre></div>
+<p>Incluso podemos graficar nuestro plano utilizando la función <code>plot3d</code> del módulo <code>plotting</code>:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> sympy.plotting <span class="im">import</span> plot3d
+
+plot3d(sol[<span class="dv">0</span>], (x,<span class="dv">0</span>,<span class="dv">5</span>), (y,<span class="dv">0</span>,<span class="dv">5</span>), title<span class="op">=</span><span class="st">&quot;$z = </span><span class="sc">%s</span><span class="st">$&quot;</span><span class="op">%</span>(latex(sol[<span class="dv">0</span>])))</code></pre></div>
+</body>
+</html>

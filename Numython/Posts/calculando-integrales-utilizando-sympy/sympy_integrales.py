@@ -4,4 +4,6 @@ from sympy.abc import x,y,z
 
 f = x+cos(x)
 
-print latex(integrate(f,x))
+fi = integrate(f,x)
+
+print fi

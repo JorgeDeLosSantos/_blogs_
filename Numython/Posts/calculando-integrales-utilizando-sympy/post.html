@@ -54,12 +54,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3 id="integrales-simples">Integrales simples</h3>
 <p>Vamos a ver cómo resolver integrales simples indefinidas, si, de esas que vemos en un primer curso. Para resolverlas tendremos que utilizar la función <code>ìntegrate</code>. Por ejemplo se tiene la siguiente función \(f(x)=x^2-3x+2 \).</p>
 <p>Como primer paso debemos importar lo que necesitaremos del paquete SymPy:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">    <span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> sympy.abc <span class="im">import</span> x
-    <span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> sympy <span class="im">import</span> integrate</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> sympy.abc <span class="im">import</span> x
+<span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> sympy <span class="im">import</span> integrate</code></pre></div>
 <p>Del módulo <code>abc</code> importamos la variable simbólica <code>x</code> e <code>ìntegrate</code> para resolver nuestra integral. Ahora, podemos <em>guardar</em> la función a integrar en una variable o bien pasarla directamente como argumento:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">    <span class="op">&gt;&gt;&gt;</span> f<span class="op">=</span>x<span class="op">**</span><span class="dv">2-3</span><span class="op">*</span>x<span class="dv">+2</span>
-    <span class="op">&gt;&gt;&gt;</span> integrate(f)
-    x<span class="op">**</span><span class="dv">3</span><span class="op">/</span><span class="dv">3</span> <span class="op">-</span> <span class="dv">3</span><span class="op">*</span>x<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>x</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> f<span class="op">=</span>x<span class="op">**</span><span class="dv">2-3</span><span class="op">*</span>x<span class="dv">+2</span>
+<span class="op">&gt;&gt;&gt;</span> integrate(f)
+x<span class="op">**</span><span class="dv">3</span><span class="op">/</span><span class="dv">3</span> <span class="op">-</span> <span class="dv">3</span><span class="op">*</span>x<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>x</code></pre></div>
 <p>En este caso no hemos tenido incovenientes, porque en la expresión a integrar sólo existe una variable simbólica, pero si la expresión tuviese más de una, habría que especificar de manera explícita la variable respecto a la cual se integra:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> sympy.abc <span class="im">import</span> x,a,b,c
 <span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> sympy <span class="im">import</span> integrate
@@ -83,5 +83,9 @@ one free symbol, an integration variable should be supplied explicitly e.g., int
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> integrate(f,x)
 a<span class="op">*</span>x<span class="op">**</span><span class="dv">3</span><span class="op">/</span><span class="dv">3</span> <span class="op">+</span> b<span class="op">*</span>x<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="dv">2</span> <span class="op">+</span> c<span class="op">*</span>x</code></pre></div>
 <h3 id="integrales-definidas">Integrales definidas</h3>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> sympy.abc <span class="im">import</span> x
+<span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> sympy <span class="im">import</span> cos,pi,integrate
+<span class="op">&gt;&gt;&gt;</span> integrate(cos(x),(x,<span class="dv">0</span>,pi<span class="op">/</span><span class="fl">2.0</span>))
+<span class="dv">1</span></code></pre></div>
 </body>
 </html>
