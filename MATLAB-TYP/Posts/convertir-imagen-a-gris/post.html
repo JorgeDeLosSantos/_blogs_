@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<p>!# Convertir a una imagen a escala de grises</p>
+<h3 id="la-manera-rápida">La manera rápida</h3>
+<p>Si cuenta con el <em>Image Processing Toolbox</em> MATLAB dispone de una función llamada <code>rgb2gray</code> que permite convertir una imagen RGB a una en escala de grises, ej:</p>
+<div class="sourceCode"><pre class="sourceCode matlab"><code class="sourceCode matlab">X = imread(<span class="st">&#39;lenna.png&#39;</span>);
+XG = rgb2gray(X);
+imshow(XG);</code></pre></div>
+<p>Como puede notar es muy simple, sólo necesita pasar como argumento la matriz que contiene la información de la imagen RGB.</p>
+<h3 id="la-otra-un-poco-de-algoritmos...">La otra, un poco de algoritmos...</h3>
+<p>Si no dispone del toolbox de procesamiento de imagen, entonces puede implementar su propio algoritmo para realizar dicha tarea.</p>
+<p>El algoritmo más simple es el del <em>promedio</em> (average method), que consiste en calcular el promedio de los canales RGB y asignarlos al pixel correspondiente en la imagen de grises. Por ejemplo dada una matriz de <strong>MxNx3</strong> correspondiente a una imagen, el pixel de la matriz de grises en la posición <span class="math inline">(<em>i</em>, <em>j</em>)</span> se calcula como sigue:</p>
+<p><br /><span class="math display">$$
+XG_{i,j} = \frac{X_{i,j,1} + X_{i,j,2} + X_{i,j,3}}{3}
+$$</span><br /></p>
+<p>Donde <code>XG</code> es la matriz de grises, de dimensiones <strong>MxN</strong>. Y <span class="math inline"><em>X</em><sub><em>i</em>, <em>j</em>, 1</sub></span>, <span class="math inline"><em>X</em><sub><em>i</em>, <em>j</em>, 2</sub></span> y <span class="math inline"><em>X</em><sub><em>i</em>, <em>j</em>, 3</sub></span> las componentes correspondientes a los canales R, G y B, respectivamente.</p>
+<p>Implementando esto en MATLAB:</p>
+<div class="sourceCode"><pre class="sourceCode matlab"><code class="sourceCode matlab">X = imread(<span class="st">&#39;lenna.png&#39;</span>);
+XG = uint8(mean(X,<span class="fl">3</span>));
+imshow(XG);</code></pre></div>
+<p>¿Bastante simple verdad?, lo que hacemos es hacer el promedio en la dimensión 3, es decir, para cada pixel. La conversión a entero de 8-bits (<code>uint8</code>) es necesaria para que se muestre correctamente cuando utilizamos <code>imshow</code>, dado que la función <code>mean</code> devuelve una matriz de tipo <code>double</code>.</p>
+<p>Otro método para convertir a escala de grises es el de la luminosidad (luminosity method) que consiste en asignar una proporción específica (ponderada) a cada uno de los canales, dependiendo la aportación de estos. De hecho MATLAB utiliza este tipo de transformación en la función <code>rgb2gray</code>. Con este método, la expresión para calcular el valor de un pixel de grises viene dado por:</p>
+<p><br /><span class="math display"><em>X</em><em>G</em><sub><em>i</em>, <em>j</em></sub> = 0.2889 <em>X</em><sub><em>i</em>, <em>j</em>, 1</sub> + 0.5870 <em>X</em><sub><em>i</em>, <em>j</em>, 2</sub> + 0.1140 <em>X</em><sub><em>i</em>, <em>j</em>, 3</sub></span><br /></p>
+<p>LLevando esto a un código MATLAB:</p>
+<div class="sourceCode"><pre class="sourceCode matlab"><code class="sourceCode matlab">X = imread(<span class="st">&#39;img/lenna.png&#39;</span>);
+k = [<span class="fl">0.2989</span> <span class="fl">0.5870</span> <span class="fl">0.1140</span>];
+XG = X(:,:,<span class="fl">1</span>)*k(<span class="fl">1</span>) + X(:,:,<span class="fl">2</span>)*k(<span class="fl">2</span>) + X(:,:,<span class="fl">3</span>)*k(<span class="fl">3</span>);
+imshow(XG)</code></pre></div>
+</body>
+</html>
