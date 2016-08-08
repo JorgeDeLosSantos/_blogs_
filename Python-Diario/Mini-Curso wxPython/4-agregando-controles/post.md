@@ -67,8 +67,8 @@ class MiFrame(wx.Frame):
         wx.Frame.__init__(self,*args,**kwargs)
 
         # Agregando botones
-        self.button = wx.Button(self, -1, u"Botón A", size=(100,20), pos=(10,10))
-        self.button = wx.Button(self, -1, u"Botón B", size=(100,20), pos=(10,50))
+        self.button1 = wx.Button(self, -1, u"Botón A", size=(100,20), pos=(10,10))
+        self.button2 = wx.Button(self, -1, u"Botón B", size=(100,20), pos=(10,50))
         
         # Mostrando la interfaz
         self.Show()
@@ -81,10 +81,110 @@ if __name__=='__main__':
 ```
 
 En este caso, el objeto padre es el Frame mismo, y por ello se pasa el parámetro `self` como 
-primer argumento.
+primer argumento. El -1 refiere al argumento `id`, y el string pasado en cada caso 
+corresponde al argumento `label`. Note que se agregan los argumentos `size` y `pos` en forma 
+de una tupla, que especifican el tamaño y posición de los botones, respectivamente. La 
+posición (o coordenadas de posición) en wxPython se determina a partir de la esquina 
+superior izquierda como origen y medida en pixeles.
 
+Veamos un ejemplo más, con algunos otros controles y posicionando de manera manual/absoluta:
 
+```python
+import wx
 
+class MiFrame(wx.Frame):
+    def __init__(self,*args,**kwargs):
+        wx.Frame.__init__(self,*args,**kwargs)
+
+        # Etiquetas ...
+        self.labelA = wx.StaticText(self, wx.ID_ANY, "A", pos=(10,10), size=(80,25))
+        self.labelB = wx.StaticText(self, wx.ID_ANY, "B", pos=(10,40), size=(80,25))
+        self.labelR = wx.StaticText(self, wx.ID_ANY, "Resultado", pos=(10,70), size=(80,25))
+        
+        # Inputs
+        self.A = wx.TextCtrl(self, wx.ID_ANY, pos=(100,10), size=(180,25))
+        self.B = wx.TextCtrl(self, wx.ID_ANY, pos=(100,40), size=(180,25))
+        self.R = wx.TextCtrl(self, wx.ID_ANY, pos=(100,70), size=(180,25))
+
+        # Botones
+        self.suma = wx.Button(self, wx.ID_ANY, "+", pos=(55,120), size=(40,30))
+        self.resta = wx.Button(self, wx.ID_ANY, "-", pos=(105,120), size=(40,30))
+        self.multiplicacion = wx.Button(self, wx.ID_ANY, "*", pos=(155,120), size=(40,30))
+        self.division = wx.Button(self, wx.ID_ANY, "/", pos=(205,120), size=(40,30))
+
+        self.Centre(True)
+        self.Show()
+            
+if __name__=='__main__':
+    app = wx.App() 
+    fr = MiFrame(None, -1, "wxPython App", size=(300,200))
+    app.MainLoop()
+```
+
+Ahora, implementemos este mismo ejemplo utilizando sizers:
+
+```python
+import wx
+
+class MiFrame(wx.Frame):
+    def __init__(self,*args,**kwargs):
+        wx.Frame.__init__(self,*args,**kwargs)
+        # Sizers
+        self.mainsz = wx.BoxSizer(wx.VERTICAL)
+        self.inputsz = wx.FlexGridSizer(rows=3, cols=2, hgap=5, vgap=5)
+        self.buttonsz = wx.BoxSizer(wx.HORIZONTAL)
+
+        # Etiquetas ...
+        self.labelA = wx.StaticText(self, wx.ID_ANY, "A")
+        self.labelB = wx.StaticText(self, wx.ID_ANY, "B")
+        self.labelR = wx.StaticText(self, wx.ID_ANY, "Resultado")
+        
+        # Inputs
+        self.A = wx.TextCtrl(self, wx.ID_ANY)
+        self.B = wx.TextCtrl(self, wx.ID_ANY)
+        self.R = wx.TextCtrl(self, wx.ID_ANY)
+
+        # Botones
+        self.suma = wx.Button(self, wx.ID_ANY, "+")
+        self.resta = wx.Button(self, wx.ID_ANY, "-")
+        self.multiplicacion = wx.Button(self, wx.ID_ANY, "*")
+        self.division = wx.Button(self, wx.ID_ANY, "/")
+
+        # Agregando a sizers
+        for obj in [self.labelA, self.A, self.labelB, self.B, self.labelR, self.R]:
+            self.inputsz.Add(obj, 1, wx.EXPAND|wx.ALL, 2)
+        self.inputsz.AddGrowableCol(1)
+
+        for obj in [self.suma, self.resta, self.multiplicacion, self.division]:
+            self.buttonsz.Add(obj, 1, wx.EXPAND|wx.ALL, 2)
+            obj.SetInitialSize((20,-1))
+
+        # Configurando sizers
+        self.mainsz.Add(self.inputsz, 2, wx.EXPAND|wx.ALL, 5)
+        self.mainsz.Add(self.buttonsz, 1, wx.EXPAND|wx.ALL, 5)
+        self.SetSizer(self.mainsz)
+
+        self.Centre(True)
+        self.Show()
+            
+if __name__=='__main__':
+    app = wx.App() 
+    fr = MiFrame(None, -1, "wxPython App", size=(300,200))
+    app.MainLoop()
+```
+
+Vaya, que con *sizers* hay que escribir más código, ¿no?. Bueno, posiblemente sí, 
+pero ahora, intenta redimensionar la ventana de cada aplicación. Como se dijo, 
+utilizar sizers tiene la enorme ventaja de que puedes redimensionar el `Frame` y 
+el tamaño y posición de los objetos se ajusta a lo requerido. Además, imagina que 
+tienes unas decenas de controles, ¿crees que es sencillo calcular y programar 
+cada una de las posiciones y tamaños?, complicado ciertamente.
+
+En la siguiente entrada de este curso estaremos viendo un poco más sobre los *sizers* 
+y cómo utilizarlos para organizar controles dentro de una interfaz gráfica wxPython. 
+
+Y bueno, recordarles que las preguntas, comentarios o cualquier otro, serán siempre 
+bienvenidos.
 
 <button type="button" style="background-color: rgba(102,217,255,0.6); border-radius: 5px; box-shadow: 2px #ffaaff; padding: 5px;">
 <a href="http://www.pythondiario.com/2016/03/mini-curso-de-wxpython-1-introduccion.html#sumario-del-curso" style="color: #505050; 
