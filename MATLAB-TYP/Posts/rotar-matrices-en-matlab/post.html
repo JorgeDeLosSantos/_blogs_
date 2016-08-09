@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<p>!# Resolver ecuaciones e inecuaciones</p>
+<p>La rotación de matrices consiste en redefinir la posición de sus elementos mediante una modificación que no afecta el valor de sus elementos. Para comenzar, suponga que se tiene un vector v definido como sigue:</p>
+<p><br /><span class="math display"><em>v</em> = [<em>v</em><sub>1</sub>, <em>v</em><sub>2</sub>, <em>v</em><sub>3</sub>, ⋯, <em>v</em><sub><em>n</em> − 1</sub>, <em>v</em><sub><em>n</em></sub>]</span><br /></p>
+<p>Y sea vea v' el vector cuyas componentes son las mismas que v pero dispuestas en un orden inverso, es decir:</p>
+<p><br /><span class="math display"><em>v</em>′=[<em>v</em><sub><em>n</em></sub>, <em>v</em><sub><em>n</em> − 1</sub>, ⋯, <em>v</em><sub>3</sub>, <em>v</em><sub>2</sub>, <em>v</em><sub>1</sub>]</span><br /></p>
+<p>En MATLAB invertir el orden de los elementos de un vector resulta una tarea muy sencilla, esto puede lograrse indexando los elementos de la forma que a continuación se muestra:</p>
+<pre><code>&gt;&gt; v=[-2 5 8 7 3 0] % Vector original
+v =
+    -2     5     8     7     3     0
+&gt;&gt; vp=v(end:-1:1) % Vector con elementos invertidos
+vp =
+     0     3     7     8     5    -2</code></pre>
+<p>La anterior es una forma muy simple de realizar dicha tarea, pero si usted prefiere el uso de funciones existe para tal fin la función fliplr cuya tarea es exactamente esa, extendiéndose su uso también a matrices, véase el ejemplo utilizando el mismo vector definido anteriormente:</p>
+<pre><code>&gt;&gt; vp=fliplr(v)
+vp =
+     0     3     7     8     5    -2</code></pre>
+<p>La función fliplr rota una matriz en un eje vertical, de tal modo que las columnas situadas a la izquierda queden en la parte derecha. Véase el ejemplo a continuación:</p>
+<pre><code>&gt;&gt; A=randi(10,3)
+A =
+     4     5     3
+     2     2     4
+     5     6     6
+&gt;&gt; Ar=fliplr(A)
+Ar =
+     3     5     4
+     4     2     2
+     6     6     5</code></pre>
+<p>Está claro que fliplr ejecuta una rotación basada en las columnas, pero MATLAB dispone también de la función flipud que ejerce una rotación en un eje horizontal o basada en las filas, enseguida se muestra un ejemplo:</p>
+<pre><code>&gt;&gt; A=randi(10,4)
+A =
+     5     6     8     2
+     9     4     5     3
+     8     2     1     5
+    10     7     3     6
+&gt;&gt; Ar=flipud(A)
+Ar =
+    10     7     3     6
+     8     2     1     5
+     9     4     5     3
+     5     6     8     2</code></pre>
+<p>Además de las anteriores MATLAB proporciona la función rot90 que permite girar la matriz en un ángulo múltiplo de 90° en el sentido contrario a las manecillas del reloj, de manera informal es como si la matriz rodase en dirección izquierda. Los argumentos de entrada de la función son primeramente la matriz a rotar y como segundo argumento un escalar entero que indica el múltiplo de 90° con el cual habrá de ejecutarse la rotación, si no se introduce un segundo argumento se asume que este será unitario. Véanse los ejemplos a continuación:</p>
+<pre><code>&gt;&gt; A=randi(20,3)
+A =
+    14     8    10
+     1    19     9
+    13     1    10
+&gt;&gt; A90=rot90(A)  % Matriz rotada 90°
+A90 =
+    10     9    10
+     8    19     1
+    14     1    13
+&gt;&gt; A180=rot90(A,2)  % Matriz  rotada en 180°
+A180 =
+    10     1    13
+     9    19     1
+    10     8    14
+&gt;&gt; A270=rot90(A,3)   % Matriz rotada 270°
+
+A270 =
+
+    13     1    14
+     1    19     8
+    10     9    10</code></pre>
+</body>
+</html>
