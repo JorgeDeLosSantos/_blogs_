@@ -45,128 +45,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   </style>
 </head>
 <body>
-<p>// # Agregando controles</p>
-<p>En las entradas anteriores hemos visto algunos ejemplos de aplicaciones muy sencillas que contienen algunos controles, pero aún no hemos <em>hecho hincapié</em> en la forma de agregar los controles y todas las consideraciones que esto conlleva.</p>
-<p>Antes de comenzar hay algunas cuestiones que debemos aclarar un poco. En toda librería gráfica existe el concepto de componente y contenedor, o de <em>padre</em> e <em>hijo</em>, el componente u <em>objeto hijo</em> será cualquier control gráfico contenido dentro de un contenedor (sí, suena raro, pero así es). Normalmente dentro del grupo de contenedores se incluyen todos aquellos elementos como los paneles y frames, que sirven para organizar el contenido de una interfaz gráfica.</p>
-<p>En wxPython existen dos formas de agregar y distribuir los objetos gráficos dentro de nuestra interfaz, a saber:</p>
+<p>// # Sizers I. BoxSizer</p>
+<p>Como se ha mencionado en entradas anteriores, los <em>sizers</em> son algoritmos utilizados por wxPython para distribuir controles dentro de un contenedor.</p>
+<p>En wxPython se tiene disponibles diversos tipos de <em>sizers</em>, listados a continuación:</p>
 <ul>
-<li>Posicionamiento absoluto</li>
-<li>Utilizando sizers</li>
+<li><strong>Grid</strong> (<code>wx.GridSizer</code>). Distribuye los controles en una rejilla regular de mxn.</li>
+<li><strong>Flex Grid</strong> (<code>wx.FlexGridSizer</code>). Similar a Grid, pero permite mayor flexibilidad respecto al tamaño de los controles.</li>
+<li><strong>Grid Bag</strong> (<code>wx.GridBagSizer</code>). El <em>sizer</em> de tipo Grid más flexible en cuanto a tamaño y posición.</li>
+<li><strong>Box</strong> (<code>wx.BoxSizer</code>). Distribuye los controles en una columna o fila dispuesta de manera vertical u horizontal.</li>
+<li><strong>Static Box</strong> (<code>wx.StaticBoxSizer</code>). Similar a Box, pero con una línea que delimita de manera visual.</li>
 </ul>
-<p>El <strong>posicionamiento absoluto</strong> implica colocar los controles gráficos de manera absoluta mediante el argumento <code>pos</code>, en el cual se indica mediante una tupla de dos elementos la posición en X e Y medida en pixeles. Esta es una forma un tanto sencilla de posicionar componentes, pero que en aplicaciones que van más allá de unos cuantos controles resulta difícil de implementar.</p>
-<p>El <strong>uso de sizers</strong> es, digamos, la forma <em>correcta</em> de ir agregando controles a nuestra aplicación, quizá al principio pueda resultar un poco más complicada de entender, pero, las ventajas son muy notorias desde muy temprano. Sin entrar en muchos detalles técnicos, los <strong>sizers</strong> son <em>mecanismos de diseño</em> que sirven para posicionar y redimensionar los objetos dentro de una interfaz gráfica.</p>
-<p>Bueno, una vez <em>puestos en la mesa</em> los puntos anteriores, vamos a ver cómo agregamos controles a una interfaz gráfica. Normalmente, para instanciar un control de wxPython, el primer argumento será siempre el objeto padre, por ejemplo, veamos que nos dice la ayuda de wxPython sobre la sintaxis para crear un Botón:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>(wx.Button.<span class="fu">__init__</span>)
-Help on method <span class="fu">__init__</span> <span class="op">in</span> module wx._controls:
-
-<span class="fu">__init__</span>(<span class="va">self</span>, <span class="op">*</span>args, <span class="op">**</span>kwargs) unbound wx._controls.Button method
-    <span class="fu">__init__</span>(<span class="va">self</span>, Window parent, <span class="bu">int</span> <span class="bu">id</span><span class="op">=-</span><span class="dv">1</span>, String label<span class="op">=</span>EmptyString, 
-        Point pos<span class="op">=</span>DefaultPosition, Size size<span class="op">=</span>DefaultSize, 
-        <span class="bu">long</span> style<span class="op">=</span><span class="dv">0</span>, Validator validator<span class="op">=</span>DefaultValidator, 
-        String name<span class="op">=</span>ButtonNameStr) <span class="op">-&gt;</span> Button</code></pre></div>
-<p>Como se observa, el primer argumento indicado es el parámetro <strong>self</strong>, el cual no se pasa de manera explícita en los argumentos de entrada, seguido por un objeto padre, que es el primer argumento real que se pasa al momento de instanciar un objeto gráfico. Luego se debe colocar un identificador, que debe ser un entero cualesquiera, pero que normalmente se recomienda utilizar el -1 o la constante wx.ID_ANY para dejar que wxPython se encargue de asignar el número correspondiente. Luego, el resto de argumentos incluyen algunas cuestiones más propias de cada control. Note que también podemos pasar tanto la posición como el tamaño del objeto, mediante los argumentos <code>pos</code> y <code>size</code>, respectivamente. Una linea típica para el caso de un botón sería:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">boton <span class="op">=</span> wx.Button(panel, wx.ID_ANY, <span class="st">u&quot;Botón 1&quot;</span>, pos<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">0</span>), size<span class="op">=</span>(<span class="dv">80</span>,<span class="dv">20</span>))</code></pre></div>
-<p>De hecho en la entrada anterior vimos un ejemplo con dos botones posicionados de manera manual:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
-
-<span class="kw">class</span> MiFrame(wx.Frame):
-    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,<span class="op">*</span>args,<span class="op">**</span>kwargs):
-        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,<span class="op">*</span>args,<span class="op">**</span>kwargs)
-
-        <span class="co"># Agregando botones</span>
-        <span class="va">self</span>.button1 <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Botón A&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>), pos<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))
-        <span class="va">self</span>.button2 <span class="op">=</span> wx.Button(<span class="va">self</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">u&quot;Botón B&quot;</span>, size<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">20</span>), pos<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">50</span>))
-        
-        <span class="co"># Mostrando la interfaz</span>
-        <span class="va">self</span>.Show()
-
-            
-<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
-    app <span class="op">=</span> wx.App() 
-    fr <span class="op">=</span> MiFrame(<span class="va">None</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">&quot;wxPython App&quot;</span>, size<span class="op">=</span>(<span class="dv">300</span>,<span class="dv">200</span>))
-    app.MainLoop()</code></pre></div>
-<p>En este caso, el objeto padre es el Frame mismo, y por ello se pasa el parámetro <code>self</code> como primer argumento. El -1 refiere al argumento <code>id</code>, y el string pasado en cada caso corresponde al argumento <code>label</code>. Note que se agregan los argumentos <code>size</code> y <code>pos</code> en forma de una tupla, que especifican el tamaño y posición de los botones, respectivamente. La posición (o coordenadas de posición) en wxPython se determina a partir de la esquina superior izquierda como origen y medida en pixeles.</p>
-<p>Veamos un ejemplo más, con algunos otros controles y posicionando de manera manual/absoluta:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
-
-<span class="kw">class</span> MiFrame(wx.Frame):
-    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,<span class="op">*</span>args,<span class="op">**</span>kwargs):
-        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,<span class="op">*</span>args,<span class="op">**</span>kwargs)
-
-        <span class="co"># Etiquetas ...</span>
-        <span class="va">self</span>.labelA <span class="op">=</span> wx.StaticText(<span class="va">self</span>, wx.ID_ANY, <span class="st">&quot;A&quot;</span>, pos<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>), size<span class="op">=</span>(<span class="dv">80</span>,<span class="dv">25</span>))
-        <span class="va">self</span>.labelB <span class="op">=</span> wx.StaticText(<span class="va">self</span>, wx.ID_ANY, <span class="st">&quot;B&quot;</span>, pos<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">40</span>), size<span class="op">=</span>(<span class="dv">80</span>,<span class="dv">25</span>))
-        <span class="va">self</span>.labelR <span class="op">=</span> wx.StaticText(<span class="va">self</span>, wx.ID_ANY, <span class="st">&quot;Resultado&quot;</span>, pos<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">70</span>), size<span class="op">=</span>(<span class="dv">80</span>,<span class="dv">25</span>))
-        
-        <span class="co"># Inputs</span>
-        <span class="va">self</span>.A <span class="op">=</span> wx.TextCtrl(<span class="va">self</span>, wx.ID_ANY, pos<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">10</span>), size<span class="op">=</span>(<span class="dv">180</span>,<span class="dv">25</span>))
-        <span class="va">self</span>.B <span class="op">=</span> wx.TextCtrl(<span class="va">self</span>, wx.ID_ANY, pos<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">40</span>), size<span class="op">=</span>(<span class="dv">180</span>,<span class="dv">25</span>))
-        <span class="va">self</span>.R <span class="op">=</span> wx.TextCtrl(<span class="va">self</span>, wx.ID_ANY, pos<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">70</span>), size<span class="op">=</span>(<span class="dv">180</span>,<span class="dv">25</span>))
-
-        <span class="co"># Botones</span>
-        <span class="va">self</span>.suma <span class="op">=</span> wx.Button(<span class="va">self</span>, wx.ID_ANY, <span class="st">&quot;+&quot;</span>, pos<span class="op">=</span>(<span class="dv">55</span>,<span class="dv">120</span>), size<span class="op">=</span>(<span class="dv">40</span>,<span class="dv">30</span>))
-        <span class="va">self</span>.resta <span class="op">=</span> wx.Button(<span class="va">self</span>, wx.ID_ANY, <span class="st">&quot;-&quot;</span>, pos<span class="op">=</span>(<span class="dv">105</span>,<span class="dv">120</span>), size<span class="op">=</span>(<span class="dv">40</span>,<span class="dv">30</span>))
-        <span class="va">self</span>.multiplicacion <span class="op">=</span> wx.Button(<span class="va">self</span>, wx.ID_ANY, <span class="st">&quot;*&quot;</span>, pos<span class="op">=</span>(<span class="dv">155</span>,<span class="dv">120</span>), size<span class="op">=</span>(<span class="dv">40</span>,<span class="dv">30</span>))
-        <span class="va">self</span>.division <span class="op">=</span> wx.Button(<span class="va">self</span>, wx.ID_ANY, <span class="st">&quot;/&quot;</span>, pos<span class="op">=</span>(<span class="dv">205</span>,<span class="dv">120</span>), size<span class="op">=</span>(<span class="dv">40</span>,<span class="dv">30</span>))
-
-        <span class="va">self</span>.Centre(<span class="va">True</span>)
-        <span class="va">self</span>.Show()
-            
-<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
-    app <span class="op">=</span> wx.App() 
-    fr <span class="op">=</span> MiFrame(<span class="va">None</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">&quot;wxPython App&quot;</span>, size<span class="op">=</span>(<span class="dv">300</span>,<span class="dv">200</span>))
-    app.MainLoop()</code></pre></div>
-<p>Ahora, implementemos este mismo ejemplo utilizando sizers:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> wx
-
-<span class="kw">class</span> MiFrame(wx.Frame):
-    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,<span class="op">*</span>args,<span class="op">**</span>kwargs):
-        wx.Frame.<span class="fu">__init__</span>(<span class="va">self</span>,<span class="op">*</span>args,<span class="op">**</span>kwargs)
-        <span class="co"># Sizers</span>
-        <span class="va">self</span>.mainsz <span class="op">=</span> wx.BoxSizer(wx.VERTICAL)
-        <span class="va">self</span>.inputsz <span class="op">=</span> wx.FlexGridSizer(rows<span class="op">=</span><span class="dv">3</span>, cols<span class="op">=</span><span class="dv">2</span>, hgap<span class="op">=</span><span class="dv">5</span>, vgap<span class="op">=</span><span class="dv">5</span>)
-        <span class="va">self</span>.buttonsz <span class="op">=</span> wx.BoxSizer(wx.HORIZONTAL)
-
-        <span class="co"># Etiquetas ...</span>
-        <span class="va">self</span>.labelA <span class="op">=</span> wx.StaticText(<span class="va">self</span>, wx.ID_ANY, <span class="st">&quot;A&quot;</span>)
-        <span class="va">self</span>.labelB <span class="op">=</span> wx.StaticText(<span class="va">self</span>, wx.ID_ANY, <span class="st">&quot;B&quot;</span>)
-        <span class="va">self</span>.labelR <span class="op">=</span> wx.StaticText(<span class="va">self</span>, wx.ID_ANY, <span class="st">&quot;Resultado&quot;</span>)
-        
-        <span class="co"># Inputs</span>
-        <span class="va">self</span>.A <span class="op">=</span> wx.TextCtrl(<span class="va">self</span>, wx.ID_ANY)
-        <span class="va">self</span>.B <span class="op">=</span> wx.TextCtrl(<span class="va">self</span>, wx.ID_ANY)
-        <span class="va">self</span>.R <span class="op">=</span> wx.TextCtrl(<span class="va">self</span>, wx.ID_ANY)
-
-        <span class="co"># Botones</span>
-        <span class="va">self</span>.suma <span class="op">=</span> wx.Button(<span class="va">self</span>, wx.ID_ANY, <span class="st">&quot;+&quot;</span>)
-        <span class="va">self</span>.resta <span class="op">=</span> wx.Button(<span class="va">self</span>, wx.ID_ANY, <span class="st">&quot;-&quot;</span>)
-        <span class="va">self</span>.multiplicacion <span class="op">=</span> wx.Button(<span class="va">self</span>, wx.ID_ANY, <span class="st">&quot;*&quot;</span>)
-        <span class="va">self</span>.division <span class="op">=</span> wx.Button(<span class="va">self</span>, wx.ID_ANY, <span class="st">&quot;/&quot;</span>)
-
-        <span class="co"># Agregando a sizers</span>
-        <span class="cf">for</span> obj <span class="op">in</span> [<span class="va">self</span>.labelA, <span class="va">self</span>.A, <span class="va">self</span>.labelB, <span class="va">self</span>.B, <span class="va">self</span>.labelR, <span class="va">self</span>.R]:
-            <span class="va">self</span>.inputsz.Add(obj, <span class="dv">1</span>, wx.EXPAND<span class="op">|</span>wx.ALL, <span class="dv">2</span>)
-        <span class="va">self</span>.inputsz.AddGrowableCol(<span class="dv">1</span>)
-
-        <span class="cf">for</span> obj <span class="op">in</span> [<span class="va">self</span>.suma, <span class="va">self</span>.resta, <span class="va">self</span>.multiplicacion, <span class="va">self</span>.division]:
-            <span class="va">self</span>.buttonsz.Add(obj, <span class="dv">1</span>, wx.EXPAND<span class="op">|</span>wx.ALL, <span class="dv">2</span>)
-            obj.SetInitialSize((<span class="dv">20</span>,<span class="op">-</span><span class="dv">1</span>))
-
-        <span class="co"># Configurando sizers</span>
-        <span class="va">self</span>.mainsz.Add(<span class="va">self</span>.inputsz, <span class="dv">2</span>, wx.EXPAND<span class="op">|</span>wx.ALL, <span class="dv">5</span>)
-        <span class="va">self</span>.mainsz.Add(<span class="va">self</span>.buttonsz, <span class="dv">1</span>, wx.EXPAND<span class="op">|</span>wx.ALL, <span class="dv">5</span>)
-        <span class="va">self</span>.SetSizer(<span class="va">self</span>.mainsz)
-
-        <span class="va">self</span>.Centre(<span class="va">True</span>)
-        <span class="va">self</span>.Show()
-            
-<span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:
-    app <span class="op">=</span> wx.App() 
-    fr <span class="op">=</span> MiFrame(<span class="va">None</span>, <span class="op">-</span><span class="dv">1</span>, <span class="st">&quot;wxPython App&quot;</span>, size<span class="op">=</span>(<span class="dv">300</span>,<span class="dv">200</span>))
-    app.MainLoop()</code></pre></div>
-<p>Vaya, que con <em>sizers</em> hay que escribir más código, ¿no?. Bueno, posiblemente sí, pero ahora, intenta redimensionar la ventana de cada aplicación. Como se dijo, utilizar sizers tiene la enorme ventaja de que puedes redimensionar el <code>Frame</code> y el tamaño y posición de los objetos se ajusta a lo requerido. Además, imagina que tienes unas decenas de controles, ¿crees que es sencillo calcular y programar cada una de las posiciones y tamaños?, complicado ciertamente.</p>
-<p>En la siguiente entrada de este curso estaremos viendo un poco más sobre los <em>sizers</em> y cómo utilizarlos para organizar controles dentro de una interfaz gráfica wxPython.</p>
-<p>Y bueno, recordarles que las preguntas, comentarios o cualquier otro, serán siempre bienvenidos.</p>
+<p>En esta entrada veremos el uso de <em>Box Sizer</em>, que es el <em>sizer</em> más simple.</p>
+<p>Normalmente para utilizar <em>sizers</em>, se debe seguir una metodología como la indicada en la siguiente imagen:</p>
+<p>Para crear un <em>Box Sizer</em> se debe instanciar un objeto de la clase <code>wx.BoxSizer</code> como sigue:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">boxsz <span class="op">=</span> wx.BoxSizer(orientacion)</code></pre></div>
+<p>Donde <code>orientacion</code> puede ser una de las constantes: <code>wx.VERTICAL</code> y <code>wx.HORIZONTAL</code>, mismas que indican la orientación de los controles dentro del contenedor:</p>
 <button type="button" style="background-color: rgba(102,217,255,0.6); border-radius: 5px; box-shadow: 2px #ffaaff; padding: 5px;">
 <a href="http://www.pythondiario.com/2016/03/mini-curso-de-wxpython-1-introduccion.html#sumario-del-curso" style="color: #505050; 
 text-decoration: none;"><strong>Volver al índice</strong></a>
