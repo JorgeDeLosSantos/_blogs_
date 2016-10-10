@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<p>!# Resolver ecuaciones e inecuaciones</p>
+<p>Una ecuación es una igualdad matemática entre dos expresiones algebraicas en las que aparecen valores conocidos y una variable desconocida (incógnita), relacionados mediante operaciones matemáticas básicas, ejemplos de ecuaciones se muestran a continuación:</p>
+<p><br /><span class="math display">3<em>x</em><sup>2</sup> + 2<em>x</em> − 2 = 0</span><br /></p>
+<p><br /><span class="math display">$$ x+\frac{3}{7}=2 $$</span><br /></p>
+<p><br /><span class="math display">$$ \cos(x)+sin(\frac{\pi}{2})=0 $$</span><br /></p>
+<p>Las ecuaciones algebraicas sirven para modelar situaciones poco complejas pero que requieren el uso de la herramienta matemática para obtener una solución satisfactoria. Existen diversos métodos para resolver ecuaciones, los cuales se aplican dependiendo del tipo de ecuación, incluso hay fórmulas establecidas para algunos tipos de ecuaciones que minimizan el esfuerzo de cálculo.</p>
+<p>MATLAB dispone de la función solve perteneciente al Symbolic Math Toolbox, la cual permite resolver ecuaciones, inecuaciones y sistemas de ecuaciones; la sintaxis general de la función <code>solve</code> es:</p>
+<pre><code>solve(ec, var);</code></pre>
+<p>Donde ec es una ecuación algebraica definida usando variables simbólicas y var es la incógnita respecto a la cual se resuelve la ecuación dada.</p>
+<p>A manera de ejemplo se resolverá la siguiente ecuación lineal {<br /><span class="math display">$$} x+3=2 {/$$</span><br />}:</p>
+<pre><code>&gt;&gt; x=sym(&#39;x&#39;);
+&gt;&gt; solve(x+3==2,x)
+ans =
+-1</code></pre>
+<p>Es importante hacer mención que para especificar una igualdad se utilizan dos signos, dado que un sólo signo hace referencia a una asignación.</p>
+<p>Si no se especifica el segundo miembro de la igualdad, MATLAB asumirá que la expresión estará igualada a cero, es decir, para resolver la ecuación:</p>
+<p><br /><span class="math display"><em>x</em><sup>2</sup> − 2<em>x</em> − 1 = 0</span><br /></p>
+<p>Puede hacerlo de las diversas formas que enseguida se muestran:</p>
+<pre><code>&gt;&gt; solve(x^2-2*x-1==0,x)
+ans =
+ 2^(1/2) + 1
+ 1 - 2^(1/2)
+&gt;&gt; solve(x^2-2*x-1,x)
+ans =
+ 2^(1/2) + 1
+ 1 - 2^(1/2)
+&gt;&gt; solve(x^2-2*x-1)
+ans =
+ 2^(1/2) + 1
+ 1 - 2^(1/2)</code></pre>
+<p>Para resolver desigualdades o inecuaciones la sintaxis es prácticamente la misma, claro, sólo hay que utilizar los operadores relacionales mayor que o menor que en lugar del signo de igualdad. Por ejemplo, resolviendo la siguiente desigualdad {<br /><span class="math display">$$} x+2&gt;10 {/$$</span><br />}:</p>
+<pre><code>&gt;&gt; solve(x+2&gt;10,x)
+ans =
+Dom::Interval(8, Inf)</code></pre>
+<p>MATLAB devuelve el intervalo solución para la inecuación, en este caso {<br /><span class="math display">$$} (8,\infty) {/$$</span><br />}. Para el caso de un intervalo cerrado MATLAB devuelve entre corchetes el valor del límite correspondiente, por ejemplo:</p>
+<pre><code>&gt;&gt; solve(x+2&gt;=10,x)
+ans =
+Dom::Interval([8], Inf)</code></pre>
+<p>Un sistema de ecuaciones se compone de dos o más ecuaciones y un número equivalente de valores desconocidos, es posible resolver sistemas de ecuaciones utilizando también la función solve con la sintaxis siguiente:</p>
+<pre><code>solve(ec1,ec2,ec3,…)</code></pre>
+<p>Un ejemplo, resolver el siguiente sistema de ecuaciones:</p>
+<p><br /><span class="math display"><em>x</em> + <em>y</em> = 4</span><br /> <br /><span class="math display"><em>x</em> − <em>y</em> = 3</span><br /></p>
+<pre><code>&gt;&gt; syms x y
+&gt;&gt; sol=solve(x+y==4,x-y==3)
+sol = 
+    x: [1x1 sym]
+    y: [1x1 sym]</code></pre>
+<p>Para visualizar los resultados puede acceder a los campos de cada variable como se muestra enseguida:</p>
+<pre><code>&gt;&gt; sol.x 
+ans =
+7/2
+&gt;&gt; sol.y
+ans =
+1/2</code></pre>
+</body>
+</html>

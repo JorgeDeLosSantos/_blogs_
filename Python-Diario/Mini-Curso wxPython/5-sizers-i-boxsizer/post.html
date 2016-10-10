@@ -9,7 +9,24 @@
 </head>
 <body>
 <p>// # Sizers I. BoxSizer</p>
+<<<<<<< HEAD
 <p>Los <em>sizers</em> son elementos fundamentales en wxPython, por ello debemos conocerlos y saber las posibilidades que nos ofrecen para la organización y distribución de los controles dentro de una interfaz gráfica.</p>
+=======
+<p>Como se ha mencionado en entradas anteriores, los <em>sizers</em> son algoritmos utilizados por wxPython para distribuir controles dentro de un contenedor.</p>
+<p>En wxPython se tiene disponibles diversos tipos de <em>sizers</em>, listados a continuación:</p>
+<ul>
+<li><strong>Grid</strong> (<code>wx.GridSizer</code>). Distribuye los controles en una rejilla regular de mxn.</li>
+<li><strong>Flex Grid</strong> (<code>wx.FlexGridSizer</code>). Similar a Grid, pero permite mayor flexibilidad respecto al tamaño de los controles.</li>
+<li><strong>Grid Bag</strong> (<code>wx.GridBagSizer</code>). El <em>sizer</em> de tipo Grid más flexible en cuanto a tamaño y posición.</li>
+<li><strong>Box</strong> (<code>wx.BoxSizer</code>). Distribuye los controles en una columna o fila dispuesta de manera vertical u horizontal.</li>
+<li><strong>Static Box</strong> (<code>wx.StaticBoxSizer</code>). Similar a Box, pero con una línea que delimita de manera visual.</li>
+</ul>
+<p>En esta entrada veremos el uso de <em>Box Sizer</em>, que es el <em>sizer</em> más simple.</p>
+<p>Normalmente para utilizar <em>sizers</em>, se debe seguir una metodología como la indicada en la siguiente imagen:</p>
+<p>Para crear un <em>Box Sizer</em> se debe instanciar un objeto de la clase <code>wx.BoxSizer</code> como sigue:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">boxsz <span class="op">=</span> wx.BoxSizer(orientacion)</code></pre></div>
+<p>Donde <code>orientacion</code> puede ser una de las constantes: <code>wx.VERTICAL</code> y <code>wx.HORIZONTAL</code>, mismas que indican la orientación de los controles dentro del contenedor:</p>
+>>>>>>> d8aa93a07eec3216d5ffd4c0027a90f06a977be5
 <button type="button" style="background-color: rgba(102,217,255,0.6); border-radius: 5px; box-shadow: 2px #ffaaff; padding: 5px;">
 <a href="http://www.pythondiario.com/2016/03/mini-curso-de-wxpython-1-introduccion.html#sumario-del-curso" style="color: #505050; 
 text-decoration: none;"><strong>Volver al índice</strong></a>
