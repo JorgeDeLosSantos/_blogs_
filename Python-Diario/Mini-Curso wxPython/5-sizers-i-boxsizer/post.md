@@ -1,5 +1,8 @@
 // # Sizers I. BoxSizer
 
+Los *sizers* son elementos fundamentales en wxPython, por ello debemos 
+conocerlos y saber las posibilidades que nos ofrecen para la organización 
+y distribución de los controles dentro de una interfaz gráfica.
 
 
 
